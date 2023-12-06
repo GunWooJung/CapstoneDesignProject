@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Starbucks Locations in Seoul</title>
+    <style>
+        html,
+        body {
+            height: 90%;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #controls {
+            height: 10%;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map" style="width:100%;height:90%;"></div>
+    <div id="controls">
+        <button onclick="generateFile('txt')">Download TXT</button>
+        <button onclick="generateFile('csv')">Download CSV</button>
+    </div>
+
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b40d65bf57c29f2e2ee811fc923049c9&libraries=services"></script>
+    <script>
+        var mapContainer = document.getElementById('map'),
+            mapOption = {
+                center: new kakao.maps.LatLng(37.504937827895866, 126.9576790776909),
+                level: 5
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        var allStarbucksLocations = [];
+
+        const SEOUL_BOUNDS = {
+            north: 37.701749,
+            south: 37.426870,
+            east: 127.183594,
+            west: 126.767233  
+        };
+        const CELL_SIZE = 0.01; 
+
+        function addMarker(location) {
+            const markerPosition = new kakao.maps.LatLng(location.lat, location.lng);
+            const marker = new kakao.maps.Marker({
+                position: markerPosition,
+                title: location.name
+            });
+            marker.setMap(map);
+        }
+
+        function searchCityWide(keyword) {
+            let promises = [];
+            for(let lat = SEOUL_BOUNDS.south; lat <= SEOUL_BOUNDS.north; lat += CELL_SIZE) {
+                for(let lng = SEOUL_BOUNDS.west; lng <= SEOUL_BOUNDS.east; lng += CELL_SIZE) {
+                    const center = new kakao.maps.LatLng(lat + CELL_SIZE/2, lng + CELL_SIZE/2);
+                    promises.push(searchNearby(keyword, center));
+                }
+            }
+
+            Promise.all(promises).then(() => {
+                allStarbucksLocations = allStarbucksLocations.filter((location, index, self) => 
+                    index === self.findIndex((loc) => (
+                        loc.name === location.name && loc.lat === location.lat && loc.lng === location.lng
+                    ))
+                );
+
+                allStarbucksLocations.forEach(addMarker);
+            });
+        }
+
+        function searchNearby(keyword, location, page = 1) {
+            return new Promise((resolve, reject) => {
+                var ps = new kakao.maps.services.Places();
+                ps.keywordSearch(keyword, function(data, status, pagination) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        var placesWithCoordinates = data.map(function(item) {
+                            return {
+                                name: item.place_name,
+                                lat: parseFloat(item.y),
+                                lng: parseFloat(item.x)
+                            };
+                        });
+                        allStarbucksLocations.push(...placesWithCoordinates);
+
+                        if (pagination.hasNextPage) {
+                            setTimeout(() => {
+                                searchNearby(keyword, location, page + 1).then(resolve);
+                            }, 300);
+                        } else {
+                            resolve();
+                        }
+                    } else {
+                        reject();
+                    }
+                }, { location: location, page: page, radius: 1500 });
+            });
+        }
+
+        function generateFile(fileType) {
+            let content = "";
+            if (fileType === 'txt') {
+                allStarbucksLocations.forEach((location) => {
+                    content += `${location.name}, ${location.lat}, ${location.lng}\n`;
+                });
+            } else if (fileType === 'csv') {
+                content = "\uFEFF"; // Add UTF-8 BOM
+                content += "Name,Latitude,Longitude\n";
+                allStarbucksLocations.forEach((location) => {
+                    content += `"${location.name}",${location.lat},${location.lng}\n`;
+                });
+            }
+
+            let blob = new Blob([content], { type: fileType === 'txt' ? 'text/plain' : 'text/csv' });
+            let link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = `화장실.${fileType}`;
+            link.click();
+        }
+
+        searchCityWide('화장실');
+    </script>
+</body>
+</html>

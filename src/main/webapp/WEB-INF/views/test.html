@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>모두의 화장실</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map" style="width:100%;height:100%;"></div>
+
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=18df5f7360b940777477a594ac97dc4f&libraries=services"></script>
+    <script>
+        var mapContainer = document.getElementById('map'),
+            mapOption = {
+                center: new kakao.maps.LatLng(37.504937827895866, 126.9576790776909),
+                level: 5
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        var currentInfowindow = null;
+        var markers = [];
+
+          function clearMarkers() {
+            for (let i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers = [];
+        }
+
+        function convertToPlaceFormat(dbData) {
+            return dbData.map(entry => {
+                return {
+                    name: entry.name,
+                    lat: parseFloat(entry.latitude),
+                    lng: parseFloat(entry.longitude)
+                };
+            });
+        }
+
+        function markPlaces(places) {
+            places.forEach(function(place) {
+                var markerPosition = new kakao.maps.LatLng(place.lat, place.lng);
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition,
+                    title: place.name
+                });
+                marker.setMap(map);
+                markers.push(marker);
+
+                var iwContent = '<div style="padding:5px;">' + place.name;
+                if(place.link) {
+                    iwContent +=
+                        '<br><a href="https://map.kakao.com/link/map/' + place.name + ',' +
+                        place.lat + ',' + place.lng +
+                        '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/' +
+                        place.name + ',' + place.lat + ',' + place.lng +
+                        '" style="color:blue" target="_blank">길찾기</a>';
+                }
+                iwContent += '</div>';
+
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: iwContent
+                });
+
+                kakao.maps.event.addListener(marker, 'click', function () {
+                    if (currentInfowindow === infowindow) {
+                        infowindow.close();
+                        currentInfowindow = null;
+                    } else {
+                        if (currentInfowindow) {
+                            currentInfowindow.close();
+                        }
+                        infowindow.open(map, marker);
+                        currentInfowindow = infowindow;
+                    }
+                });
+            });
+        }
+
+        function searchNearby(keyword, location, page = 1) {
+            var ps = new kakao.maps.services.Places();
+            ps.keywordSearch(keyword, function (data, status, pagination) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var places = data.map(function(item) {
+                        return {
+                            name: item.place_name,
+                            lat: parseFloat(item.y),
+                            lng: parseFloat(item.x),
+                            link: true
+                        };
+                    });
+                    markPlaces(places);
+
+                    if (pagination.hasNextPage) {
+                        setTimeout(() => {
+                            searchNearby(keyword, location, page + 1);
+                        }, 300);
+                    }
+                }
+            }, { location: location, page: page, radius: 20000}); // radius 0m ~ 20000m
+        }
+
+        function fetchPlacesFromBackend(lat, lng) {
+            // 백틱 문자를 사용하여 문자열 템플릿 리터럴로 URL을 구성
+            fetch(`http://125.242.54.193:8080/showplace?lat=${lat}&lng=${lng}`)
+                .then(response => response.json())
+                .then(data => {
+                    const convertedData = convertToPlaceFormat(data);
+                    markPlaces(convertedData);
+                })
+                .catch(error => {
+                    console.error("Error fetching places:", error);
+                });
+        }
+
+    
+        function updateCenterAndSearch() {
+        
+            var center = map.getCenter();
+            clearMarkers();
+          fetchPlacesFromBackend(center.getLat(), center.getLng());// Fetch places from the backend
+        // searchNearby('StarBucks', center); // Fetch Starbucks locations from Kakao Map
+        }
+ 
+      kakao.maps.event.addListener(map, 'dragend', function() {
+            updateCenterAndSearch();
+        });
+
+        // Initial fetch when the page loads
+        updateCenterAndSearch();  
+
+    </script>
+</body>
+</html>

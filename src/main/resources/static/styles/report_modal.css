@@ -1,0 +1,539 @@
+@media (max-width: 480px) {
+
+    /* report.html의 스타일 */
+    .report_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #fefefe;
+        margin: 1% auto;
+        width: 100%;
+        height: 44vh;
+        border-radius: 15px;
+        margin-top: 9%;
+        /* border: 1px solid red; */
+    }
+
+    .report_container_header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .report_container_header_title {
+        font-size: .9375rem;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .report_container_header_title::before,
+    .report_container_header_title::after {
+        content: "";
+        flex: 1;
+    }
+
+    .close {
+        position: absolute;
+        left: 0;
+        /* color: #aaa; */
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin-left: 4vw;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+    .report_container_body {
+        margin-top: 10%;
+        width: 75%;
+        height: 100%;
+    }
+
+
+
+    .report_container_body_category {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: .4vh;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .report_container_body_choice {
+        margin-bottom: 1vh;
+        margin-left: 1vw;
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+    }
+
+    .report_container_body_choice_radio {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-right: 10px;
+        margin-bottom: .6vh;
+    }
+
+    .report_container_body_choice_radio input[type="radio"] {
+        margin-right: 1.5vw;
+    }
+
+    /* .report_container_body_choice_radio label {
+        font-size: 1rem; 
+    } */
+
+
+    .report_container_footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 5%;
+        width: 80%;
+        /* border: 1px solid red; */
+        font-size: 12px;
+        font-weight: bold;
+
+    }
+
+    .report_container_footer_left {
+        cursor: pointer;
+
+    }
+
+    .report_container_footer_right {
+        cursor: pointer;
+        color: #6276FF
+    }
+
+    .report_container_body_text {
+        margin-top: .4vh;
+        border: 2px solid #6276FF;
+        border-radius: 0.4rem;
+        display: flex;
+        /* 여기를 변경했습니다. */
+        align-items: center;
+        /* 세로 중앙 정렬을 위해 추가했습니다. */
+        justify-content: start;
+        margin-bottom: 1.5vh;
+    }
+
+    #user_opinion {
+        width: 100%;
+        min-height: 23vh;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #dce1ff;
+        font-size: 0.7rem;
+        resize: none;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #user_opinion::placeholder {
+        font-size: 0.8rem;
+        color: #474747;
+    }
+
+    #report_location_name {
+        width: 100%;
+        min-height: 3vh;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #dce1ff;
+        font-size: 0.7rem;
+        resize: none;
+        padding-top: .4rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #report_location_point {
+        width: 100%;
+        min-height: 7vh;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #dce1ff;
+        font-size: 0.7rem;
+        resize: none;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #report_location_name,
+    #report_location_point {
+        font-size: 0.7rem;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+    /* report.html의 스타일 */
+    .report_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #fefefe;
+        margin: 1% auto;
+        width: 100%;
+        height: 44vh;
+        border-radius: 15px;
+        margin-top: 9%;
+        /* border: 1px solid red; */
+    }
+
+    .report_container_header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        margin-top: 40px;
+    }
+
+    .report_container_header_title {
+        font-size: .9375rem;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .report_container_header_title::before,
+    .report_container_header_title::after {
+        content: "";
+        flex: 1;
+    }
+
+    .close {
+        position: absolute;
+        left: 0;
+        /* color: #aaa; */
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin-left: 4vw;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+    .report_container_body {
+        margin-top: 10%;
+        width: 75%;
+        height: 100%;
+    }
+
+
+
+    .report_container_body_category {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: .4vh;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .report_container_body_choice {
+        margin-bottom: 1vh;
+        margin-left: 1vw;
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+    }
+
+    .report_container_body_choice_radio {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-right: 10px;
+        margin-bottom: .6vh;
+    }
+
+    .report_container_body_choice_radio input[type="radio"] {
+        margin-right: 1.5vw;
+    }
+
+    /* .report_container_body_choice_radio label {
+        font-size: 1rem; 
+    } */
+
+
+    .report_container_footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 5%;
+        width: 80%;
+        /* border: 1px solid red; */
+        font-size: 12px;
+        font-weight: bold;
+
+    }
+
+    .report_container_footer_left {
+        cursor: pointer;
+
+    }
+
+    .report_container_footer_right {
+        cursor: pointer;
+        color: #6276FF
+    }
+
+    .report_container_body_text {
+        margin-top: .4vh;
+        border: 2px solid #6276FF;
+        border-radius: 0.4rem;
+        display: flex;
+        /* 여기를 변경했습니다. */
+        align-items: center;
+        /* 세로 중앙 정렬을 위해 추가했습니다. */
+        justify-content: start;
+        margin-bottom: 1.5vh;
+    }
+
+    #user_opinion {
+        width: 100%;
+        min-height: 23vh;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #dce1ff;
+        font-size: 0.7rem;
+        resize: none;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #user_opinion::placeholder {
+        font-size: 0.9rem;
+        color: #474747;
+    }
+
+    #report_location_name {
+        width: 100%;
+        min-height: 3vh;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #dce1ff;
+        font-size: 0.7rem;
+        resize: none;
+        padding-top: .4rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #report_location_point {
+        width: 100%;
+        min-height: 7vh;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #dce1ff;
+        font-size: 0.7rem;
+        resize: none;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #report_location_name,
+    #report_location_point {
+        font-size: 0.7rem;
+    }
+}
+
+@media (min-width: 769px) {
+
+    /* report.html의 스타일 */
+    .report_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #fefefe;
+        width: 100%;
+        height: 90%;
+        border-radius: 15px;
+        margin-top: 40px;
+        /* border: 1px solid red; */
+    }
+
+    .report_container_header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .report_container_header_title {
+        font-size: 18px;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .report_container_header_title::before,
+    .report_container_header_title::after {
+        content: "";
+        flex: 1;
+    }
+
+    .close {
+        position: absolute;
+        left: 0;
+        /* color: #aaa; */
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin-left: 4vw;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+    .report_container_body {
+        margin-top: 60px;
+        width: 75%;
+        height: 100%;
+    }
+
+
+
+    .report_container_body_category {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 4px;
+        font-size: 17px;
+        font-weight: 700;
+        
+    }
+
+    .report_container_body_choice {
+        margin-bottom: 30px;
+        margin-top: 9px;
+        margin-left: 7px;
+        display: flex;
+        flex-direction: column;
+        font-size: 15px;
+    }
+
+    .report_container_body_choice_radio {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        /* margin-right: 10px; */
+        margin-bottom: .6vh;
+    }
+
+    .report_container_body_choice_radio input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    /* .report_container_body_choice_radio label {
+        font-size: 1rem; 
+    } */
+
+
+    .report_container_footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 75%;
+        /* border: 1px solid red; */
+        margin-bottom: 15px;
+        font-size: 14px;
+        font-weight: bold;
+
+    }
+
+    .report_container_footer_left {
+        cursor: pointer;
+
+    }
+
+    .report_container_footer_right {
+        cursor: pointer;
+        color: #6276FF
+    }
+
+    .report_container_body_text {
+        margin-top: 10px;
+        border: 2px solid #6276FF;
+        border-radius: 0.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        margin-bottom: 30px;
+    }
+
+    #user_opinion {
+        width: 100%;
+        min-height: 200px;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #dce1ff;
+        font-size: 15px;
+        resize: none;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #user_opinion::placeholder {
+        font-size: 14px;
+        color: #474747;
+    }
+
+    #report_location_name {
+        width: 100%;
+        min-height: 50px;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #dce1ff;
+        font-size: 15px;
+        resize: none;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #report_location_point {
+        width: 100%;
+        min-height: 80px;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #dce1ff;
+        font-size: 15px;
+        resize: none;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #report_location_name::placeholder,
+    #report_location_point::placeholder {
+        font-size: 0.7rem;
+    }
+}

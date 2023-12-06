@@ -1,0 +1,310 @@
+@media (max-width: 480px) {
+    #slider-container {
+        position: relative;
+        top: 10px;
+        left: 20%;
+        margin-bottom:40px;
+        width: 60%;
+        height: 80px;
+        
+    }
+    
+    .slider-bar {
+        position: absolute;
+        width: 100%;
+        height: 10px; 
+        background-color: #ddd; 
+        top: 20px;
+        border-radius: 5px;
+        transform: translateY(-50%); 
+    }
+    
+    .slider-bar-filled {
+        position: absolute;
+        height: 10px;
+        background-color: #FFD700; 
+        top: 20px;
+        border-radius: 5px;
+        z-index: 1;
+    }
+    
+    .handle {
+        position: absolute;
+        background-color: #6276FF; 
+        width: 1.5rem; 
+        height: 1.5rem; 
+        border-radius: 50%; 
+        z-index: 2;
+        cursor: pointer;
+        
+        transform: translateY(30%); /* Handle을 세로 중앙으로 정렬 */
+    
+    }
+    
+    
+    .signLeft {
+        position: absolute;
+        background-color: #555;
+        color: white;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 10px;
+        z-index: 3;
+        transform: translateX(-50%); 
+    }
+    
+    
+    
+    .signRight {
+        position: absolute;
+        background-color: #555;
+        color: white;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 10px;
+        z-index: 3;
+        transform: translateX(-50%);
+    }
+    
+    
+    #handle-left {
+        left: 0;
+    }
+    
+    #handle-right {
+        right: 0;
+      }
+    }
+    
+    @media (min-width: 481px) and (max-width: 768px) {
+        #slider-container {
+            position: relative;
+            top: 10px;
+            left: 20%;
+            margin-bottom:40px;
+            width: 60%;
+            height: 80px;
+            
+        }
+        
+        .slider-bar {
+            position: absolute;
+            width: 100%;
+            height: 10px; 
+            background-color: #ddd; 
+            top: 20px;
+            border-radius: 5px;
+            transform: translateY(-50%); 
+        }
+        
+        .slider-bar-filled {
+            position: absolute;
+            height: 10px;
+            background-color: #FFD700; 
+            top: 20px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+        
+        .handle {
+            position: absolute;
+            background-color: blue; 
+            width: 1.5rem; 
+            height: 1.5rem; 
+            border-radius: 50%; 
+            z-index: 2;
+            cursor: pointer;
+            
+            transform: translateY(30%); /* Handle을 세로 중앙으로 정렬 */
+        
+        }
+        
+        
+        .signLeft {
+            position: absolute;
+            background-color: #5f5f5f;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            z-index: 3;
+            transform: translateX(-50%); 
+        }
+        
+        
+        
+        .signRight {
+            position: absolute;
+            background-color: #5f5f5f;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            z-index: 3;
+            transform: translateX(-50%);
+        }
+        
+        
+        #handle-left {
+            left: 0;
+        }
+        
+        #handle-right {
+            right: 0;
+          }
+        }
+        @media (min-width: 481px) and (max-width: 768px) {
+        #slider-container {
+            position: relative;
+            top: 10px;
+            left: 20%;
+            margin-bottom:40px;
+            width: 60%;
+            height: 80px;
+            
+        }
+        
+        .slider-bar {
+            position: absolute;
+            width: 100%;
+            height: 10px; 
+            background-color: #ddd; 
+            top: 20px;
+            border-radius: 5px;
+            transform: translateY(-50%); 
+        }
+        
+        .slider-bar-filled {
+            position: absolute;
+            height: 10px;
+            background-color: #FFD700; 
+            top: 20px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+        
+        .handle {
+            position: absolute;
+            background-color:  #6276FF; 
+            width: 1.5rem; 
+            height: 1.5rem; 
+            border-radius: 50%; 
+            z-index: 2;
+            cursor: pointer;
+            
+            transform: translateY(30%); /* Handle을 세로 중앙으로 정렬 */
+        
+        }
+        
+        
+        .signLeft {
+            position: absolute;
+            background-color: #5f5f5f;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            z-index: 3;
+            transform: translateX(-50%); 
+        }
+        
+        
+        
+        .signRight {
+            position: absolute;
+            background-color: #5f5f5f;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            z-index: 3;
+            transform: translateX(-50%);
+        }
+        
+        
+        #handle-left {
+            left: 0;
+        }
+        
+        #handle-right {
+            right: 0;
+          }
+        }
+    
+        @media (min-width: 769px) {
+            #slider-container {
+                position: relative;
+                top: 10px;
+                left: 20%;
+                margin-bottom:40px;
+                width: 60%;
+                height: 80px;
+                
+            }
+            
+            .slider-bar {
+                position: absolute;
+                width: 100%;
+                height: 10px; 
+                background-color: #ddd; 
+                top: 20px;
+                border-radius: 5px;
+                transform: translateY(-50%); 
+            }
+            
+            .slider-bar-filled {
+                position: absolute;
+                height: 10px;
+                background-color: #FFD700; 
+                top: 20px;
+                border-radius: 5px;
+                z-index: 1;
+            }
+            
+            .handle {
+                position: absolute;
+                background-color: #6276FF; 
+                width: 1.5rem; 
+                height: 1.5rem; 
+                border-radius: 50%; 
+                z-index: 2;
+                cursor: pointer;
+                
+                transform: translateY(30%); /* Handle을 세로 중앙으로 정렬 */
+            
+            }
+            
+            
+            .signLeft {
+                position: absolute;
+                background-color: #5f5f5f;
+                color: white;
+                text-align: center;
+                border-radius: 6px;
+                padding: 5px 10px;
+                z-index: 3;
+                transform: translateX(-50%); 
+            }
+            
+            
+            
+            .signRight {
+                position: absolute;
+                background-color: #5f5f5f;
+                color: white;
+                text-align: center;
+                border-radius: 6px;
+                padding: 5px 10px;
+                z-index: 3;
+                transform: translateX(-50%);
+            }
+            
+            
+            #handle-left {
+                left: 0;
+            }
+            
+            #handle-right {
+                right: 0;
+              }
+            }

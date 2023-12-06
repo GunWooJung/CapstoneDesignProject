@@ -1,0 +1,732 @@
+@media (max-width: 480px) {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        justify-content: start;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 16px;
+        font-family: 'Noto Sans KR', sans-serif;
+        overflow-x: hidden;
+    }
+
+    .amend_info_container {
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        /* border: 2px solid black; */
+        margin-top: 2vh;
+    }
+
+    .container_header {
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .header_title {
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: 400;
+        margin-top: .5vh;
+    }
+
+    .header_title::before,
+    .header_title::after {
+        content: "";
+        flex: 1;
+    }
+
+    .close {
+        position: absolute;
+        left: 0;
+        /* color: #aaa; */
+        font-size: 1.7rem;
+        font-weight: bold;
+        margin-left: 4vw;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .container_body {
+
+        /* margin-top: 3vh; */
+        margin-left: 8.33vw;
+        margin-right: 8.33vw;
+
+    }
+
+    .body_content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border: 1px solid red; */
+        margin-top: 5vh;
+    }
+
+    .body_content_title {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .body_content_submit {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        border: 1px solid #dbdada;
+        margin-top: 1vh;
+        border-radius: 1.2vw;
+        cursor: pointer;
+    }
+
+    .submit_icon {
+        margin-left: 1.5vw;
+        width: 4.7vw;
+    }
+
+
+    .submit_text {
+        /* background-color: red; */
+        margin-left: 1.4vw;
+        font-size: .9rem;
+        font-weight: 500;
+        margin: 2vw;
+    }
+
+
+    .submit_arrow {
+        font-size: .8125ren;
+        margin-left: auto;
+        height: 3vh;
+        margin-right: 1vw;
+    }
+
+    .body_content_recent {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: #FF6262;
+    }
+
+    #previous_reports_container {
+        width: 100%;
+
+    }
+
+    .recent_textbox {
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid aqua;  */
+        width: 100%;
+        margin: 1vh 1.3vh;
+    }
+
+    .recent_textbox_title {
+        font-size: .9375rem;
+        font-weight: bold;
+        color: #FF6262;
+
+    }
+
+    .recent_textbox_detail {
+
+        margin-top: 0.5vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: .1vw;
+
+    }
+
+    .textbox_detail_text {
+        font-size: .8125rem;
+        color: #FF6262;
+        margin-right: 1vw;
+
+        width: 72%;
+        /*2023-11-27 */
+
+
+    }
+
+    .textbox_detail_date {
+
+        font-size: .6rem;
+        color: #818181;
+
+    }
+
+    .recent_likeButton {
+        margin-left: auto;
+        margin-right: 3vw;
+
+    }
+
+    .recent_likeButton_heart {
+        cursor: pointer;
+
+    }
+
+    .recent_likeButton_heart img {
+        width: 1.5rem;
+    }
+
+    .recent_likeButton_number {
+
+        font-size: .6rem;
+        text-align: right;
+
+    }
+
+
+    #reportModal {
+
+        display: none;
+        justify-content: center;
+        /* 수평 중앙 정렬 */
+        align-items: center;
+        position: fixed;
+        z-index: 1000;
+        /* 모달이 다른 요소 위에 나타나도록 */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* 내용이 많을 경우 스크롤 */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* 반투명 배경 */
+    }
+
+    #reportModalContent {
+        margin: auto;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        width: 83%;
+        /* 모달의 너비 */
+        height: 53vh;
+        border-radius: 1rem;
+        /* 모달의 모서리 둥글게 */
+    }
+
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        justify-content: start;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 16px;
+        font-family: 'Noto Sans KR', sans-serif;
+        overflow-x: hidden;
+    }
+
+    .amend_info_container {
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        /* border: 2px solid black; */
+        margin-top: 2vh;
+    }
+
+    .container_header {
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .header_title {
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: 400;
+        margin-top: .5vh;
+    }
+
+    .header_title::before,
+    .header_title::after {
+        content: "";
+        flex: 1;
+    }
+
+    .close {
+        position: absolute;
+        left: 0;
+        /* color: #aaa; */
+        font-size: 1.7rem;
+        font-weight: bold;
+        margin-left: 4vw;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .container_body {
+
+        /* margin-top: 3vh; */
+        margin-left: 8.33vw;
+        margin-right: 8.33vw;
+
+    }
+
+    .body_content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border: 1px solid red; */
+        margin-top: 5vh;
+    }
+
+    .body_content_title {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .body_content_submit {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        border: 1px solid #dbdada;
+        margin-top: 1vh;
+        border-radius: 1.2vw;
+        cursor: pointer;
+    }
+
+    .submit_icon {
+        margin-left: 1.5vw;
+        width: 4.7vw;
+    }
+
+
+    .submit_text {
+        /* background-color: red; */
+        margin-left: 1.4vw;
+        font-size: .9rem;
+        font-weight: 500;
+        margin: 2vw;
+    }
+
+
+    .submit_arrow {
+        font-size: .8125ren;
+        margin-left: auto;
+        height: 3vh;
+        margin-right: 1vw;
+    }
+
+    .body_content_recent {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: #FF6262;
+    }
+
+    #previous_reports_container {
+        width: 100%;
+
+    }
+
+    .recent_textbox {
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid aqua;  */
+        width: 100%;
+        margin: 1vh 1.3vh;
+    }
+
+    .recent_textbox_title {
+        font-size: .9375rem;
+        font-weight: bold;
+        color: #FF6262;
+
+    }
+
+    .recent_textbox_detail {
+
+        margin-top: 0.5vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: .1vw;
+
+    }
+    
+
+    .textbox_detail_text {
+        font-size: .8125rem;
+        color: #FF6262;
+        margin-right: 1vw;
+        width: 78%;
+
+    }
+
+    .textbox_detail_date {
+
+        font-size: .7rem;
+        color: #818181;
+
+    }
+
+    .recent_likeButton {
+        margin-left: auto;
+        margin-right: 2.5vw;
+
+    }
+
+    .recent_likeButton_heart {
+        cursor: pointer;
+
+    }
+
+    .recent_likeButton_heart img {
+        width: 1.7rem;
+    }
+
+    .recent_likeButton_number {
+
+        font-size: .7rem;
+        text-align: right;
+
+    }
+
+
+    #reportModal {
+
+        display: none;
+        justify-content: center;
+        /* 수평 중앙 정렬 */
+        align-items: center;
+        position: fixed;
+        z-index: 1000;
+        /* 모달이 다른 요소 위에 나타나도록 */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* 내용이 많을 경우 스크롤 */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* 반투명 배경 */
+    }
+
+    #reportModalContent {
+        margin: auto;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        width: 83%;
+        /* 모달의 너비 */
+        height: 63vh;
+        border-radius: 1rem;
+        /* 모달의 모서리 둥글게 */
+    }
+}
+
+@media (min-width: 769px) {
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        justify-content: start;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 16px;
+        font-family: 'Noto Sans KR', sans-serif;
+        overflow-x: hidden;
+    }
+
+    .amend_info_container {
+        width: 800px;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border: 2px solid black; */
+        /* margin-top: 2vh; */
+        border: 2px solid black;
+        border-radius: 15px;
+        overflow: auto;
+        scrollbar-width: none;
+        /* 파이어폭스에서 스크롤바 숨기기 */
+        -ms-overflow-style: none;
+        /* IE와 엣지에서 스크롤바 숨기기 */
+    }
+
+    /* 크롬, 사파리, 오페라에서 스크롤바 숨기기 */
+    .amend_info_container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .container_header {
+        width: 640px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        margin-top: 5%;
+    }
+
+    .header_title {
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: 400;
+
+    }
+
+    .header_title::before,
+    .header_title::after {
+        content: "";
+        flex: 1;
+    }
+
+    .close {
+        position: absolute;
+        left: 0;
+        /* color: #aaa; */
+        font-size: 1.7rem;
+        font-weight: bold;
+        margin-left: 10px;
+
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .container_body {
+        width: 640px;
+        height: 100%;
+
+    }
+
+    .body_content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border: 1px solid red; */
+        margin-top: 5vh;
+    }
+
+    .body_content_title {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .body_content_submit {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        border: 2px solid #dbdada;
+        margin-top: 1vh;
+        border-radius: 12px;
+        cursor: pointer;
+    }
+
+    .submit_icon {
+        margin-left: 30px;
+        width: 26px;
+    }
+
+
+    .submit_text {
+        /* background-color: red; */
+        margin-left: 1.4vw;
+        font-size: 17px;
+        font-weight: 500;
+        margin: 13px;
+    }
+
+
+    .submit_arrow {
+        font-size: .8125ren;
+        margin-left: auto;
+        height: 25px;
+        margin-right: 1vw;
+    }
+
+    .body_content_recent {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: #FF6262;
+    }
+
+    #previous_reports_container {
+        width: 100%;
+
+    }
+
+    .recent_textbox {
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid aqua;  */
+        width: 100%;
+        margin: 10px 20px;
+    }
+
+    .recent_textbox_title {
+        font-size: 17px;
+        font-weight: bold;
+        color: #FF6262;
+
+    }
+
+    .recent_textbox_detail {
+
+        margin-top: 2px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 1px;
+
+    }
+
+    .textbox_detail_text {
+        font-size: 15px;
+        color: #FF6262;
+        margin-right: 1vw;
+
+        /* width: 80%; */
+
+    }
+
+    .textbox_detail_date {
+
+        font-size: 12px;
+        color: #818181;
+
+    }
+
+    .recent_likeButton {
+        margin-left: auto;
+        margin-right: 25px;
+
+    }
+
+    .recent_likeButton_heart {
+        cursor: pointer;
+
+    }
+
+    .recent_likeButton_heart img {
+        width: 1.9rem;
+    }
+
+    .recent_likeButton_number {
+
+        font-size: 11px;
+        text-align: right;
+
+    }
+
+
+    #reportModal {
+
+        display: none;
+        justify-content: center;
+        /* 수평 중앙 정렬 */
+        align-items: center;
+        position: fixed;
+        z-index: 1000;
+        /* 모달이 다른 요소 위에 나타나도록 */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* 내용이 많을 경우 스크롤 */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* 반투명 배경 */
+    }
+
+    #reportModalContent {
+        margin: auto;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        width: 740px;
+        /* 모달의 너비 */
+        height: 65%;
+        border-radius: 12px;
+        /* 모달의 모서리 둥글게 */
+        
+    }
+}

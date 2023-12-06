@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>슬라이더</title>
+<style>
+  #slider-container {
+    position: relative;
+    width: 300px;
+    height: 200px;
+  }
+
+  .slider-bar {
+    position: absolute;
+    width: 100%;
+    height: 10px; 
+    background-color: #ddd; 
+    top: 20px;
+    border-radius: 5px;
+  }
+
+  .slider-bar-filled {
+    position: absolute;
+    height: 10px;
+    background-color: #FFD700; 
+    top: 20px;
+    border-radius: 5px;
+    z-index: 1;
+  }
+
+  .handle {
+
+    position: absolute;
+    background-color: #ff0000; 
+    width: 20px; 
+    height: 20px; 
+    border-radius: 50%; 
+    top: 15px;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  #handle-left {
+    left: 0;
+  }
+
+  #handle-right {
+    right: 0;
+  }
+
+</style>
+</head>
+<body>
+
+  <div id="slider-container">
+    <div id="slider-bar" class="slider-bar"></div>
+    <div id="slider-bar-filled" class="slider-bar-filled"></div>
+    <div id="handle-left" class="handle"></div>
+    <div id="handle-right" class="handle"></div>
+  </div>
+
+  
+
+<script>
+  const sliderContainer = document.getElementById('slider-container');
+  const sliderBarFilled = document.getElementById('slider-bar-filled');
+  const handleLeft = document.getElementById('handle-left');
+  const handleRight = document.getElementById('handle-right');
+  const valueLeft = document.getElementById('value-left');
+  const valueRight = document.getElementById('value-right');
+  
+  const maxValue = 50; 
+  const stepWidth = sliderContainer.offsetWidth / (maxValue - 1); 
+
+  let leftValue = 0;
+  let rightValue = 4 * stepWidth;
+
+  function setPosition(handle, newValue, isLeftHandle) {
+    const position = newValue * step;
+    handle.style.left = `${position}px`;
+    if(isLeftHandle) {
+      sliderBarFilled.style.left = `${position}px`;
+      sliderBarFilled.style.width = `${rightValue - position}px`;
+    } else {
+      sliderBarFilled.style.width = `${position - leftValue}px`;
+    }
+  }
+
+  function updateHandlePosition(handle, newX, isLeftHandle) {
+    let newStepPosition;
+    const halfHandleWidth = handle.offsetWidth / 2;
+    const step_n = Math.round(newX / stepWidth);
+    newStepPosition = step_n * stepWidth;
+
+    if (isLeftHandle) {
+      newStepPosition = Math.max(newStepPosition, 0);
+      newStepPosition = Math.min(newStepPosition, rightValue - stepWidth);
+    } else {
+      newStepPosition = Math.max(newStepPosition, leftValue + stepWidth);
+      newStepPosition = Math.min(newStepPosition, sliderContainer.offsetWidth);
+    }
+
+    handle.style.left = `${newStepPosition}px`; 
+    return newStepPosition;
+  }
+
+  function handleDrag(e) {
+    const handle = e.target;
+    const rect = sliderBarFilled.getBoundingClientRect();
+    const isLeftHandle = handle === handleLeft;
+    document.onmousemove = (event) => {
+      let newX = event.clientX - rect.left;
+      if (handle === handleLeft) {
+        newX = Math.min(newX, rightValue - stepWidth);
+        leftValue = updateHandlePosition(handleLeft, newX, isLeftHandle);
+      } else if (handle === handleRight) {
+        newX = Math.max(newX, leftValue + stepWidth);
+        rightValue = updateHandlePosition(handleRight, newX, isLeftHandle);
+      }
+      console.log(Math.round(leftValue / stepWidth + 1)/10, Math.round(rightValue / stepWidth + 1)/10); 
+    };
+    document.onmouseup = () => {
+      document.onmousemove = null;
+      document.onmouseup = null;
+    };
+  }
+
+  handleLeft.onmousedown = handleDrag;
+  handleRight.onmousedown = handleDrag;
+</script>
+
+</body>
+</html>
