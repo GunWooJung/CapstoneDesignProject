@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/report_modal.css">
+    <title>장애인 화장실 정보 수정</title>
+</head>
+
+<body>
+
+
+    <div class="report_container">
+        
+        <div class="report_container_header">
+            <div class="close">&times;</div>
+            <div class="report_container_header_title">장애인 화장실 정보 수정</div>
+        </div>
+
+
+        <div class="report_container_body">
+            <div class="report_container_body_category">남자 장애인 화장실</div>
+            <div class="report_container_body_choice">
+                <div class="report_container_body_choice_radio">
+                    <input type="radio" id="man_disabled_option_yes" name="disabled" value="man_disabled_yes">
+                    <label for="man_disabled_option_yes">장애인 화장실이 있음</label>
+                </div>
+                <div class="report_container_body_choice_radio">
+                    <input type="radio" id="man_disabled_option_no" name="disabled" value="man_disabled_no">
+                    <label for="man_disabled_option_no">장애인 화장실이 없거나 파손됨</label>
+                </div>
+            </div>
+            <div class="report_container_body_category">여자 장애인 화장실</div>
+            <div class="report_container_body_choice">
+                <div class="report_container_body_choice_radio">
+                    <input type="radio" id="woman_disabled_option_yes" name="disabled" value="woman_disabled_yes">
+                    <label for="woman_disabled_option_yes">장애인 화장실이 있음</label>
+                </div>
+                <div class="report_container_body_choice_radio">
+                    <input type="radio" id="woman_disabled_option_no" name="disabled" value="woman_disabled_no">
+                    <label for="woman_disabled_option_no">장애인 화장실이 없거나 파손됨</label>
+                </div>
+            </div>
+        </div>
+        <div class="report_container_footer">
+            <div class="report_container_footer_left">닫기</div>
+            <div class="report_container_footer_right">제출하기</div>
+        </div>
+    </div>
+</body>
+
+</html>

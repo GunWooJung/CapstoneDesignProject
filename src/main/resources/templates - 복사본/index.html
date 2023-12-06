@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
+    <title>모두의 화장실</title>
+
+    <link rel="stylesheet" href="/styles/main_page.css">
+    <link rel="stylesheet" href="/styles/filter_modal.css">
+    <link rel="stylesheet" href="/styles/marker_overlay.css">
+    <link rel="stylesheet" href="/styles/slide_bar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <script type="text/javascript"
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b40d65bf57c29f2e2ee811fc923049c9&libraries=services">
+        </script>
+    <script src="js/filter_modal.js"></script>
+</head>
+
+<body>
+    <div id="map-container">
+        <div id="map">
+            <div class="map_header">
+                <div><img src="public/filter.png" id="filter"></div>
+                <div id="search-box">
+                    <div class="search-container">
+                        <img src="public/search.svg" id="search-button">
+                        <input type="text" id="keyword" class="search-input" placeholder="장소를 검색하세요">
+                        <img src="public/close_index_html.svg" id="close-button">
+                    </div>
+                </div>
+            </div>
+            <img src="public/gps.svg" id="recenter-map">
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal_content">
+            <div class="modal_content_header">
+                <div class="close">&times;</div>
+                <div class="header_title">필터</div>
+            </div>
+
+            <div class="modal_content_body">
+                <div class="content_body_container">
+                    <div class="content_body_category">평점</div>
+                    <div id="slider-container">
+
+                        <div class="slider-bar" id="slider-bar-filled"></div>
+                        <div class="handle" id="handle-left"></div>
+                        <div class="handle" id="handle-right"></div>
+                        <div class="signLeft" id="sign-left"></div>
+                        <div class="signRight" id="sign-right"></div>
+                    </div>
+                    <div class="is_rated_container">
+                        <input type="radio" id="rated" name="is_rated" value="rated" checked>
+                        <label for="rated" class="radio-custom">별점 미평가<br />장소 포함</label>
+                        <input type="radio" id="not_rated" name="is_rated" value="not_rated">
+                        <label for="not_rated" class="radio-custom">별점 미평가 <br />장소 미포함</label>
+                    </div>
+                </div>
+
+                <div class="check-box-container">  
+                    <div class="content_body_container">
+                        <div class="content_body_category">장애인 화장실</div>
+                        <div class="content_body_choice">
+                            <input type="checkbox" id="disabled_person">
+                            <label for="disabled_person">장애인 화장실</label>
+                        </div>
+                    </div>
+    
+                    <div class="content_body_container">
+                        <div class="content_body_category">기저귀 교환대 위치</div>
+                        <div class="content_body_choice">
+                            <input type="checkbox" id="changing_table_man">
+                            <label for="changing_table_man"> 남자 화장실</label>
+                            <input type="checkbox" id="changing_table_woman">
+                            <label for="changing_table_woman"> 여자 화장실</label>
+                        </div>
+                    </div>
+    
+    
+    
+    
+                    <div class="content_body_container">
+                        <div class="content_body_category">비상벨 설치 위치</div>
+                        <div class="content_body_choice">
+                            <input type="checkbox" id="emergency_bell_man">
+                            <label for="emergency_bell_man"> 남자 화장실</label>
+                            <input type="checkbox" id="emergency_bell_woman">
+                            <label for="emergency_bell_woman"> 여자 화장실</label>
+                            <input type="checkbox" id="emergency_bell_disabled">
+                            <label for="emergency_bell_disabled"> 장애인 화장실</label>
+                        </div>
+                    </div>
+                 </div>
+                
+
+                <div class="modal_content_footer">
+                    <div class="content_footer_left" id="reset-filter">초기화</div>
+                    <div class="content_footer_right" id="apply-filter">적용</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/search_place.js"></script>
+    <script src="js/marker_overlay.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="js/my_location.js"></script>
+    <script src="js/filter_modal.js"></script>
+    <script src="js/slide_bar.js"></script>
+
+
+</body>
+
+</html>
