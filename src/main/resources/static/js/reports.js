@@ -1,10 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const placeId = new URLSearchParams(window.location.search).get('id');
+	const path = window.location.pathname;
 
-    document.querySelector('.amend_info_container .close').addEventListener('click', function () {
-    
-        window.location.href = `/viewdetails?id=${placeId}`;
-    });
+	// "/"를 기준으로 경로 분리
+	const segments = path.split("/");
+
+	var placeId = null;
+	// 경로가 "/places/:id" 형식인지 확인
+	if (segments.length > 2 && segments[1] === "places") {
+	    placeId = segments[2]; // ID 추출
+	} else {
+		window.location.href = `/`;
+	}
+	document.querySelector('.amend_info_container .close').addEventListener('click', function () {
+	    window.location.href = `/places/${placeId}`;
+	});
 
     function setupModalEventListeners(modal) {
 
@@ -25,23 +34,25 @@ document.addEventListener('DOMContentLoaded', function () {
         var submitButton = modal.querySelector('.report_container_footer_right');
         if (submitButton) {
             submitButton.addEventListener('click', function () {
-                var formData = new FormData();
-                formData["placeId"] = placeId;
-                // 라디오 버튼 입력 처리
-                var radioInputs = modal.querySelectorAll('input[type="radio"]:checked');
-                radioInputs.forEach(function (input) {
-                    formData[input.name] = input.value;
-                });
+				var formData = new FormData();
+                 formData["placeId"] = placeId;
+                 // 라디오 버튼 입력 처리
+                 var radioInputs = modal.querySelectorAll('input[type="radio"]:checked');
+                 radioInputs.forEach(function (input) {
+                     formData["type"] = input.name;
+  					 formData["content"] = input.value;
+                 });
 
-                // 텍스트 입력 처리
-                var textInputs = modal.querySelectorAll('textarea');
-                textInputs.forEach(function (input) {
-                    formData[input.name] = input.value;
-                });
+                 // 텍스트 입력 처리
+                 var textInputs = modal.querySelectorAll('textarea');
+                 textInputs.forEach(function (input) {
+					formData["type"] = input.name;
+					formData["content"] = input.value;
+                 });
 
                 // 서버로 폼 데이터 전송
                 console.log('Submitting form data:', Object.fromEntries(formData.entries()));
-                fetch('/report/enroll', {
+                fetch(`/api/places/${placeId}/reports`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -49,30 +60,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     body: JSON.stringify(formData)
                 })
                .then(response => {
-						    return response.text(); // Assuming the server responds with plain text
+						    return response.json(); // Assuming the server responds with plain text
 			})
 			.then(body => {
-			   if (body.trim().toLowerCase() === "ip") {
-						        // Handle duplicated IP case
-					   alert('이미 신고를 제출하였습니다.');
-				} 
-				else if (body.trim().toLowerCase() === "fail") {
-						        // Handle duplicated IP case
-					   alert('신고 제출에 실패하였습니다.');
-				} 
-				else if (body.trim().toLowerCase() === "user_opinion") {
-						        // Handle duplicated IP case
-					   alert('의견이 전달되었습니다.');
-				} 
-                else if (body.trim().toLowerCase() === "count3") {
-                    alert('신고 누적으로 신고 내용이 반영되었습니다.');
-                    location.reload();
-                }
-				else {
-				       // Handle successful submission	        // Uncomment the following lines if you want to display an alert and reload the page
-				 alert('신고를 제출하였습니다.');
-				  location.reload();
-			}
+				if(body.status === 200){
+	                alert('신고가 제출되었습니다.');
+	                location.reload();
+	            }
 			});
                     
                 modal.style.display = 'none'; // 폼 전송 후 모달 닫기

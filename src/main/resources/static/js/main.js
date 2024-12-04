@@ -18,8 +18,6 @@ var imageSize = new kakao.maps.Size(30,30); // 마커이미지의 크기입니�
 			 // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 var imageOption = {offset: new kakao.maps.Point(15, 30)};
        		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-//11.24추가 끝
-// var overlays = [];
 
 // 지도에 마커와 인포윈도우를 표시
 function displayMarker(locPosition, message) {
@@ -53,68 +51,43 @@ function clearMarkers() {
     // closeCurrentOverlay(); // 이거 없애면 일단 오버레이는 안없어짐
 }
 
-
-
-
-// function convertToPlaceFormat(dbData) {
-//     return dbData.map(entry => {
-//         return {
-//             name: entry.name,
-//             lat: parseFloat(entry.latitude),
-//             lng: parseFloat(entry.longitude)
-//         };
-//     });
-// }
-
 //위 주석 처리는 프론트에서 쓰던거, 아래 부분은 백엔드 코드
 function convertToPlaceFormat(dbData) {
 	//11.24 placecontainer로 변경
-    return dbData.map(placecontainer => {
+    return dbData.map(place => {
 	return{
-        id: placecontainer.place.id,
-        name: placecontainer.place.name,
-        address: placecontainer.place.address,
-        lat: parseFloat(placecontainer.place.latitude),
-        lng: parseFloat(placecontainer.place.longitude),
-        opentime: placecontainer.place.opentime,
-        averageOfStarRating: placecontainer.place.star_average,
-        numberOfStarRating: placecontainer.place.star_count,
-        numberOfComments: placecontainer.place.comment_count,
-		color : placecontainer.status // 마커 색상 
+        id: place.id,
+        name: place.name,
+        address: place.address,
+        lat: place.lat,
+        lng: place.lng,
+        opentime: place.openTime,
+        averageOfStarRating: place.starAverage,
+        numberOfStarRating: place.starCount,
+        numberOfComments: place.commentCount,
+		color : place.color
  	 	};
 	});
 }
-
-
-const mockData = { // 이건 그냥 내가 보려고 넣은 가상 데이터, 학교 앞 중앙대점 누르면 볼 수 있음
-    id: 'mock1', 
-    name: 'Starbucks Coffee Shop',
-    address: '123 Coffee Lane, Beanstown, CA',
-    starRating: 'Capricorn',
-    comments: 'Great ambiance and Wi-Fi.',
-    numberOfStarRatingReviews: 42,
-    lat: 37.504937827895866,
-    lng: 126.9576790776909
-};
 
 function handleMarkerClick(marker) {
     const useBackend = true; // 백엔드 쓸때는 true로 바꿔
 	var place = marker.data;
 	//console.log('Clicked Marker ID:', place.id);
     if (useBackend) {
-        fetch(`/place/detail?id=${place.id}`)
+        fetch(`/api/places/${place.id}`)
             .then(response => response.json())
-            .then(data => {
+            .then(place => {
 			const convertedData = {
-			id: data.id,
-            name: data.name,
-            address: data.address,
-            lat: parseFloat(data.latitude),
-            lng: parseFloat(data.longitude),
-            opentime: data.opentime,
-            averageOfStarRating: data.star_average,
-		    numberOfStarRating:  data.star_count,
-    		numberOfComments:  data.comment_count
+			  id: place.data.id,
+		      name: place.data.name,
+		      address: place.data.address,
+		      lat: place.data.lat,
+		      lng: place.data.lng,
+		      opentime: place.data.openTime,
+		      averageOfStarRating: place.data.starAverage,
+		      numberOfStarRating: place.data.starCount,
+		      numberOfComments: place.data.commentCount,
 			};
                 createAndShowOverlay(convertedData);
             })
@@ -150,39 +123,32 @@ function markPlaces(places) {
     //11.24 마커 색상 조건
     var marker;// 0은 회색 , 1은 파란색 , 2는 초록색 , 3은 빨강 ,4는 노란색
     //console.log(place.color);
-    if( place.color == 4){
+    if( place.color === 'YELLOW'){
         marker =  new kakao.maps.Marker({
             position: markerPosition,
             title: place.name ,
             image: markerImageYellow 	//11.24추가 markerImage
         });
     }
-    else if( place.color == 3){
+    else if( place.color === 'RED'){
         marker =  new kakao.maps.Marker({
             position: markerPosition,
             title: place.name ,
             image: markerImageRed 	//11.24추가 markerImage
         });
     }
-    else if(place.color == 2){
+    else if(place.color === 'GREEN'){
         marker =  new kakao.maps.Marker({
             position: markerPosition,
             title: place.name ,
             image: markerImageGreen 	//11.24추가 markerImage
         });
     }
-    else if(parseInt(place.color) == 1){
+    else if(place.color === 'BLUE'){
         marker =  new kakao.maps.Marker({
             position: markerPosition,
             title: place.name ,
             image: markerImageBlue 	//11.24추가 markerImage
-        });
-    }
-    else if(place.color == 0){
-        marker =  new kakao.maps.Marker({
-            position: markerPosition,
-            title: place.name ,
-            image: markerImageGray 	//11.24추가 markerImage
         });
     }
     else{
@@ -191,10 +157,10 @@ function markPlaces(places) {
             title: place.name 
         });
     }
-        marker.setMap(map);
-        markers.push(marker);
-        marker.data = place;
-        kakao.maps.event.addListener(marker, 'click', function () {
+	        marker.setMap(map);
+	        markers.push(marker);
+	        marker.data = place;
+	        kakao.maps.event.addListener(marker, 'click', function () {
             handleMarkerClick(marker);
         });
     });
@@ -202,15 +168,15 @@ function markPlaces(places) {
 
 var initialSearchDone = false;
 
-function searchNearby(keyword, location, page = 1) {
-    fetch(`/place/search?keyword=${keyword}&lat=${location.getLat()}&lng=${location.getLng()}`)
+function searchNearby(keyword, location) {
+    fetch(`/api/places/search?keyword=${keyword}&lat=${location.getLat()}&lng=${location.getLng()}`)
         .then(response => response.json())
         .then(data => {
-            const convertedData = convertToPlaceFormat(data);
+
+            const convertedData = convertToPlaceFormat(data.data);
             //11.28 추가
-			if (convertedData.length === 0) {
-                alert("검색 결과가 존재하지 않습니다.");
-            } 
+			console.log(convertedData);
+			
 			//11.28 추가
             markPlaces(convertedData);
             if (!initialSearchDone && convertedData.length > 0) {
@@ -220,6 +186,7 @@ function searchNearby(keyword, location, page = 1) {
             }
         })
         .catch(error => {
+			alert("검색 결과가 존재하지 않습니다.");
             console.error("Error fetching places:", error);
         });
 }
@@ -236,32 +203,30 @@ function performNewSearch(keyword) {
 //백엔드에서 정보 가져오기
 function fetchPlacesFromBackend(lat, lng) {
 
-
-    var center = map.getCenter();
-    fetch(`/place/show`, {
+    fetch(`/api/places`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            disabled_person: document.getElementById('disabled_person').checked,
-            changing_table_man: document.getElementById('changing_table_man').checked,
-            changing_table_woman: document.getElementById('changing_table_woman').checked,
-            emergency_bell_man: document.getElementById('emergency_bell_man').checked,
-            emergency_bell_woman: document.getElementById('emergency_bell_woman').checked,
-            emergency_bell_disabled: document.getElementById('emergency_bell_disabled').checked,
-            lat: center.getLat(),
-            lng: center.getLng(),
-            leftValue: document.getElementById('sign-left').innerHTML,
-            rightValue: document.getElementById('sign-right').innerHTML,
+            disabledPerson: document.getElementById('disabled_person').checked,
+            changingTableMan: document.getElementById('changing_table_man').checked,
+            changingTableWoman: document.getElementById('changing_table_woman').checked,
+            emergencyBellMan: document.getElementById('emergency_bell_man').checked,
+            emergencyBellWoman: document.getElementById('emergency_bell_woman').checked,
+            emergencyBellDisabled: document.getElementById('emergency_bell_disabled').checked,
+            lat: lat,
+            lng: lng,
+            leftValue: parseFloat(document.getElementById('sign-left').innerHTML),
+            rightValue: parseFloat(document.getElementById('sign-right').innerHTML),
             rated: document.getElementById('rated').checked,
-            not_rated: document.getElementById('not_rated').checked
+            notRated: document.getElementById('not_rated').checked
         })
     })
     .then(response => response.json())
     .then(data => {
         // convertToPlaceFormat 함수를 이용해 백엔드로부터 받은 데이터를 마커로 변환
-        const convertedData = convertToPlaceFormat(data);
+        const convertedData = convertToPlaceFormat(data.data);
         markPlaces(convertedData);
     })
     .catch(error => {
@@ -271,30 +236,14 @@ function fetchPlacesFromBackend(lat, lng) {
 
 }
 
-function updateCenterAndSearch(keyword) {
+function updateCenterAndSearch() {
     var center = map.getCenter();
     clearMarkers();
     fetchPlacesFromBackend(center.getLat(), center.getLng());
-    // 스타벅스 부분, 프론트 개발시 주석 해제
-    // searchNearby(keyword || 'StarBucks', center); 
-    // searchNearby(keyword , center); 
 }
 
-/* 11.28 삭제
-document.getElementById('search-button').addEventListener('click', function () {
-    var keyword = document.getElementById('keyword').value;
-    if (keyword.trim() !== '') {
-        performNewSearch(keyword);
-    } else {
-        alert('Please enter a keyword to search.');
-    }
-});
-*/
 function fetchAndUpdatePlaces() {
-    var center = map.getCenter();
     clearMarkers();
-    // 스타벅스, 프론트 개발시 주석 해제
-    //searchNearby('Starbucks', center); 
 }
 
 

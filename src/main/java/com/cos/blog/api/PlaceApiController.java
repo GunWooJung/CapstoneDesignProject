@@ -1,107 +1,93 @@
 package com.cos.blog.api;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.cos.blog.dto.RequestBodyPlaceDto;
-import com.cos.blog.model.Place;
-import com.cos.blog.model.PlaceContainer;
-import com.cos.blog.service.PlaceService;
 
+import com.cos.blog.dto.RequestPlaceDTO;
+import com.cos.blog.dto.ResponsePlaceDTO;
+import com.cos.blog.service.PlaceService;
+import com.cos.blog.util.ApiResponse;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RestController
+@RequestMapping("/api")
 public class PlaceApiController {
 
-	@Autowired
-	private PlaceService placeService;
+	//생성자 주입
+	private final PlaceService placeService;
 
-	// API 요청 방식 : POST, 주소 : /place/show , 설명 : requestbody에
-	// String으로 아래 여러가지 값 받아오기
-	@PostMapping("/place/show")
-	public List<PlaceContainer> placeShow(@RequestBody RequestBodyPlaceDto request) {
-		double lat = Double.parseDouble(request.getLat());
-		double lng = Double.parseDouble(request.getLng());
-		String changing_table_man = request.getChanging_table_man();
-		String changing_table_woman = request.getChanging_table_woman();
-		String disabled_person = request.getDisabled_person();
-		String emergency_bell_disabled = request.getEmergency_bell_disabled();
-		String emergency_bell_man = request.getEmergency_bell_man();
-		String emergency_bell_woman = request.getEmergency_bell_woman();
-		Double leftValue = Double.parseDouble(request.getLeftValue() == null ? "0" : request.getLeftValue());
-		Double rightValue = Double.parseDouble(request.getRightValue() == null ? "5" : request.getRightValue() );
-		DecimalFormat df = new DecimalFormat("#.#");
-		//leftValue = 1 + (leftValue/70);
-		leftValue = Double.parseDouble(df.format(leftValue));
-		//rightValue = 1.01 + (rightValue/70);
-		rightValue = Double.parseDouble(df.format(rightValue));
-		Boolean Rated = request.getRated() == "true" ? true : false;
-		System.out.println(leftValue+", "+rightValue+", " + Rated);
-		return placeService.placeShow(lat, lng, changing_table_man, changing_table_woman, disabled_person,
-				emergency_bell_disabled, emergency_bell_man, emergency_bell_woman,
-				leftValue, rightValue, Rated);
+	// id 로 특정 화장실 조회
+	@GetMapping("/places/{placeId}")
+	public ResponseEntity<ApiResponse<ResponsePlaceDTO>> getOnePlace(
+			@PathVariable(required = true) long placeId) {
+
+		ResponsePlaceDTO place = placeService.getOnePlace(placeId);
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "화장실 조회에 성공했습니다.", place));
+
 	}
 
-	// API 요청 방식 : GET, 주소 : /place/search?keyword=${keyword} , 설명 : keyword 값으로 장소
 
-	 @GetMapping("/place/search") 
-	 public List<PlaceContainer>
-	  placeSearch(@RequestParam("keyword") String keyword,@RequestParam("lat") String latitude, @RequestParam("lng") String longitude) { 
-		 return placeService.placeSearch(keyword, latitude , longitude); 
-	  }
-	 
+	// keyword가 있는 경우 => 쿼리 스트링으로 검색으로 화장실 목록 가져오기
+	// lat => 사용자 위도, lng => 사용자 경도
+	@GetMapping("/places/search")
+	public ResponseEntity<ApiResponse<List<ResponsePlaceDTO>>> getPlaces(
+			@RequestParam(required = true) String keyword,
+			@RequestParam(required = true) double lat, 
+			@RequestParam(required = true) double lng) {
 
-	 
-		/*
-		 * @GetMapping("/ipaddress") public String showIp(HttpServletRequest request){
-		 * String clientIp = request.getHeader("X-Forwarded-For");
-		 * 
-		 * // 만약 X-Forwarded-For 헤더가 없으면, 직접 클라이언트의 IP 주소를 얻을 수 있습니다. if (clientIp ==
-		 * null || clientIp.length() == 0 || "unknown".equalsIgnoreCase(clientIp)) {
-		 * clientIp = request.getRemoteAddr(); }
-		 * 
-		 * return "Client IP Address: " + clientIp; }
-		 */
+		if (lat < -90 || lat > 90) {
+	        throw new IllegalArgumentException("유효하지 않은 위도 값입니다. -90과 90 사이의 값이어야 합니다.");
+	    }
+	    
+	    if (lng < -180 || lng > 180) {
+	        throw new IllegalArgumentException("유효하지 않은 경도 값입니다. -180과 180 사이의 값이어야 합니다.");
+	    }
+		    
+		List<ResponsePlaceDTO> places = placeService.getPlacesByKeyword(
+				keyword, lat, lng);
 
-	// 백엔드 개발용 , csv파일을 DB에 등록하는 처리
-	@GetMapping("/place/add")
-	public String placeAdd() {
-		String a = "subway";
-		String b = "gonggong_hang";
-		String c = "starbucks";
-		String d = "gonggong_seoul";
-		String e = "toilet_list";
-		//placeService.placeAdd(a);
-	    //placeService.placeAdd(b);
-		//placeService.placeAdd(c);
-		//placeService.placeAdd(d);
-		//placeService.placeAdd(e);
-		return "addplace"; // addplace.jsp 결과 페이지로 이동
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "화장실 조회에 성공했습니다.", places));
 	}
 
-	// API 요청 방식 : GET, 주소 : /place/delete?id=${id} , 설명 : 댓글id값으로 댓글 삭제
-	@GetMapping("/place/delete")
-	public void placeDelete(@RequestParam("id") String id) {
-		placeService.placeDelete(Integer.parseInt(id));
+	// 현재 자신의 위치와 필터링 조건에 맞는 화장실 목록 가져오기
+	// 조회이지만 POST로 처리
+	@PostMapping("/places")
+	public ResponseEntity<ApiResponse<List<ResponsePlaceDTO>>> placeShow(
+			@Valid @RequestBody RequestPlaceDTO requestPlaceDTO) {
+		
+		List<ResponsePlaceDTO> places = placeService.getPlaces(requestPlaceDTO);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "화장실 조회에 성공했습니다.", places));
 	}
 
-	// API 요청 방식 : GET, 주소 : /place/detail?id=${id} , 설명 : 특정 place값
-	@GetMapping("/place/detail")
-	public Place placeDetail(@RequestParam("id") String id) {
-		Place place = placeService.placeDetail(Integer.parseInt(id));
-		return place;
+	/*
+	// csv파일을 DB에 등록하는 처리
+	@GetMapping("/places/enroll")
+	public ResponseEntity<ApiResponse<Void>> placeEnroll() throws IllegalStateException, FileNotFoundException {
+
+		placeService.placeEnroll();
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "화장실 등록에 성공했습니다.", null));
 	}
 	
-	@GetMapping("/place/speical")
-	public List<Place> speical() {
-		
-		return placeService.speical();
-	}
+	//랜덤으로 필터링용 값을 세팅한다.
+	@GetMapping("/places/set-value")
+	public ResponseEntity<ApiResponse<Void>> setValue() {
 
+		placeService.setValue();
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "화장실 값 세팅에 성공했습니다.", null));
+	}
+	*/
 }

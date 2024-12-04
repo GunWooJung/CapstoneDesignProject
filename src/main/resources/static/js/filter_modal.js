@@ -38,41 +38,6 @@ document.getElementById('apply-filter').addEventListener('click', function () {
     // Create an object to hold the state of the checkboxes
     var center = map.getCenter();
     clearMarkers();
-    fetch(`/place/show`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            disabled_person: document.getElementById('disabled_person').checked,
-            changing_table_man: document.getElementById('changing_table_man').checked,
-            changing_table_woman: document.getElementById('changing_table_woman').checked,
-            emergency_bell_man: document.getElementById('emergency_bell_man').checked,
-            emergency_bell_woman: document.getElementById('emergency_bell_woman').checked,
-            emergency_bell_disabled: document.getElementById('emergency_bell_disabled').checked,
-            lat: center.getLat(),
-            lng: center.getLng(),
-            leftValue: document.getElementById('sign-left').innerHTML, //11.29 수정
-            rightValue: document.getElementById('sign-right').innerHTML,//11.29 수정
-            rated: document.getElementById('rated').checked,
-            not_rated: document.getElementById('not_rated').checked
-        })
-
-    })
-        .then(response => response.json())
-        .then(data => {
-            // convertToPlaceFormat 함수를 이용해 백엔드로부터 받은 데이터를 마커로 변환
-            const convertedData = convertToPlaceFormat(data);
-            markPlaces(convertedData);
-        })
-        .catch(error => {
-            console.error('Error fetching filtered places:', error);
-        });
-
-
-    //콘솔 필요 없으면 주석 처리해
-    console.log("별점 미평가 포함: ", document.getElementById('rated').checked);
-    console.log("별점 미평가 포함안함: ", document.getElementById('not_rated').checked);
-    // Close the modal
+    fetchPlacesFromBackend(center.getLat(), center.getLng());
     modal.style.display = 'none';
 });

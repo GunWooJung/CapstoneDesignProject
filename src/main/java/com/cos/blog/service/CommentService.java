@@ -1,97 +1,74 @@
 package com.cos.blog.service;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cos.blog.model.Comment;
-import com.cos.blog.model.Place;
-import com.cos.blog.model.Report;
-import com.cos.blog.model.StarRating;
+import com.cos.blog.dto.RequestCommentDTO;
+import com.cos.blog.dto.ResponseCommentDTO;
+import com.cos.blog.entity.Comment;
+import com.cos.blog.entity.Place;
+import com.cos.blog.handler.IncorrectPasswordException;
+import com.cos.blog.handler.NoDataFoundException;
 import com.cos.blog.repository.CommentRepository;
-import com.cos.blog.repository.OpinionRepository;
 import com.cos.blog.repository.PlaceRepository;
-import com.cos.blog.repository.ReportRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
 
-	@Autowired
-	private CommentRepository commentRepository;
+	private final CommentRepository commentRepository;
 	
-	@Autowired
-	private PlaceRepository placeRepository;
+	private final PlaceRepository placeRepository;
 	
-
-	
-	@Transactional
-	public List<Comment> commentShow(int placeId) {
-		Optional<Place> place = placeRepository.findById(placeId);
-		if (place.isPresent()) {
-			List<Comment> comments = commentRepository.findByPlace(place.get());
-			return comments;
-		} 
-		else{
-			return null;
-		}
-	}
-	
-	@Transactional
-	public ResponseEntity<String> commentEnroll(String username,String password, String placeId, String content,String ip) {
-		Optional<Place> places = placeRepository.findById(Integer.parseInt(placeId));
-		if(username.equals("")||password.equals("")||content.equals("")) {
-			return ResponseEntity.status(400).body("blank");
-		}
-		if (places.isPresent()) {
-			Comment comment = new Comment();
-			comment.setPlace(places.get());
-			comment.setUsername(username);
-			comment.setPassword(password);
-			comment.setContent(content);
-			comment.setIp(ip);
-			List<Comment> calcomment = commentRepository.findByPlace(places.get());
-			for(Comment c : calcomment) {
-				if(c.getIp().equals(ip)){
-					return ResponseEntity.status(400).body("fail");
-				}
-			}
-			commentRepository.save(comment);
-			Place place = places.get();
-			place.setComment_count(place.getComment_count()+1);
-			placeRepository.save(place);
-		}
-		return ResponseEntity.ok("Request successful");
-	}
-
-	@Transactional
-	public void commentUpdate(int commentId) {
-		// TODO Auto-generated method stub
+	public List<ResponseCommentDTO> getComments(Long placeId) {
 		
+		Place place = placeRepository.findById(placeId).orElseThrow(
+				() -> new NoSuchElementException(placeId+"번 화장실을 찾을 수 없습니다.") );
+		
+		List<Comment> comments = commentRepository.findByPlace(place);
+		if(comments == null) throw new NoDataFoundException("데이터 목록이 없습니다.");
+		
+		return comments.stream()
+				.sorted(Comparator.comparing(Comment::getCreatedDate).reversed()) // Timestamp 기준 최신순 정렬
+				.map((comment) -> comment.toCommentResponseDTO())
+				.collect(Collectors.toList());
 	}
-	
+
 	@Transactional
-	public ResponseEntity<String> commentDelete(int placeId,int commentId,String password) {
-		Optional<Comment> comment = commentRepository.findById(commentId);
-		if(comment.get().getPassword().equals(password)) {
-			Optional<Place> p = placeRepository.findById(placeId);
-			p.get().setComment_count(p.get().getComment_count()-1);
-			placeRepository.save(p.get());
-			commentRepository.deleteById(commentId);
-			return ResponseEntity.ok("Request successful");
-		}
-		else {
-			 return ResponseEntity.status(400).body("fail");
-		}
+	public void enrollComment(Long placeId, RequestCommentDTO requestCommentDTO) {
+		Place place = placeRepository.findById(placeId).orElseThrow(
+				() -> new NoSuchElementException(placeId+"번 화장실을 찾을 수 없습니다.") );
+		
+		Comment comment = new Comment(
+				requestCommentDTO.getName(),
+				requestCommentDTO.getPassword(),
+				requestCommentDTO.getContent(),
+				place);
+		commentRepository.save(comment);
 	}
-	
+
 	@Transactional
-	public void DeleteAll() {
-		commentRepository.deleteAll();
+	public void deleteComment(Long placeId, Long commentId
+			, String password) {
+		//placeId는 필요 없긴한데 일단 검증 추가
+		Place place = placeRepository.findById(placeId).orElseThrow(
+				() -> new NoSuchElementException(placeId+"번 화장실을 찾을 수 없습니다.") );	
+		
+		Comment comment = commentRepository.findById(commentId).orElseThrow(
+				() -> new NoSuchElementException(commentId+"번 댓글을 찾을 수 없습니다.") );	
+		//비번 불일치
+		if(!comment.getPassword().equals(password)) {
+			throw new IncorrectPasswordException("비밀 번호가 다릅니다.");
+		}
+		
+		commentRepository.deleteById(commentId);
 	}
 
 }

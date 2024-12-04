@@ -1,4 +1,9 @@
 HELP.md
+
+#설정 파일 제거
+*.properties
+*.yml
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

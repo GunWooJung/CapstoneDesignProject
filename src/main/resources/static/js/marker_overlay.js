@@ -2,41 +2,24 @@
 // a href 부분 건드림 11-22, 02:33
 function createOverlayContent(place) {
 
-    const starRating = Number.isInteger(place.averageOfStarRating) ? `${place.averageOfStarRating}.0` : place.averageOfStarRating;
-/*
-    return `
-        <div class="custom-overlay">
-            <div class="overlay-inner">
-                <h3>${place.name}</h3>
-                <p>${place.address}</p>
-                <p>별점: ${starRating}</p>
-                <p>별점 평가 횟수: ${place.numberOfStarRating}</p>
-                <p>댓글: ${place.numberOfComments}</p>
-                <a href="/viewdetails?id=${place.id}" target="_self" onclick="saveLastViewedPlace(${place.lat}, ${place.lng})">상세보기</a>
-                <button class="overlay-close-btn" onclick="closeCurrentOverlay()">닫기</button>
-            </div>
-        </div>
-    `;
-    */
-   /*test*/
-   return `
-   <div class="custom-overlay">
-   <div class="overlay-inner">
-       <div class="overlay-header">${place.name}</div> 
-       <div class="overlay-address">${place.address}</div>
-       <div class="overlay-star-container">
-           <div class="overlay-star-rating">평점 : ${starRating}</div>
-           <div class="overlay-star-rating-count">(${place.numberOfStarRating})</div>
-           <div class="overlay-comment-count">댓글 : ${place.numberOfComments}</div>
-       </div>
-       <div class="button-container">
-       <div class="overlay-close-btn" onclick="closeCurrentOverlay()">닫기</div>
-       <p><a href="/viewdetails?id=${place.id}" target="_self" onclick="saveLastViewedPlace(${place.lat}, ${place.lng})">상세보기</a></p>
-           </div>
-       </div>
-   </div>
-</div>
-    `;
+    const starRating = Number.isInteger(place.averageOfStarRating) ? `${place.averageOfStarRating}.0` : place.averageOfStarRating.toFixed(1);
+
+   return `<div class="custom-overlay">
+	   <div class="overlay-inner">
+	       <div class="overlay-header">${place.name}</div> 
+	       <div class="overlay-address">${place.address}</div>
+	       <div class="overlay-star-container">
+	           <div class="overlay-star-rating">평점 : ${starRating}</div>
+	           <div class="overlay-star-rating-count">(${place.numberOfStarRating})</div>
+	           <div class="overlay-comment-count">댓글 : ${place.numberOfComments}</div>
+	       </div>
+	       <div class="button-container">
+	       <div class="overlay-close-btn" onclick="closeCurrentOverlay()">닫기</div>
+	       <p><a href="/places/${place.id}" target="_self" onclick="saveLastViewedPlace(${place.lat}, ${place.lng})">상세보기</a></p>
+	           </div>
+	       </div>
+	   </div>
+	</div>`;
 }
 
 function createPlaceOverlay(place, map) {
