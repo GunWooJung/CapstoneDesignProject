@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>회원가입</title>
+	<link rel="stylesheet" href="/static/styles/reset.css">
+	<link rel="stylesheet" href="/static/styles/join.css">
+</head>
+
+<body>
+	<div class="logo image">
+		<h1><a href="/">모두의 화장실</a></h1>
+	</div>
+	<br><br>
+
+	<form>
+		<div class="form-group">
+			<input type="text" class="form-control" name="name" id="name" placeholder="이름">
+			<div id="nameDiv"></div>
+		</div>
+
+		<div class="form-group">
+			<input type="text" class="form-control" name="loginId" id="loginId" placeholder="아이디">
+			<div id="idDiv" ></div>
+		</div>
+
+		<div class="form-group">
+			<input type="password" class="form-control" name="password" id="password" placeholder="비밀번호">
+			<div id="passwordDiv" ></div>
+		</div>
+
+		<div class="form-group">
+			<input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="비밀번호 확인">
+			<div id="confirmPasswordDiv" ></div>
+		</div>
+
+		<div class="signup-button">
+			<button type="button" id = "signup-button" class="btn btn-primary">회원가입</button>
+		</div>
+	</form>
+	
+	<br/><br/>
+	
+	<hr width="350px" align="center">
+	<p class="easy-signup" align="center">이미 계정이 있으신가요? <a href="/login">로그인</a></p>
+
+	<br><br>
+	<footer class="footer">
+		<div class="footer-info">
+			<a href="/">홈으로</a> |
+			<a href="#">이용 약관</a> |
+			<a href="#">개인정보 처리방침</a>
+		</div>
+	</footer>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/static/js/join.js"></script>
+</body>
+
+</html>

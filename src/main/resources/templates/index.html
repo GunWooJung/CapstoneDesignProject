@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
     <title>모두의 화장실</title>
 
-    <link rel="stylesheet" href="styles/main_page.css">
-    <link rel="stylesheet" href="styles/filter_modal.css">
-    <link rel="stylesheet" href="styles/marker_overlay.css">
-    <link rel="stylesheet" href="styles/slide_bar.css">
+    <link rel="stylesheet" href="/static/styles/main_page.css">
+    <link rel="stylesheet" href="/static/styles/filter_modal.css">
+    <link rel="stylesheet" href="/static/styles/marker_overlay.css">
+    <link rel="stylesheet" href="/static/styles/slide_bar.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
 
     <script type="text/javascript"
         src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=18df5f7360b940777477a594ac97dc4f&libraries=services">
         </script>
-    <script src="js/filter_modal.js"></script>
+    <script src="/static/js/filter_modal.js"></script>
 </head>
 
 <body>
     <div id="map-container">
         <div id="map">
             <div class="map_header">
-                <div><img src="public/filter.png" id="filter"></div>
+                <div><img src="/static/public/filter.png" id="filter"></div>
                 <div id="search-box">
                     <div class="search-container">
-                        <img src="public/search.svg" id="search-button">
+                        <img src="/static/public/search.svg" id="search-button">
                         <input type="text" id="keyword" class="search-input" placeholder="장소를 검색하세요">
-                        <img src="public/close_index_html.svg" id="close-button">
+                        <img src="/static/public/close_index_html.svg" id="close-button">
                     </div>
                 </div>
             </div>
-            <img src="public/gps.svg" id="recenter-map">
+            <img src="/static/public/gps.svg" id="recenter-map">
         </div>
     </div>
 
@@ -101,13 +101,12 @@
             </div>
         </div>
     </div>
-    <script src="js/search_place.js"></script>
-    <script src="js/marker_overlay.js"></script>
-    <script src="js/main.js"></script>
-
-    <script src="js/my_location.js"></script>
-    <script src="js/filter_modal.js"></script>
-    <script src="js/slide_bar.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/search_place.js"></script>
+    <script src="/static/js/marker_overlay.js"></script>
+    <script src="/static/js/my_location.js"></script>
+    <script src="/static/js/filter_modal.js"></script>
+    <script src="/static/js/slide_bar.js"></script>
 
 
 </body>

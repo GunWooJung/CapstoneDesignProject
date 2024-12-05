@@ -2,8 +2,6 @@ package com.cos.blog.api;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cos.blog.dto.RequestPlaceDTO;
-import com.cos.blog.dto.ResponsePlaceDTO;
+import com.cos.blog.dto.request.RequestPlaceDTO;
+import com.cos.blog.dto.response.ResponsePlaceDTO;
 import com.cos.blog.service.PlaceService;
 import com.cos.blog.util.ApiResponse;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cos.blog.dto.RequestReportDTO;
-import com.cos.blog.dto.ResponseReportDTO;
+import com.cos.blog.dto.request.RequestReportDTO;
+import com.cos.blog.dto.response.ResponseReportDTO;
 import com.cos.blog.service.ReportService;
 import com.cos.blog.util.ApiResponse;
 

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cos.blog.dto.RequestCommentDTO;
-import com.cos.blog.dto.ResponseCommentDTO;
+import com.cos.blog.dto.request.RequestCommentDTO;
+import com.cos.blog.dto.response.ResponseCommentDTO;
 import com.cos.blog.service.CommentService;
 import com.cos.blog.util.ApiResponse;
 

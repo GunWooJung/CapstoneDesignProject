@@ -1,7 +1,5 @@
 package com.cos.blog.api;
 
-import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cos.blog.dto.RequestStarRatingDTO;
+import com.cos.blog.dto.request.RequestStarRatingDTO;
 import com.cos.blog.service.StarRatingService;
 import com.cos.blog.util.ApiResponse;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController

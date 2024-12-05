@@ -8,11 +8,11 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var currentInfowindow = null;
 var markers = [];
 //11.24추가 시작
-var imageGraySrc = 'img/gray_marker.svg';   
-var imageBlueSrc = 'img/blue_marker.svg';
-var imageGreenSrc = 'img/green_marker.svg';
-var imageRedSrc = 'img/red_marker.svg';
-var imageYellowSrc = 'img/yellow_marker.svg'; //11.29 3:39 추가
+var imageGraySrc = '/static/img/gray_marker.svg';   
+var imageBlueSrc = '/static/img/blue_marker.svg';
+var imageGreenSrc = '/static/img/green_marker.svg';
+var imageRedSrc = '/static/img/red_marker.svg';
+var imageYellowSrc = '/static/img/yellow_marker.svg'; //11.29 3:39 추가
 
 var imageSize = new kakao.maps.Size(30,30); // 마커이미지의 크기입니다
 			 // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.

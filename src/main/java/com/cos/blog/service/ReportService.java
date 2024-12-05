@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cos.blog.dto.RequestReportDTO;
-import com.cos.blog.dto.ResponseReportDTO;
+import com.cos.blog.dto.request.RequestReportDTO;
+import com.cos.blog.dto.response.ResponseReportDTO;
 import com.cos.blog.entity.Place;
 import com.cos.blog.entity.Report;
 import com.cos.blog.handler.NoDataFoundException;
@@ -36,7 +36,7 @@ public class ReportService {
 		
 		return reports.stream()
 				.sorted(Comparator.comparing(Report::getCreatedDate).reversed())
-				.map(report -> report.toReportResponseDTO())
+				.map(report -> ResponseReportDTO.toResponseReportDTO(report))
 				.filter(report -> !report.getType().equals("userOpinion"))
 				// 개발자에게 의견은 미노출
 				.collect(Collectors.toList());

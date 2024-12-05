@@ -1,0 +1,132 @@
+
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #f8f9fa;
+	color: #343a40;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	flex-direction: column;
+}
+
+.logo h1 {
+	text-align: center;
+	font-size: 3em;
+	margin-bottom: 20px;
+}
+
+.logo a {
+	text-decoration: none;
+	color: #333;
+}
+
+.form-group {
+	margin-bottom: 20px;
+	position: relative;
+}
+
+div #idDiv {
+	position: absolute;
+	left: 14px;
+}
+
+div .passwordDiv {
+	position: absolute;
+	left: 14px;
+}
+
+.form-control {
+	width: 300px;
+	padding: 10px;
+	margin: 0 auto;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 16px;
+	display: block;
+}
+
+.login-button {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.btn {
+	width: 320px;
+	padding: 10px;
+	margin-top: 10px;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.btn-primary {
+	background-color: #FFC4F4;
+	color: black;
+}
+
+.btn-secondary {
+	background-color: #6c757d;
+	color: white;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+	opacity: 0.9;
+}
+
+.form-check {
+	margin-top: 15px;
+	text-align: center;
+}
+
+.form-check-input {
+	margin-right: 5px;
+}
+
+.form-check-label {
+	font-size: 14px;
+	color: #6c757d;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background-color: #ced4da;
+}
+
+.easy-login {
+	padding-top: 50px;
+	color: #6c757d;
+	font-size: 17px;
+}
+
+.button-group {
+	text-align: center;
+	margin: 10px 0;
+}
+
+.button-group .btn {
+	width: 300px;
+}
+
+.footer-info {
+	text-align: center;
+	color: #6c757d;
+	font-size: 14px;
+}
+
+.footer-info a {
+	color: #6c757d;
+	text-decoration: none;
+	margin: 0 5px;
+}
+
+.footer-info a:hover {
+	text-decoration: underline;
+}

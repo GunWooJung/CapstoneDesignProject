@@ -7,13 +7,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,31 +21,25 @@ import lombok.NonNull;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "comment")
-public class Comment {
-	
+@Table(name = "member")
+public class Member {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; 	//식별자
-	
-	@NonNull
-	@Column(name = "name" , updatable = false ,nullable = false)
-	private String name;	//작성자
-	
-	@NonNull
-	@Column(name = "password", nullable = false)
-	private String password;		//비밀번호
 
 	@NonNull
-	@Lob
-	@Column(name = "content" , nullable = false)
-	private String content;		//댓글내용
-	
+    @Column(name = "name", nullable = false, unique = true, length = 50)
+    private String name;  // 이름
+    
 	@NonNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "place_id", nullable = false)
-	private Place place;		//장소
-	
+    @Column(name = "login_id", nullable = false, unique = true, length = 30)
+    private String loginId;  // 아이디
+
+	@NonNull
+    @Column(name = "password", nullable = false, length = 300)
+    private String password;  // 비밀번호
+
     @CreationTimestamp
     @Column(name = "created_date", nullable = false, updatable = false)
     private Timestamp createdDate; // 생성 시간
@@ -55,13 +47,20 @@ public class Comment {
     @UpdateTimestamp
     @Column(name = "updated_date", nullable = false)
     private Timestamp updatedDate; // 수정 시간
-    
-    // 필수 필드로 생성자
-    public Comment(String name, String password, String content, Place place) {
-    	this.name = name;
-    	this.password = password;
-    	this.content = content;
-    	this.place = place;
+ 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", length = 10)
+    private Role role;  // 역할 (ENUM)
+
+    public enum Role {
+        USER, ADMIN
     }
-	
+    
+    public Member(String name, String loginId, String password, Role role){
+    	this.name = name;
+    	this.loginId = loginId;
+    	this.password = password;
+    	this.role = role;
+    }
+    
 }

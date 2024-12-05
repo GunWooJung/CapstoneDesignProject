@@ -1,8 +1,9 @@
-package com.cos.blog.dto;
+package com.cos.blog.dto.request;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
 
+
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

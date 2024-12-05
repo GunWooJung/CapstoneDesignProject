@@ -21,10 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 reportsContainer.innerHTML = '';
 
                 // Process and display up to the first three reports
-                reports.data.forEach(report => {
-                    const reportElement = createReportElement(report);
-                    reportsContainer.appendChild(reportElement);
-                });
+                if(reports.data != null){
+					reports.data.forEach(report => {
+	                    const reportElement = createReportElement(report);
+	                    reportsContainer.appendChild(reportElement);
+	                });
+				}
             })
             .catch(error => console.error('Error fetching reports:', error));
     }
@@ -125,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="recent_likeButton">
             <div class="recent_likeButton_number">+ ${report.heart}</div>
             <div class="recent_likeButton_heart" data-report-id="${report.id}">
-                <img src="/public/heart.svg" alt="♡">
+                <img src="/static//public/heart.svg" alt="♡">
             </div>
         </div>
     

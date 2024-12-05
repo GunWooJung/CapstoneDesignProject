@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.cos.blog.dto.RequestPlaceDTO;
-import com.cos.blog.dto.ResponsePlaceDTO;
+import com.cos.blog.dto.request.RequestPlaceDTO;
+import com.cos.blog.dto.response.ResponsePlaceDTO;
 import com.cos.blog.entity.Place;
 import com.cos.blog.handler.NoDataFoundException;
 import com.cos.blog.repository.PlaceRepository;
@@ -27,7 +27,7 @@ public class PlaceService {
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
 		// Global 예외로 처리
-		return place.toPlaceResponseDTO();
+		return ResponsePlaceDTO.toResponsePlaceDTO(place);
 	}
 
 	// 검색어 없이 주변 화장실 목록 조회
@@ -45,8 +45,8 @@ public class PlaceService {
 		if(places.size() == 0) 
 			throw new NoDataFoundException("데이터 목록이 없습니다.");
 		
-		// 조건에 일치하는 것대로 dto로 변환
-		return places.stream().map((place) -> place.toPlaceResponseDTO())
+		// dto로 변환 후 조건에 맞게 필터링
+		return places.stream().map((place) -> ResponsePlaceDTO.toResponsePlaceDTO(place))
 				.filter(place -> (requestPlaceDTO.isDisabledPerson() ? place.isDisabledPerson() : true ))
 				.filter(place -> (requestPlaceDTO.isChangingTableMan() ? place.isChangingTableMan() : true ))
 				.filter(place -> (requestPlaceDTO.isChangingTableWoman() ? place.isChangingTableWoman() : true ))
@@ -73,7 +73,7 @@ public class PlaceService {
 		// dto로 변환
 		// 나에게서 가까운 위치 검색 결과로 마커 이동
 		// 거리차로 오름차순 정렬
-		return places.stream().map(place -> place.toPlaceResponseDTO())
+		return places.stream().map(place -> ResponsePlaceDTO.toResponsePlaceDTO(place))
 				.sorted((dto1, dto2) -> Double.compare(
 						dto1.distance(lat, lng, dto1.getLat(), dto1.getLng()),
 						dto2.distance(lat, lng, dto2.getLat(), dto2.getLng())))

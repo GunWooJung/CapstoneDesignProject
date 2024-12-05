@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
     <title>자세히 보기</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles/view_details.css">
     <link rel="stylesheet" href="/static/styles/view_details_star.css">
     <script type="text/javascript"
@@ -14,12 +13,14 @@
 </head>
 
 <body>
+    
     <div class="view_details_container">
-        <div id="map" class="map_container">
+        <div id="map" class="map_container" style="height:150px;">
             <img src="/public/close.svg" id="backButton" alt="뒤로가기">
             <!-- <button id="backButton">뒤로가기</button> -->
         </div>
         <div class="view_details_content">
+
             <div class="details_content_header">
                 <div class="header_title">
                     <div id="placeName">(backend info)</div>
@@ -110,11 +111,10 @@
                     <div id="reviews"></div>
                 </div>
                 <div class="review-prompt">
-                    <div class="prompt_id_pw">
+                    <div class="prompt_id_pw" style="margin-bottom:10px;">
                         <input type="text" id="username" placeholder="아이디" />
                         <input type="password" id="password" placeholder="비밀번호" />
                     </div>
-                    
                     <div class="prompt_write_submit">
                         <textarea type="text" id="reviewText" placeholder="리뷰를 남겨주세요!"></textarea>
                         <img src="/public/send.svg" id="submitReview" alt="리뷰 제출">

@@ -2,19 +2,15 @@ package com.cos.blog.entity;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.cos.blog.dto.ResponsePlaceDTO;
-import com.cos.blog.dto.ResponsePlaceDTO.Color;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +25,7 @@ public class Place {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id; 	//PK
+	private Long id; 	//PK
 	
 	@NonNull
 	@Column(name = "name", updatable = false, nullable = false, length = 300)
@@ -90,35 +86,4 @@ public class Place {
     @Column(name = "updated_date", nullable = false)
     private Timestamp updatedDate; // 수정 시간
 
-    //DTO로 변환
-	public ResponsePlaceDTO toPlaceResponseDTO() {
-		ResponsePlaceDTO dto = ResponsePlaceDTO.builder()
-        		.id(id)
-        		.name(name)
-        		.address(address)
-        		.lat(lat)
-        		.lng(lng)
-        		.disabledPerson(disabledPerson)
-        		.changingTableMan(changingTableMan)
-        		.changingTableWoman(changingTableWoman)
-        		.emergencyBellMan(emergencyBellMan)
-        		.emergencyBellWoman(emergencyBellWoman)
-        		.emergencyBellDisabled(emergencyBellDisabled)
-        		.openTime(openTime)
-        		.starCount(starCount)
-        		.starAverage(starAverage)
-        		.commentCount(commentCount)
-        		.build();
-		if(dto.getStarAverage() == 0) {
-			dto.setColor(Color.BLUE);
-		}else if(dto.getStarAverage() < 2){
-			dto.setColor(Color.RED);
-		}else if(dto.getStarAverage() > 4){
-			dto.setColor(Color.GREEN);
-		}
-		else {
-			dto.setColor(Color.YELLOW);
-		}
-		return dto;
-	}
 }

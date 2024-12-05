@@ -1,4 +1,4 @@
-package com.cos.blog.dto;
+package com.cos.blog.dto.request;
 
 import lombok.Getter;
 import lombok.NonNull;

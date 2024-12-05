@@ -1,4 +1,6 @@
-package com.cos.blog.dto;
+package com.cos.blog.dto.response;
+
+import com.cos.blog.entity.Place;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -45,4 +47,36 @@ public class ResponsePlaceDTO {
 		* 0.090100236513120846942223223335961 
 		* (curLng - lng ) * (curLng - lng);
     }
+    
+    //DTO로 변환
+   	public static ResponsePlaceDTO toResponsePlaceDTO(Place place) {
+   		ResponsePlaceDTO dto = ResponsePlaceDTO.builder()
+           		.id(place.getId())
+           		.name(place.getName())
+           		.address(place.getAddress())
+           		.lat(place.getLat())
+           		.lng(place.getLng())
+           		.disabledPerson(place.isDisabledPerson())
+           		.changingTableMan(place.isChangingTableMan())
+           		.changingTableWoman(place.isChangingTableWoman())
+           		.emergencyBellMan(place.isEmergencyBellMan())
+           		.emergencyBellWoman(place.isEmergencyBellWoman())
+           		.emergencyBellDisabled(place.isEmergencyBellDisabled())
+           		.openTime(place.getOpenTime())
+           		.starCount(place.getStarCount())
+           		.starAverage(place.getStarAverage())
+           		.commentCount(place.getCommentCount())
+           		.build();
+   		if(dto.getStarAverage() == 0) {
+   			dto.setColor(Color.BLUE);
+   		}else if(dto.getStarAverage() < 2){
+   			dto.setColor(Color.RED);
+   		}else if(dto.getStarAverage() > 4){
+   			dto.setColor(Color.GREEN);
+   		}
+   		else {
+   			dto.setColor(Color.YELLOW);
+   		}
+   		return dto;
+   	}
 }

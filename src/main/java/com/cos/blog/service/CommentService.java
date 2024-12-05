@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cos.blog.dto.RequestCommentDTO;
-import com.cos.blog.dto.ResponseCommentDTO;
+import com.cos.blog.dto.request.RequestCommentDTO;
+import com.cos.blog.dto.response.ResponseCommentDTO;
 import com.cos.blog.entity.Comment;
 import com.cos.blog.entity.Place;
 import com.cos.blog.handler.IncorrectPasswordException;
@@ -33,11 +33,11 @@ public class CommentService {
 				() -> new NoSuchElementException(placeId+"번 화장실을 찾을 수 없습니다.") );
 		
 		List<Comment> comments = commentRepository.findByPlace(place);
-		if(comments == null) throw new NoDataFoundException("데이터 목록이 없습니다.");
+		if(comments.size() == 0) throw new NoDataFoundException("데이터 목록이 없습니다.");
 		
 		return comments.stream()
 				.sorted(Comparator.comparing(Comment::getCreatedDate).reversed()) // Timestamp 기준 최신순 정렬
-				.map((comment) -> comment.toCommentResponseDTO())
+				.map((comment) -> ResponseCommentDTO.toResponseCommentDTO(comment))
 				.collect(Collectors.toList());
 	}
 

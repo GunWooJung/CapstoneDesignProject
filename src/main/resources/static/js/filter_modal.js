@@ -1,5 +1,6 @@
 // 변경 사항 없음 11-16, 20시 45분
 // 모달 가져오기
+document.addEventListener("DOMContentLoaded", function () {
 var modal = document.getElementById('myModal');
 
 // 모달을 여는 버튼
@@ -40,4 +41,5 @@ document.getElementById('apply-filter').addEventListener('click', function () {
     clearMarkers();
     fetchPlacesFromBackend(center.getLat(), center.getLng());
     modal.style.display = 'none';
+});
 });

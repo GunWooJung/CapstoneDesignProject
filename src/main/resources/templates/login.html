@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>로그인</title>
+	<link rel="icon" href="/path/to/your/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="/static/styles/reset.css">
+	<link rel="stylesheet" href="/static/styles/login.css">
+</head>
+
+<body>
+	<div class="logo image">
+		<h1><a href="/">모두의 화장실</a></h1>
+	</div>
+	<div class="footer">
+		<div class="footer-info">
+			<span>로그인 후 이용 가능합니다.</span>
+		</div>
+	</div>
+	<br><br>
+	<form>
+		<div class="form-group">
+			<input type="text" class="form-control" id="loginId" name="loginId" 
+				placeholder="아이디">
+			<div id="idDiv"></div>
+		</div>
+
+
+		<div class="form-group">
+			<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+			<div  class = "passwordDiv" id="passwordDiv"></div>
+		</div>
+	
+		<div class="login-button">
+			<button type="submit" class="btn btn-primary">로그인</button>
+		</div>
+	</form>
+
+	<br><br><br>
+	<footer class="footer">
+		<div class="footer-info">
+			<a href="/">홈으로</a> |
+			<a href="/join">회원가입</a><br>
+		</div>
+	</footer>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/static/js/login.js"></script>
+</body>
+
+</html>

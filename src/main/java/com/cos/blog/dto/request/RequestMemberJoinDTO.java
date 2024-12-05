@@ -1,19 +1,19 @@
-package com.cos.blog.dto;
+package com.cos.blog.dto.request;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @RequiredArgsConstructor
-public class RequestCommentDTO {
+public class RequestMemberJoinDTO {
 	
-	private final long placeId;
 	@NonNull
 	private final String name;
 	@NonNull
-	private final String password;
+	private final String loginId;
 	@NonNull
-	private final String content;
+	private final String password;
 	
 }

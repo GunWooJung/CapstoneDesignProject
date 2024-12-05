@@ -2,20 +2,17 @@ package com.cos.blog.entity;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.cos.blog.dto.ResponseReportDTO;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +26,7 @@ public class Report {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id; 	//식별자
+	private Long id; 	//식별자
 	
 	@NonNull
 	@Column(name = "type", updatable = false, nullable = false)
@@ -58,17 +55,6 @@ public class Report {
     	this.place = place;
     	this.heart = 1; //최초 신고 초기값은 1
     }
-    
-    //DTO로 변환
-   	public ResponseReportDTO toReportResponseDTO() {
-           return ResponseReportDTO.builder()
-           		.id(id)
-           		.type(type)
-           		.content(content)
-           		.createdDate(createdDate)
-           		.heart(heart)
-           		.build();
-   	}
    	
    	public void clickHeart() {
    		this.heart += 1;
