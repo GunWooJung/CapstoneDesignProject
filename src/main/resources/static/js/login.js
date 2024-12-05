@@ -19,17 +19,20 @@ $(function () {
 				$('#password').focus();
 				isValid = false;
 			}
-			let loginData = {
-					'loginId' : $('#loginId').val().trim(),
-					'password': $('#password').val().trim(),
-			};
+			let formData = new FormData();
+
+			// 데이터를 추가
+			formData.append('username', document.getElementById('loginId').value.trim());
+			formData.append('password', document.getElementById('password').value.trim());
+			
 			// 유효성 검사를 모두 통과한 경우에만 ajax 요청 실행한다.
 			if (isValid) {
 				$.ajax({
 					type: 'post',
 					url: '/api/members/login',
-					contentType: 'application/json',
-					data: JSON.stringify(loginData), 
+					data: formData, 
+					processData: false, // FormData 사용 시 필수
+					contentType: false, // FormData의 Content-Type 자동 설정
 					success: function(data, textStatus, jqXHR) {
 						console.log(data);
 						 if(jqXHR.status === 200){ // 200 OK

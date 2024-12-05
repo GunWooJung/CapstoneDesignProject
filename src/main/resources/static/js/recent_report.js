@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="recent_likeButton">
             <div class="recent_likeButton_number">+ ${report.heart}</div>
             <div class="recent_likeButton_heart" data-report-id="${report.id}">
-                <img src="/static//public/heart.svg" alt="♡">
+                <img src="/static/public/heart.svg" alt="♡">
             </div>
         </div>
     

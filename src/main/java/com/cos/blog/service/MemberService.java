@@ -1,6 +1,7 @@
 package com.cos.blog.service;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +19,13 @@ public class MemberService {
 
 	private final MemberRepository memberRepository;
 
-	private final PasswordEncoder passwordEncoder;
+	private final BCryptPasswordEncoder BCryptPasswordEncoder;
 	
 	// 새로운 USER Member를 등록
 	@Transactional
 	public void memberJoin(RequestMemberJoinDTO requestMemberJoinDTO) {
 		
-		String encodedPassword = passwordEncoder.encode(requestMemberJoinDTO.getPassword());
+		String encodedPassword = BCryptPasswordEncoder.encode(requestMemberJoinDTO.getPassword());
 	
 		Member member = new Member(
 				requestMemberJoinDTO.getName(), 
@@ -54,6 +55,7 @@ public class MemberService {
 			return true;  //사용 불가
 	}
 
+	/*
 	public Member memberLogin(RequestMemberLoginDTO requestMemberLoginDTO) {
 		
 		Member member = memberRepository.findByLoginIdAndPassword(
@@ -65,7 +67,7 @@ public class MemberService {
 		else
 			return member;	// 로그인 성공
 	}
-
+	*/
 	public Member findByUserName(String userName) {
 		
 		Member member = memberRepository.findByLoginId(userName);

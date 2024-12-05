@@ -1,17 +1,8 @@
 package com.cos.blog.api;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,15 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.blog.dto.request.RequestMemberJoinDTO;
-import com.cos.blog.dto.request.RequestMemberLoginDTO;
-import com.cos.blog.entity.Member;
 import com.cos.blog.handler.DuplicatedIdException;
 import com.cos.blog.handler.DuplicatedNameException;
-import com.cos.blog.handler.LoginFailException;
 import com.cos.blog.service.MemberService;
 import com.cos.blog.util.ApiResponse;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -37,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 public class MemberApiController {
 
 	private final MemberService memberService;
-
 	
     // 회원 가입 시 아이디 중복 체크
 	@GetMapping("/members/id-check")
