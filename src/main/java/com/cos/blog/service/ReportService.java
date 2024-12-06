@@ -32,7 +32,7 @@ public class ReportService {
 		// Global 예외로 처리
 		List<Report> reports = reportRepository.findByPlace(place);
 		
-		if(reports.size() == 0) throw new NoDataFoundException("데이터 목록이 없습니다.");
+		if(reports == null || reports.size() == 0) throw new NoDataFoundException("데이터 목록이 없습니다.");
 		
 		return reports.stream()
 				.sorted(Comparator.comparing(Report::getCreatedDate).reversed())

@@ -33,7 +33,7 @@ public class StarRatingService {
 		
 		starRatingRepository.save(starRating);
 		List<StarRating> list = starRatingRepository.findByPlace(place);
-		
+		// 항상 1개 이상
 		int count = (int) list.stream().count();
 		double avg = list.stream()           // Stream<Double>로 변환
                  .mapToDouble((s) -> s.getScore()) // DoubleStream으로 변환

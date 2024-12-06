@@ -33,7 +33,6 @@ public class PrincipalDetail implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		System.out.println("aa"+member.getLoginId());
 		return member.getLoginId();
 	}
 

@@ -33,7 +33,7 @@ public class CommentService {
 				() -> new NoSuchElementException(placeId+"번 화장실을 찾을 수 없습니다.") );
 		
 		List<Comment> comments = commentRepository.findByPlace(place);
-		if(comments.size() == 0) throw new NoDataFoundException("데이터 목록이 없습니다.");
+		if(comments == null ||comments.size() == 0) throw new NoDataFoundException("데이터 목록이 없습니다.");
 		
 		return comments.stream()
 				.sorted(Comparator.comparing(Comment::getCreatedDate).reversed()) // Timestamp 기준 최신순 정렬

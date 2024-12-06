@@ -42,7 +42,7 @@ public class PlaceService {
 				lng - LatLngValue.lngDoubleValue, 
 				lng + LatLngValue.lngDoubleValue);
 
-		if(places.size() == 0) 
+		if(places == null ||places.size() == 0)
 			throw new NoDataFoundException("데이터 목록이 없습니다.");
 		
 		// dto로 변환 후 조건에 맞게 필터링
@@ -67,9 +67,9 @@ public class PlaceService {
 
 		List<Place> places = placeRepository.getPlacesByKeyword(keyword);
 
-		if (places.size() == 0) {
+		if(places == null ||places.size() == 0) 
 			throw new NoDataFoundException("데이터 목록이 없습니다.");
-		}
+		
 		// dto로 변환
 		// 나에게서 가까운 위치 검색 결과로 마커 이동
 		// 거리차로 오름차순 정렬

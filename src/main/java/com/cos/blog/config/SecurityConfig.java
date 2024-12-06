@@ -11,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.cos.blog.config.auth.PrincipalDetailService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 //1. 어노테이션 제거
@@ -62,6 +63,7 @@ public class SecurityConfig{ // 2. extends 제거
 			            // 로그인 실패 후 추가 작업
 			            // 예: 실패 로그 메시지, 사용자에게 실패 이유 전달 등
 			            System.out.println("로그인 실패: " + exception.getMessage());
+			            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			            request.getSession().setAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			        })
 			);
