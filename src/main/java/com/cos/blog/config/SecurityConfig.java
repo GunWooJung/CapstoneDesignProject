@@ -45,13 +45,27 @@ public class SecurityConfig{ // 2. extends 제거
 
 			// 2. 인증 주소 설정
 			http.authorizeRequests(
-					authorize -> authorize.requestMatchers("/static/**", "/login", "/join", "/api/members/**").permitAll()
+					authorize -> authorize.requestMatchers("/static/non_auth_static/**", "/login", "/join", "/api/public/**").permitAll()
 							.anyRequest().authenticated()
-			);
+			)  // 인증되지 않은 요청 처리
+            .exceptionHandling(exception -> exception
+                    .authenticationEntryPoint((request, response, authException) -> {
+                    	  String requestURI = request.getRequestURI(); // 요청 URI 가져오기
+
+                          if (requestURI.startsWith("/api/")) { 
+                              // /api/** 경로에 대한 처리
+                              response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+                              response.setContentType("application/json");
+                              response.getWriter().write("{\"message\":\"Authentication required for API\", \"status\":401}");
+                          } else {
+                        	  response.sendRedirect("/login"); // 로그인 페이지로 리다이렉트
+                          }
+                     })
+                );
 			
 			// 3. 로그인 처리 프로세스 설정
 			http.formLogin(f -> f.loginPage("/login")
-					.loginProcessingUrl("/api/members/login")
+					.loginProcessingUrl("/api/public/members/login")
 					.defaultSuccessUrl("/")
 					.successHandler((request, response, authentication) -> {
 			            // 로그인 성공 후 추가 작업

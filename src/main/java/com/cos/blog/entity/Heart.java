@@ -21,8 +21,8 @@ import lombok.NonNull;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "star_rating")
-public class StarRating {
+@Table(name = "heart")
+public class Heart {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,25 +30,21 @@ public class StarRating {
 	
 	@NonNull
 	@ManyToOne(fetch = FetchType.LAZY) //지연 로딩 
-	@JoinColumn(name = "place_id", nullable = false)
-	private Place place;
+	@JoinColumn(name = "report_id", nullable = false)
+	private Report report;
 	
 	@NonNull
 	@ManyToOne(fetch = FetchType.LAZY) //지연 로딩 
 	@JoinColumn(name = "member_id", nullable = false)
 	private Member member;
 	
-	@Column(name = "score" , updatable = false)
-	private double score; // 1~5 별점
-	
 	@CreationTimestamp // 별점 작성 시간 자동 생성
 	@Column(name = "created_date", nullable = false, updatable = false)
 	private Timestamp createdDate;
 
 	// 생성자: 필수 값 강제
-	public StarRating(Member member, Place place, double score) {
+	public Heart(Report report, Member member) {
+		this.report = report;
 		this.member = member;
-		this.place = place;
-		this.score = score;
 	}
 }

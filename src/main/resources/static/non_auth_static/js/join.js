@@ -14,7 +14,7 @@ $(function () {
 			// 아이디 중복검사 
 			$.ajax({
 				type: 'get',
-				url: '/api/members/id-check?loginId='+user_id,
+				url: '/api/public/members/id-check?loginId='+user_id,
 				success: function(data, textStatus, jqXHR) {
 			    console.log(data);
 			       if(jqXHR.status === 200){ // 200 OK 사용 가능
@@ -45,7 +45,7 @@ $(function () {
 					// 아이디 중복검사 
 					$.ajax({
 						type: 'get',
-						url: '/api/members/name-check?name='+name,
+						url: '/api/public/members/name-check?name='+name,
 						success: function(data, textStatus, jqXHR) {
 					    console.log(data);
 					       if(jqXHR.status === 200){ // 200 OK 사용 가능
@@ -125,7 +125,7 @@ $(function () {
 			if (isValid) {
 				$.ajax({
 					type: 'post',
-					url: '/api/members/join',
+					url: '/api/public/members/join',
 					contentType: 'application/json',
 					data: JSON.stringify(userData), 
 					success: function(data, textStatus, jqXHR) {

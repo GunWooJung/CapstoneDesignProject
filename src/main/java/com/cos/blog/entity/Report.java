@@ -17,6 +17,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,7 +28,7 @@ public class Report {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; 	//식별자
-	
+		
 	@NonNull
 	@Column(name = "type", updatable = false, nullable = false)
 	private String type;	//신고유형
@@ -41,6 +42,7 @@ public class Report {
 	@JoinColumn(name = "place_id", nullable = false)
 	private Place place;	//장소
 	
+	@Setter
 	@Column(name = "heart")
 	private int heart;
 	
@@ -53,10 +55,11 @@ public class Report {
     	this.type = type;
     	this.content = content;
     	this.place = place;
-    	this.heart = 1; //최초 신고 초기값은 1
+    	this.heart = 1;
     }
-   	
-   	public void clickHeart() {
-   		this.heart += 1;
-   	}
+    
+    public void heartPlusOne() {
+    	this.heart = this.heart + 1;
+    }
+
 }

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
     <title>모두의 화장실</title>
-
+	<link rel="icon" href="/static/non_auth_static/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/static/styles/main_page.css">
     <link rel="stylesheet" href="/static/styles/filter_modal.css">
     <link rel="stylesheet" href="/static/styles/marker_overlay.css">
@@ -20,6 +20,8 @@
 </head>
 
 <body>
+           
+                
     <div id="map-container">
         <div id="map">
             <div class="map_header">
@@ -29,10 +31,11 @@
                         <img src="/static/public/search.svg" id="search-button">
                         <input type="text" id="keyword" class="search-input" placeholder="장소를 검색하세요">
                         <img src="/static/public/close_index_html.svg" id="close-button">
-                    </div>
+                     </div>
                 </div>
-            </div>
+              </div>
             <img src="/static/public/gps.svg" id="recenter-map">
+            <button type="button" onclick="window.location.href='/logout';" class="logout-button">로그아웃</button>
         </div>
     </div>
 

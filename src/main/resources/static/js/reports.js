@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (submitButton) {
             submitButton.addEventListener('click', function () {
 				var formData = new FormData();
-                 formData["placeId"] = placeId;
                  // 라디오 버튼 입력 처리
                  var radioInputs = modal.querySelectorAll('input[type="radio"]:checked');
                  radioInputs.forEach(function (input) {
@@ -66,7 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
 				if(body.status === 200){
 	                alert('신고가 제출되었습니다.');
 	                location.reload();
-	            }
+	            }else if(body.status === 409){
+					 alert('이미 신고가 제출되었습니다.');
+					 location.reload();
+				}
+				else{
+					alert('신고가 실패했습니다.');
+				}
 			});
                     
                 modal.style.display = 'none'; // 폼 전송 후 모달 닫기

@@ -2,7 +2,6 @@ package com.cos.blog.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ public class MemberApiController {
 	private final MemberService memberService;
 	
     // 회원 가입 시 아이디 중복 체크
-	@GetMapping("/members/id-check")
+	@GetMapping("/public/members/id-check")
 	public ResponseEntity<ApiResponse<Void>> memberIdCheck
 				(@RequestParam(required = true) String loginId) {
 		
@@ -39,7 +38,7 @@ public class MemberApiController {
 	}
 	
 	 // 회원 가입 시 이름 중복 체크
-	@GetMapping("/members/name-check")
+	@GetMapping("/public/members/name-check")
 	public ResponseEntity<ApiResponse<Void>> memberNameCheck
 				(@RequestParam(required = true) String name) {
 		
@@ -52,7 +51,7 @@ public class MemberApiController {
 	}
 		
 	// 새로운 member를 추가하기 = 회원가입
-	@PostMapping("/members/join")
+	@PostMapping("/public/members/join")
 	public ResponseEntity<ApiResponse<Void>> memberJoin
 				(@RequestBody RequestMemberJoinDTO requestMemberJoinDTO) {
 		

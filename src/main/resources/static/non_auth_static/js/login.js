@@ -29,7 +29,7 @@ $(function () {
 			if (isValid) {
 				$.ajax({
 					type: 'post',
-					url: '/api/members/login',
+					url: '/api/public/members/login',
 					data: formData, 
 					processData: false, // FormData 사용 시 필수
 					contentType: false, // FormData의 Content-Type 자동 설정

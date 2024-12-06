@@ -31,12 +31,9 @@ public class Comment {
 	private Long id; 	//식별자
 	
 	@NonNull
-	@Column(name = "name" , updatable = false ,nullable = false)
-	private String name;	//작성자
-	
-	@NonNull
-	@Column(name = "password", nullable = false)
-	private String password;		//비밀번호
+	@ManyToOne(fetch = FetchType.LAZY) //지연 로딩 
+	@JoinColumn(name = "member_id", nullable = false)
+	private Member member;
 
 	@NonNull
 	@Lob
@@ -57,9 +54,8 @@ public class Comment {
     private Timestamp updatedDate; // 수정 시간
     
     // 필수 필드로 생성자
-    public Comment(String name, String password, String content, Place place) {
-    	this.name = name;
-    	this.password = password;
+    public Comment(Member member, String content, Place place) {
+    	this.member = member;
     	this.content = content;
     	this.place = place;
     }

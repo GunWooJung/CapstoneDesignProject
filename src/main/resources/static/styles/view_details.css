@@ -415,3 +415,24 @@
         margin-right: 3px;
     }
 
+.logout-button {
+    /* Adjust margin to place it below the search box */
+    position: relative;
+    width:100px;
+    z-index: 2;
+    top: 90%;
+    left: -70%;
+    cursor: pointer;      
+    text-align: center;
+    padding: 10px;
+    background-color: #6666FF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #3333FF;
+}

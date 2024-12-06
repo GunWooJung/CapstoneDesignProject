@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class RequestReportDTO {
-
-	private final long placeId;
+	
 	@NonNull
 	private final String type;
 	@NonNull

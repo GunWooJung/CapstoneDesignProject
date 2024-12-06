@@ -20,12 +20,12 @@ public class PrincipalDetail implements UserDetails{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final Member member; // 콤포지션
+	private Member member; // 콤포지션
 
 	public PrincipalDetail(Member member) {
 		this.member = member;
 	}
-	
+
 	@Override
 	public String getPassword() {
 		return member.getPassword();

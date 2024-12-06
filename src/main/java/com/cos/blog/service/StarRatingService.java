@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.entity.Member;
 import com.cos.blog.entity.Place;
 import com.cos.blog.entity.StarRating;
+import com.cos.blog.handler.DuplicatedEnrollException;
+import com.cos.blog.handler.UnauthorizedAccessException;
+import com.cos.blog.repository.MemberRepository;
 import com.cos.blog.repository.PlaceRepository;
 import com.cos.blog.repository.StarRatingRepository;
 
@@ -18,18 +22,29 @@ import lombok.RequiredArgsConstructor;
 public class StarRatingService {
 	
 	@Autowired
+	private final MemberRepository memberRepository;
+	
+	@Autowired
 	private final PlaceRepository placeRepository;
 
 	@Autowired
 	private final StarRatingRepository starRatingRepository;
 	
 	@Transactional
-	public void enroll(Long placeId, double score) {
+	public void enroll(Member member, Long placeId, double score) {
 		
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow( () -> new IllegalArgumentException("id를 찾을 수 없습니다.") );
+	
+		if(member == null)
+			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
+	
+		long already = starRatingRepository.countByMemberAndPlace(member, place);
 		
-		StarRating starRating = new StarRating(place, score);
+		if(already >= 1) 
+			throw new DuplicatedEnrollException("이미 등록되었습니다.");
+		
+		StarRating starRating = new StarRating(member, place, score);
 		
 		starRatingRepository.save(starRating);
 		List<StarRating> list = starRatingRepository.findByPlace(place);

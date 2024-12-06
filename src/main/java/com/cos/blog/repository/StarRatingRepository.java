@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.cos.blog.entity.Member;
 import com.cos.blog.entity.Place;
 import com.cos.blog.entity.StarRating;
 
 public interface StarRatingRepository  extends JpaRepository<StarRating, Long>  {
 	
 	List<StarRating> findByPlace(Place place);
+
+	long countByMemberAndPlace(Member member, Place place);
 
 }
 

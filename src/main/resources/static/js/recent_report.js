@@ -144,7 +144,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Handle successful submission	       
                         alert('신고 횟수가 증가되었습니다.');
                         location.reload();
-                    }
+                    }else if(body.status == 409){
+						alert('이미 신고하였습니다.');
+					}else{
+						alert('신고 제출에 실패했습니다.');
+					}
                 });
         });
 

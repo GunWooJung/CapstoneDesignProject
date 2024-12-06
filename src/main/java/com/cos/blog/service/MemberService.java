@@ -2,12 +2,10 @@ package com.cos.blog.service;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.dto.request.RequestMemberJoinDTO;
-import com.cos.blog.dto.request.RequestMemberLoginDTO;
 import com.cos.blog.entity.Member;
 import com.cos.blog.repository.MemberRepository;
 

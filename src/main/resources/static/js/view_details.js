@@ -24,8 +24,8 @@ function displayComments(comments) {
 	
 			const commentElement = document.createElement('div');
 			commentElement.className = 'comment-item';
+			if( comment.mine === true)
 			commentElement.innerHTML = `
-	         
 	         <div class = "review_component">
 	             <div class = "review_comment_container">
 	                 <div class = "comment_container_detail">
@@ -33,11 +33,24 @@ function displayComments(comments) {
 	                     <div class = "review_comment_bar"></div>
 	                     <div class = "review_comment_date">${dateOnly}</div>  
 	                 </div>
-	                <div class="deleteComment" data-comment-id="${comment.id}" style="cursor: pointer">&times</div>
+	                <div class="deleteComment" data-member-id="${comment.memberId}" data-comment-id="${comment.id}" style="cursor: pointer">&times</div>
 	             </div>
 	             <div class = "comment_container_content">${comment.content}</div>
 	         </div>
 	         `;
+			 else
+			 commentElement.innerHTML = `       
+	          <div class = "review_component">
+	              <div class = "review_comment_container">
+	                  <div class = "comment_container_detail">
+	                      <div class = "review_comment_id">${comment.name}</div>
+	                      <div class = "review_comment_bar"></div>
+	                      <div class = "review_comment_date">${dateOnly}</div>  
+	                  </div>
+	              </div>
+	              <div class = "comment_container_content">${comment.content}</div>
+	          </div>
+	          `;
 			commentsContainer.appendChild(commentElement);
 		});
 	}
@@ -127,22 +140,20 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('reviews').addEventListener('click', function(event) {
 		if (event.target.classList.contains('deleteComment')) {
 			const commentId = event.target.getAttribute('data-comment-id');
-			const userPassword = prompt('비밀번호를 입력해주세요:');
-			if (userPassword !== null && userPassword !== '') {
-				deleteComment(commentId, userPassword);
-			}
+			const memberId = event.target.getAttribute('data-member-id');
+			deleteComment(commentId, memberId);
 		}
 	});
 
 	// Function to handle comment deletion
-	function deleteComment(commentId, password) {
+	function deleteComment(commentId, memberId) {
 	    // Ensure placeId is passed correctly
 	    if (!placeId) {
 	        alert('장소 ID가 필요합니다.');
 	        return;
 	    }
 
-	    fetch(`/api/places/${placeId}/comments/${commentId}?password=${password}`, {
+	    fetch(`/api/places/${placeId}/comments/${commentId}?memberId=${memberId}`, {
 	        method: 'DELETE',
 	    })
 	    .then(response => {
@@ -162,31 +173,25 @@ document.addEventListener('DOMContentLoaded', function() {
 	    })
 	    .catch(error => {
 	        // 오류 발생 시 에러 메시지 출력
-	        alert('비밀번호가 틀렸습니다.');
+	        alert('댓글 삭제 실패');
 	    });
 	}
 
 
 	// 제출 버튼 클릭
 	document.getElementById('submitReview').addEventListener('click', function() {
-		const username = document.getElementById('username').value;
-		const password = document.getElementById('password').value;
+		//const username = document.getElementById('username').value;
+		//const password = document.getElementById('password').value;
 		const reviewText = document.getElementById('reviewText').value;
-		if (!username || !password || !reviewText) {
+		if (!reviewText) {
 		    alert('입력하지 않은 칸이 존재합니다.');
 		    return; // 빈칸이 있을 경우 폼 제출을 막음
 		}
 		
 		const commentData = {
-			name: username,
-			password: password,
 			placeId: placeId,
 			content: reviewText
 		};
-
-		console.log('Username:', username);
-		console.log('Password:', password);
-		console.log('Review:', reviewText);
 
 		// 입력한 리뷰 보내기
 		fetch(`/api/places/${placeId}/comments`, {
@@ -202,12 +207,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			.then(body => {
 				if (body.status == 200){
 					// Handle successful submission	 
-					document.getElementById('username').value = '';
-					document.getElementById('password').value = '';
 					document.getElementById('reviewText').value = '';
 					// Uncomment the following lines if you want to display an alert and reload the page
 					alert('댓글이 등록되었습니다.');
 					location.reload();
+				}else if (body.status == 409){
+					alert('이미 댓글을 등록했습니다.');
 				}
 			});
 	});
@@ -237,10 +242,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				if(response.status == 200){
 					alert(`제출된 별점은 ${selectedRating}점 입니다.`);
 					location.reload();
-				}else{
-					alert('문제가 발생했습니다.');
-				}
-		}).catch((e) => console.log(e));
+				}else if (response.status === 409) {
+		           alert('이미 별점을 등록했습니다.'); // 409 상태일 때 예외 던지기
+		       } else {
+		          alert('문제가 발생했습니다.'); // 기타 오류 처리
+		       }
+		}).catch((e) => alert('문제가 발생했습니다.'));
 
 	});
 });
