@@ -120,6 +120,10 @@
         width: 5.5vw;
         cursor: pointer;
     }
+     #show-all-button {
+        width: 5.5vw;
+        cursor: pointer;
+    }
 
     #recenter-map {
         position: relative;
@@ -252,6 +256,10 @@
     }
 
     #close-button {
+        height: 25px;
+        cursor: pointer;
+    }
+    #show-all-button {
         height: 25px;
         cursor: pointer;
     }
@@ -410,7 +418,21 @@
         height: 25px;
         cursor: pointer;
     }
-
+    #show-all-button {
+     	cursor: pointer;      
+	    text-align: center;
+	    padding: 7px;
+	    background-color: #9999FF;
+	    color: white;
+	    border: none;
+	    border-radius: 10px;
+	    font-weight: bold;
+	    transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+	#show-all-button:hover{
+   		 background-color: #4444FF;
+	}
     #recenter-map {
         position: relative;
         height: 80px;

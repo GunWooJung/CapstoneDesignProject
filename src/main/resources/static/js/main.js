@@ -166,8 +166,6 @@ function markPlaces(places) {
     });
 }
 
-var initialSearchDone = false;
-
 function searchNearby(keyword, location) {
     fetch(`/api/places/search?keyword=${keyword}&lat=${location.getLat()}&lng=${location.getLng()}`)
         .then(response => response.json())
@@ -179,26 +177,16 @@ function searchNearby(keyword, location) {
 			
 			//11.28 추가
             markPlaces(convertedData);
-            if (!initialSearchDone && convertedData.length > 0) {
+            if (convertedData.length > 0) {
                 map.panTo(new kakao.maps.LatLng(convertedData[0].lat, convertedData[0].lng));
             saveCurrentMapCenter();
-                initialSearchDone = true; // Set the flag so the map doesn't re-center on subsequent data fetches
-            }
+          }
         })
         .catch(error => {
 			alert("검색 결과가 존재하지 않습니다.");
             console.error("Error fetching places:", error);
         });
 }
-
-// Call this function when you want to perform a new search and reset the initial search flag
-function performNewSearch(keyword) {
-    var center = map.getCenter();
-    clearMarkers();
-    initialSearchDone = false; // Reset the flag so the map will center on new searches
-    searchNearby(keyword, center);
-}
-
 
 //백엔드에서 정보 가져오기
 function fetchPlacesFromBackend(lat, lng) {
@@ -237,15 +225,14 @@ function fetchPlacesFromBackend(lat, lng) {
 }
 
 function updateCenterAndSearch() {
+	let keyword = document.getElementById('keyword').value;
+	if (keyword.trim() !== '') {
+	    return;
+	} 
     var center = map.getCenter();
     clearMarkers();
     fetchPlacesFromBackend(center.getLat(), center.getLng());
 }
-
-function fetchAndUpdatePlaces() {
-    clearMarkers();
-}
-
 
 function saveCurrentMapCenter() {
     var center = map.getCenter();

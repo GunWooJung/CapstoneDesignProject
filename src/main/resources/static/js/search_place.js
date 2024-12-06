@@ -39,3 +39,9 @@ function saveCurrentMapCenter() {
 document.getElementById('close-button').addEventListener('click', function () {
     document.getElementById('keyword').value = '';
 });
+
+document.getElementById('show-all-button').addEventListener('click', function () {
+    document.getElementById('keyword').value = '';
+	updateCenterAndSearch();
+});
+
