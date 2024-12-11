@@ -23,7 +23,7 @@ public class LoggingAspect {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
-	// 시큐리티 로그인 메서드 실행 전후에 적용
+	// 시큐리티 로그인 메서드 실행 전후에 적용s
 	@Around("execution(* com.cos.blog.api.PlaceApiController.getPlaces(..))")
 	public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
 		long start = System.currentTimeMillis();
