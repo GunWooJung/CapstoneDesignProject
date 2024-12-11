@@ -2,7 +2,6 @@ package com.cos.blog.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +10,6 @@ import com.cos.blog.entity.Place;
 import com.cos.blog.entity.StarRating;
 import com.cos.blog.handler.DuplicatedEnrollException;
 import com.cos.blog.handler.UnauthorizedAccessException;
-import com.cos.blog.repository.MemberRepository;
 import com.cos.blog.repository.PlaceRepository;
 import com.cos.blog.repository.StarRatingRepository;
 
@@ -21,17 +19,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StarRatingService {
 	
-	@Autowired
-	private final MemberRepository memberRepository;
-	
-	@Autowired
 	private final PlaceRepository placeRepository;
 
-	@Autowired
 	private final StarRatingRepository starRatingRepository;
 	
 	@Transactional
-	public void enroll(Member member, Long placeId, double score) {
+	public void enroll(Member member, long placeId, double score) {
 		
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow( () -> new IllegalArgumentException("id를 찾을 수 없습니다.") );

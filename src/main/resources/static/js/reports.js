@@ -53,9 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Submitting form data:', Object.fromEntries(formData.entries()));
                 fetch(`/api/places/${placeId}/reports`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+					headers: {
+							Authorization: 'Bearer '+localStorage.getItem('jwtToken'), // JWT를 Authorization 헤더에 추가
+							'Content-Type': 'application/json'
+					},
                     body: JSON.stringify(formData)
                 })
                .then(response => {

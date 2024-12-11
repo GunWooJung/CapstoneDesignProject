@@ -9,11 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.cos.blog.config.auth.PrincipalDetailService;
-
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-
+/*
 //1. 어노테이션 제거
 @Configuration
 @EnableWebSecurity // 필터 체인 관리 시작 어노테이션
@@ -21,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig{ // 2. extends 제거
 
 	// 3. principalDetailService 제거
-	private final PrincipalDetailService principalDetailService;
+	//private final PrincipalDetailService principalDetailService;
 	
 	// 4. AuthenticationManager 메서드 생성
 	@Bean
@@ -85,3 +83,4 @@ public class SecurityConfig{ // 2. extends 제거
         return http.build(); // `SecurityFilterChain` 반환
     }
 }
+*/

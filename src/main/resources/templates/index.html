@@ -17,6 +17,7 @@
         src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=18df5f7360b940777477a594ac97dc4f&libraries=services">
         </script>
     <script src="/static/js/filter_modal.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -37,8 +38,10 @@
                 </div>
               </div>
             <img src="/static/public/gps.svg" id="recenter-map">
-            <button type="button" onclick="window.location.href='/logout';" class="logout-button">로그아웃</button>
-        </div>
+			    <!-- 로그인 / 로그아웃 버튼을 표시할 영역 -->
+			<button type="button" id="login" class="logout-button">로그인</button>
+			<button type="button" id="logout" class="logout-button" style="display: none;">로그아웃</button>
+		</div>
     </div>
 
     <div id="myModal" class="modal">
@@ -112,8 +115,51 @@
     <script src="/static/js/my_location.js"></script>
     <script src="/static/js/filter_modal.js"></script>
     <script src="/static/js/slide_bar.js"></script>
+<script type="text/javascript">
+fetch('/api/auth-check', {
+	headers: {
+		Authorization: 'Bearer '+localStorage.getItem('jwtToken'), // JWT를 Authorization 헤더에 추가
+		'Content-Type': 'application/json'
+	},
+	})
+	.then(response => {
+	  if (response.status === 200) {
+		   $('#login').hide();
+	       $('#logout').show();
+	  }else{
+		   $('#login').show();
+	       $('#logout').hide();
+	  }
+	  return response;
+	})
+	.catch(error => {
+	  console.error('API 호출 오류:', error);
+	});
 
+$(document).ready(function() {
+    // 로컬스토리지에서 JWT 토큰을 가져옵니다.
+    var token = localStorage.getItem('jwtToken');
+    // 로그아웃 버튼 클릭 시
+    $('#logout').click(function() {
+        // 로컬스토리지에서 JWT 토큰 삭제
+        localStorage.removeItem('jwtToken');
+        
+        // UI 갱신: 로그아웃 후 로그인 버튼만 보이도록 설정
+        $('#login').show();
+        $('#logout').hide();
+        
+        // 로그아웃 후 페이지 리다이렉트 또는 알림 처리
+        alert('로그아웃 되었습니다!');
+        window.location.href = '/';  // 예: 로그인 페이지로 이동
+    });
 
+    // 로그인 버튼 클릭 시 (예시로 로그인 페이지로 리다이렉트)
+    $('#login').click(function() {
+        window.location.href = '/login';  // 로그인 페이지로 이동
+    });
+});
+
+</script>
 </body>
 
 </html>

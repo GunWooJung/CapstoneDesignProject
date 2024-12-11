@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+<style>
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and background styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container styling */
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Styling for the error code */
+.error-code {
+    font-size: 80px;
+    color: #ff5f5f;
+    font-weight: bold;
+}
+
+/* Message styling */
+.message {
+    font-size: 20px;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Back to homepage link styling */
+.back-home {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect on the button */
+.back-home:hover {
+    background-color: #0056b3;
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="error-code">404</h1>
+        <p class="message">존재하지 않는 페이지 입니다.</p>
+        <a href="/" class="back-home">홈으로</a>
+    </div>
+</body>
+</html>

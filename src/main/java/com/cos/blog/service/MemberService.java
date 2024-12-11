@@ -1,12 +1,17 @@
 package com.cos.blog.service;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.request.RequestMemberJoinDTO;
 import com.cos.blog.entity.Member;
+import com.cos.blog.handler.DuplicatedIdException;
+import com.cos.blog.handler.DuplicatedNameException;
 import com.cos.blog.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -35,22 +40,19 @@ public class MemberService {
 	}
 
 	//사용중이면 true, 사용중이지 않으면 false
-	public boolean memberIdCheck(String loginId) {
+	public void memberIdCheck(String loginId) {
 		
 		Member member = memberRepository.findByLoginId(loginId);
-		if(member == null)
-			return false; // 사용 가능
-		else
-			return true;  //사용 불가
+		if(member != null)
+			throw new DuplicatedIdException("사용 중인 아이디입니다.");
+		
 	}
 
-	public boolean memberNameCheck(String name) {
-		
+	public void memberNameCheck(String name) {
+
 		Member member = memberRepository.findByName(name);
-		if(member == null)
-			return false; // 사용 가능
-		else
-			return true;  //사용 불가
+		if(member != null)
+			throw new DuplicatedNameException("사용 중인 이름입니다.");
 	}
 
 	/*
@@ -75,6 +77,17 @@ public class MemberService {
 		return member;
 	}
 	
-	
+	   // 현재 로그인한 사용자 정보 가져오기
+    public PrincipalDetail getLoggedInUserDetails() {
+        // SecurityContext에서 인증 정보를 가져옴
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // 인증된 사용자 정보(Principal)가 존재하면 PrincipalDetail 반환
+        if (authentication != null) {
+            return (PrincipalDetail) authentication.getPrincipal();  // PrincipalDetail로 반환
+        }
+
+        return null;  // 인증되지 않은 경우
+    }
 
 }

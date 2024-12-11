@@ -38,6 +38,7 @@ $(function () {
 						 if(jqXHR.status === 200){ // 200 OK
 							alert('로그인에 성공하였습니다!');
 							// 로그인 후 리디렉션 또는 페이지 갱신 등 추가 작업
+							localStorage.setItem("jwtToken", data.data.token); // 로컬 스토리지에 저장
 							window.location.href = "/";  // 예: 홈 페이지로 리디렉션
 						} 
 					},

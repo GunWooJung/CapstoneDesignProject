@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- AOP 로그를 기록할 파일 설정 -->
+    <appender name="AOP_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/aop-logs.log</file> <!-- AOP 로그를 기록할 파일 경로 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- AOP 패키지에 대해서만 AOP_FILE appender를 사용 -->
+    <logger name="com.cos.blog.aop" level="INFO">
+        <appender-ref ref="AOP_FILE" />
+    </logger>
+    
+     <!-- 콘솔로 기본 로그 출력 설정 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 기본 로그 출력 설정 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

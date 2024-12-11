@@ -29,7 +29,7 @@ public class CommentService {
 	
 	private final PlaceRepository placeRepository;
 	
-	public List<ResponseCommentDTO> getComments(Long placeId, Member member) {
+	public List<ResponseCommentDTO> getComments(long placeId, Member member) {
 		
 		Place place = placeRepository.findById(placeId).orElseThrow(
 				() -> new NoSuchElementException(placeId+"번 화장실을 찾을 수 없습니다.") );
@@ -44,7 +44,7 @@ public class CommentService {
 	}
 
 	@Transactional
-	public void enrollComment(Member member, Long placeId, RequestCommentDTO requestCommentDTO) {
+	public void enrollComment(Member member, long placeId, RequestCommentDTO requestCommentDTO) {
 		
 		if(member == null)
 			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
@@ -73,7 +73,7 @@ public class CommentService {
 	}
 
 	@Transactional
-	public void deleteComment(Long placeId, Long commentId
+	public void deleteComment(long placeId, long commentId
 			, Member member, long memberId) {
 		
 		if(member == null)

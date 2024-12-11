@@ -18,38 +18,38 @@
             <div class="body_content"> 
                 <div class="body_content_title">해당 장소에 대한 정보를 제안해주세요!</div>
                 <div class="body_content_submit" data-target="/static/amend_info_modal/report_location.html">
-                    <img src="/public/location.svg" class="submit_icon" alt="@">
+                    <img src="/static/public/location.svg" class="submit_icon" alt="@">
                     <div class="submit_text">장소명 및 위치</div>
-                    <img src="/public/arrow1.svg" class="submit_arrow" alt=">">
+                    <img src="/static/public/arrow1.svg" class="submit_arrow" alt=">">
                 </div>
                 <div class="body_content_submit" data-target="/static/amend_info_modal/report_disabled.html">
-                    <img src="/public/disabled1.svg" class="submit_icon" alt="@">
+                    <img src="/static/public/disabled1.svg" class="submit_icon" alt="@">
                     <div class="submit_text">장애인 화장실 정보 수정</div>
-                    <img src="/public/arrow1.svg" class="submit_arrow" alt=">">
+                    <img src="/static/public/arrow1.svg" class="submit_arrow" alt=">">
                 </div>
                 <div class="body_content_submit" data-target="/static/amend_info_modal/report_diaper.html">
-                    <img src="/public/diaper4.svg" class="submit_icon" alt="@">
+                    <img src="/static/public/diaper4.svg" class="submit_icon" alt="@">
                     <div class="submit_text">기저귀 교환대 정보 수정</div>
-                    <img src="/public/arrow1.svg" class="submit_arrow" alt=">">
+                    <img src="/static/public/arrow1.svg" class="submit_arrow" alt=">">
                 </div>
                 <div class="body_content_submit" data-target="/static/amend_info_modal/report_bell.html">
-                    <img src="/public/bell4.svg" class="submit_icon" alt="@">
+                    <img src="/static/public/bell4.svg" class="submit_icon" alt="@">
                     <div class="submit_text">비상벨 정보 수정</div>
-                    <img src="/public/arrow1.svg" class="submit_arrow" alt=">">
+                    <img src="/static/public/arrow1.svg" class="submit_arrow" alt=">">
                 </div>
                 <div class="body_content_submit" data-target="/static/amend_info_modal/report_delete.html">
-                    <img src="/public/trash.svg" class="submit_icon" alt="@">
+                    <img src="/static/public/trash.svg" class="submit_icon" alt="@">
                     <div class="submit_text">장소 삭제</div>
-                    <img src="/public/arrow1.svg" class="submit_arrow" alt=">">
+                    <img src="/static/public/arrow1.svg" class="submit_arrow" alt=">">
                 </div>
             </div>
 
             <div class="body_content">
                 <div class="body_content_title">기타 정보를 공유해주세요!</div>
                 <div class="body_content_submit" data-target="/static/amend_info_modal/report_as_you_want.html">
-                    <img src="/public/write.svg" class="submit_icon" alt="@">
+                    <img src="/static/public/write.svg" class="submit_icon" alt="@">
                     <div class="submit_text">원하는대로 정보 작성</div>
-                    <img src="/public/arrow1.svg" class="submit_arrow" alt=">">
+                    <img src="/static/public/arrow1.svg" class="submit_arrow" alt=">">
                 </div>
             </div>
 
@@ -67,7 +67,23 @@
     <div id="reportModal" class="modal">
         <div id="reportModalContent" class="modal_content"></div>
     </div>
-
+<script type="text/javascript">
+fetch('/api/auth-check', {
+	headers: {
+		Authorization: 'Bearer '+localStorage.getItem('jwtToken'), // JWT를 Authorization 헤더에 추가
+		'Content-Type': 'application/json'
+	},
+	})
+	.then(response => {
+	  if (response.status === 401) {
+	    window.location.href = '/login'; // 리다이렉트 처리
+	  }
+	  return response;
+	})
+	.catch(error => {
+	  console.error('API 호출 오류:', error);
+	});
+</script>
     <script src="/static/js/reports.js"></script>
     <script src="/static/js/recent_report.js"></script>
 </body>

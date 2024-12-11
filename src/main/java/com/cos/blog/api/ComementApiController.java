@@ -20,6 +20,7 @@ import com.cos.blog.dto.response.ResponseCommentDTO;
 import com.cos.blog.entity.Member;
 import com.cos.blog.handler.UnauthorizedAccessException;
 import com.cos.blog.service.CommentService;
+import com.cos.blog.service.MemberService;
 import com.cos.blog.util.ApiResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -29,27 +30,28 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 public class ComementApiController {
 
+	private final MemberService memberService;
+	
 	private final CommentService commentService;
 
 	// id에 맞는 모든 댓글 목록 가져오기
-	@GetMapping("places/{placeId}/comments")
+	@GetMapping("places/{id}/comments")
 	public ResponseEntity<ApiResponse<List<ResponseCommentDTO>>> 
-			getComments(@PathVariable(required = true) long placeId,
-					@AuthenticationPrincipal PrincipalDetail principalDetail) {
-	
+			getComments(@PathVariable(required = true) long id) {
+		PrincipalDetail principalDetail = memberService.getLoggedInUserDetails();
 		Member member = null;
 		if(principalDetail != null) {
 			member = principalDetail.getMember();
 		}
-		List<ResponseCommentDTO> comments = commentService.getComments(placeId, member);
+		List<ResponseCommentDTO> comments = commentService.getComments(id, member);
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "댓글 목록 조회 성공했습니다.", comments));
 	}
 
 	// id에 맞는 모든 댓글 등록하기
-	@PostMapping("places/{placeId}/comments")
+	@PostMapping("places/{id}/comments")
 	public ResponseEntity<ApiResponse<Void>> 
-				enrollComment(@PathVariable(required = true) long placeId,
+				enrollComment(@PathVariable(required = true) long id,
 						@RequestBody RequestCommentDTO requestCommentDTO,
 						@AuthenticationPrincipal PrincipalDetail principalDetail) {
 		// 별점 등록
@@ -57,12 +59,12 @@ public class ComementApiController {
 		
 		Member member = principalDetail.getMember();
 
-		commentService.enrollComment(member, placeId, requestCommentDTO);
+		commentService.enrollComment(member, id, requestCommentDTO);
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "댓글 작성이 성공했습니다.", null));
 	}
 
-	// Delete 요청인데 쿼리스트링에 비밀번호를 담음
+	// Delete 요청
 	@DeleteMapping("places/{placeId}/comments/{commentId}")
 	public ResponseEntity<ApiResponse<Void>> 
 				deleteComment(@PathVariable(required = true) long placeId,

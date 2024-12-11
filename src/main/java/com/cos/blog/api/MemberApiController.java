@@ -2,6 +2,9 @@ package com.cos.blog.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cos.blog.config.JwtTokenProvider;
 import com.cos.blog.dto.request.RequestMemberJoinDTO;
-import com.cos.blog.handler.DuplicatedIdException;
-import com.cos.blog.handler.DuplicatedNameException;
+import com.cos.blog.dto.request.ResponseLogin;
 import com.cos.blog.service.MemberService;
 import com.cos.blog.util.ApiResponse;
 
@@ -22,6 +25,10 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 public class MemberApiController {
 
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtTokenProvider jwtTokenProvider;
+    
 	private final MemberService memberService;
 	
     // 회원 가입 시 아이디 중복 체크
@@ -29,11 +36,8 @@ public class MemberApiController {
 	public ResponseEntity<ApiResponse<Void>> memberIdCheck
 				(@RequestParam(required = true) String loginId) {
 		
-		boolean inUsed = memberService.memberIdCheck(loginId);
-		
-		if(inUsed == true) // 사용 불가능
-			throw new DuplicatedIdException("사용 중인 아이디입니다.");
-		
+		memberService.memberIdCheck(loginId);
+		// 서비스 계층에서 중복 검사
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "사용 가능한 아이디 입니다.", null));
 	}
 	
@@ -42,11 +46,8 @@ public class MemberApiController {
 	public ResponseEntity<ApiResponse<Void>> memberNameCheck
 				(@RequestParam(required = true) String name) {
 		
-		boolean inUsed = memberService.memberNameCheck(name);
-		
-		if(inUsed == true) // 사용 불가능
-			throw new DuplicatedNameException("사용 중인 이름입니다.");
-		
+		memberService.memberNameCheck(name);
+		// 서비스 계층에서 중복 검사
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "사용 가능한 아이디 입니다.", null));
 	}
 		
@@ -55,22 +56,30 @@ public class MemberApiController {
 	public ResponseEntity<ApiResponse<Void>> memberJoin
 				(@RequestBody RequestMemberJoinDTO requestMemberJoinDTO) {
 		
-		boolean inNameUsed = memberService.memberNameCheck(requestMemberJoinDTO.getName());
-		
-		if(inNameUsed == true) // 사용 불가능
-			throw new DuplicatedNameException("사용 중인 이름입니다.");
-		
-		boolean inIdUsed = memberService.memberIdCheck(requestMemberJoinDTO.getLoginId());
-		
-		if(inIdUsed == true) // 사용 불가능
-			throw new DuplicatedIdException("사용 중인 아이디입니다.");
-				
+		memberService.memberNameCheck(requestMemberJoinDTO.getName());
+		// 서비스 계층에서 이름 중복 시 예외 발생
+		memberService.memberIdCheck(requestMemberJoinDTO.getLoginId());
+		// 서비스 계층에서 아이디 중복 시 예외 발생	
 		memberService.memberJoin(requestMemberJoinDTO);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "회원가입에 성공했습니다.", null));
 	}
 	
+	//jwt 버전
+    @PostMapping("/public/members/login")
+    public ResponseEntity<ApiResponse<ResponseLogin>> login(@RequestParam String username,
+    								@RequestParam String password) {
 
+    	Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password));
+        
+    	String token = jwtTokenProvider.generateToken(authentication.getName());
+        
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "로그인에 성공했습니다.", new ResponseLogin(token,"로그인")));
+    
+    }
+	
+	
 	// 로그인
 	/*
 	@PostMapping("/members/login")

@@ -12,6 +12,7 @@ import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.entity.Member;
 import com.cos.blog.handler.UnauthorizedAccessException;
 import com.cos.blog.service.HeartService;
+import com.cos.blog.service.MemberService;
 import com.cos.blog.util.ApiResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 public class HeartApiController {
 
+	private final MemberService memberService;
 	//생성자 주입
 	private final HeartService heartService;
 
@@ -28,8 +30,9 @@ public class HeartApiController {
 	@PutMapping("/places/{placeId}/reports/{reportId}/heart")
 	public ResponseEntity<ApiResponse<Void>>  reportHeartClick(
 			@PathVariable(required = true) long placeId,
-			@PathVariable(required = true) long reportId,
-			@AuthenticationPrincipal PrincipalDetail principalDetail) {
+			@PathVariable(required = true) long reportId) {
+		
+		PrincipalDetail principalDetail = memberService.getLoggedInUserDetails();
 		
 		if(principalDetail == null) throw new UnauthorizedAccessException("비로그인 입니다.");
 		

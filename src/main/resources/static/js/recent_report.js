@@ -14,7 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const reportsContainer = document.getElementById('previous_reports_container');
 
     function fetchLatestReports() {
-        fetch(`/api/places/${placeId}/reports`) // Adjust this URL to match your backend endpoint
+        fetch(`/api/places/${placeId}/reports`,{	
+			headers : {
+							Authorization: 'Bearer '+localStorage.getItem('jwtToken'), // JWT를 Authorization 헤더에 추가
+							'Content-Type': 'application/json'
+					}
+				}) // Adjust this URL to match your backend endpoint
             .then(response => response.json())
             .then(reports => {
                 // Clear existing content
@@ -136,7 +141,11 @@ document.addEventListener('DOMContentLoaded', function () {
         heartIcon.addEventListener('click', function () {
             const reportId = heartIcon.parentElement.getAttribute('data-report-id');
             fetch(`/api/places/${placeId}/reports/${reportId}/heart`,{
-				method: 'PUT'
+				method: 'PUT',
+				headers: {
+						Authorization: 'Bearer '+localStorage.getItem('jwtToken'), // JWT를 Authorization 헤더에 추가
+						'Content-Type': 'application/json'
+				},
 			})
                 .then(response => response.json())
                 .then(body => {

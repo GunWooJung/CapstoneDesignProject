@@ -17,7 +17,7 @@
     
     <div class="view_details_container">
         <div id="map" class="map_container" style="height:150px;">
-            <img src="/public/close.svg" id="backButton" alt="뒤로가기">
+            <img src="/static/public/close.svg" id="backButton" alt="뒤로가기">
             <!-- <button id="backButton">뒤로가기</button> -->
         </div>
         <div class="view_details_content">
@@ -48,22 +48,22 @@
                 <div class="toilet_info_container_design">
                     <div class="toilet_info_container">
                     <div class="toilet_info">
-                        <div id="disabled_person"><img src="/public/disabled_man_gray.png" alt="@" class="info_icon"></div>
+                        <div id="disabled_person"><img src="/static/public/disabled_man_gray.png" alt="@" class="info_icon"></div>
                     </div>
                     <div class="toilet_info">
-                        <div id="diaper_man"><img src="/public/diaper_man_gray.png" alt="@" class="info_icon"></div>
+                        <div id="diaper_man"><img src="/static/public/diaper_man_gray.png" alt="@" class="info_icon"></div>
                     </div>
                     <div class="toilet_info">
-                        <div id="diaper_woman"><img src="/public/diaper_woman_gray.png" alt="@" class="info_icon"></div>
+                        <div id="diaper_woman"><img src="/static/public/diaper_woman_gray.png" alt="@" class="info_icon"></div>
                     </div>
                     <div class="toilet_info">
-                        <div id="bell_man"><img src="/public/bell_man_gray.png" alt="@" class="info_icon"></div>
+                        <div id="bell_man"><img src="/static/public/bell_man_gray.png" alt="@" class="info_icon"></div>
                     </div>
                     <div class="toilet_info">
-                        <div id="bell_woman"><img src="/public/bell_woman_gray.png" alt="@" class="info_icon"></div>
+                        <div id="bell_woman"><img src="/static/public/bell_woman_gray.png" alt="@" class="info_icon"></div>
                     </div>
                     <div class="toilet_info">
-                        <div id="bell_disabled"><img src="/public/bell_disabled_gray.png" alt="@" class="info_icon"></div>
+                        <div id="bell_disabled"><img src="/static/public/bell_disabled_gray.png" alt="@" class="info_icon"></div>
                     </div>
                 </div>
                 </div>
@@ -73,7 +73,7 @@
             <div class="details_content_amend" id="amendLink">
                 <div class="amend_information" >
                     <div class="amendLink_text">정보 수정 제안</div>
-                    <img src="/public/arrow1.svg" id="amend_arrow" alt=">">
+                    <img src="/static/public/arrow1.svg" id="amend_arrow" alt=">">
                 </div>
             </div>
             <div class="for_making_colored_gap"></div>
@@ -114,7 +114,7 @@
                 <div class="review-prompt">
                     <div class="prompt_write_submit">
                         <textarea type="text" id="reviewText" placeholder="리뷰를 남겨주세요!"></textarea>
-                        <img src="/public/send.svg" id="submitReview" alt="리뷰 제출">
+                        <img src="/static/public/send.svg" id="submitReview" alt="리뷰 제출">
                         <!-- <div id="submitReview">리뷰 제출</div> -->
                     </div>
                     
@@ -124,9 +124,24 @@
        
     </div>
 
-
+<script type="text/javascript">
+fetch('/api/auth-check', {
+	headers: {
+		Authorization: 'Bearer '+localStorage.getItem('jwtToken'), // JWT를 Authorization 헤더에 추가
+		'Content-Type': 'application/json'
+	},
+	})
+	.then(response => {
+	  if (response.status === 401) {
+	    window.location.href = '/login'; // 리다이렉트 처리
+	  }
+	  return response;
+	})
+	.catch(error => {
+	  console.error('API 호출 오류:', error);
+	});
+</script>
     <script src="/static/js/view_details.js"></script>
-
 </body>
 
 </html>

@@ -47,7 +47,7 @@ window.closeCurrentOverlay = closeCurrentOverlay;
 
 
 function saveLastViewedPlace(lat, lng) {
-    sessionStorage.setItem('lastViewedPlace', JSON.stringify({lat: lat, lng: lng}));
+	sessionStorage.setItem('lastViewedPlace', JSON.stringify({lat: lat, lng: lng}));
 }
 
 // Expose the function to the global scope

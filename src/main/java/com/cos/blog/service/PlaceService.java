@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.cos.blog.dto.request.RequestPlaceDTO;
 import com.cos.blog.dto.response.ResponsePlaceDTO;
 import com.cos.blog.entity.Place;
+import com.cos.blog.handler.InvalidPageException;
 import com.cos.blog.handler.NoDataFoundException;
 import com.cos.blog.repository.PlaceRepository;
 import com.cos.blog.util.LatLngValue;
@@ -23,11 +24,18 @@ public class PlaceService {
 	private final PlaceRepository placeRepository;
 
 	// 특정 화장실을 id 로 조회
-	public ResponsePlaceDTO getOnePlace(Long placeId) {
+	public ResponsePlaceDTO getOnePlace(long placeId) {
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
 		// Global 예외로 처리
 		return ResponsePlaceDTO.toResponsePlaceDTO(place);
+	}
+	
+	// 특정 화장실을 id 로 조회
+	public void existOnePlace(long placeId) {
+		placeRepository.findById(placeId)
+				.orElseThrow(() -> new InvalidPageException(placeId + "번 화장실을 찾을 수 없습니다."));
+		// Global 예외로 처리
 	}
 
 	// 검색어 없이 주변 화장실 목록 조회
@@ -84,40 +92,33 @@ public class PlaceService {
 	// 화장실 데이터 DB에 등록
 	@Transactional
 	public void placeEnroll() throws IllegalStateException, FileNotFoundException {
-		String csvFile = "C:\\workspaceProject\\CapstoneDesignProject\\src\\main\\resources\\gonggong_seoul.csv";
+		String csvFile = "C:\\workspaceProject\\CapstoneDesignProject\\src\\main\\resources\\static\\CSVdata\\gonggong_seoul.csv";
 			List<Place> newPlaces = new CsvToBeanBuilder<Place>(new FileReader(csvFile)).withType(Place.class).build()
 				.parse();
-		placeRepository.saveAll(newPlaces); // DB의 장소
+			
+			Random random = new Random(); // Random 객체 생성
+
+		    for (Place place : newPlaces) {
+		        // 랜덤한 true/false 값 생성
+		        boolean randomBool = random.nextBoolean();
+		        place.setDisabledPerson(randomBool); 
+		        randomBool = random.nextBoolean();
+		        place.setChangingTableMan(randomBool); 
+		        randomBool = random.nextBoolean();
+		        place.setChangingTableWoman(randomBool); 
+		        randomBool = random.nextBoolean();
+		        place.setEmergencyBellDisabled(randomBool);
+		        randomBool = random.nextBoolean();
+		        place.setEmergencyBellMan(randomBool);
+		        randomBool = random.nextBoolean();
+		        place.setEmergencyBellWoman(randomBool);
+		        randomBool = random.nextBoolean();
+		        place.setEmergencyBellDisabled(randomBool);
+		        place.setOpenTime("항시 개방");
+		        
+		        placeRepository.save(place); // DB에 저장
+		    }	
 
 	} // 모든 place를 불러오기
-
-	// 임의로 랜덤 값 설정
-	@Transactional
-	public void setValue() {
-		
-		List<Place> places = placeRepository.findAll(); // DB에서 모든 Place 조회
-	    Random random = new Random(); // Random 객체 생성
-
-	    for (Place place : places) {
-	        // 랜덤한 true/false 값 생성
-	        boolean randomBool = random.nextBoolean();
-	        place.setDisabledPerson(randomBool); 
-	        randomBool = random.nextBoolean();
-	        place.setChangingTableMan(randomBool); 
-	        randomBool = random.nextBoolean();
-	        place.setChangingTableWoman(randomBool); 
-	        randomBool = random.nextBoolean();
-	        place.setEmergencyBellDisabled(randomBool);
-	        randomBool = random.nextBoolean();
-	        place.setEmergencyBellMan(randomBool);
-	        randomBool = random.nextBoolean();
-	        place.setEmergencyBellWoman(randomBool);
-	        randomBool = random.nextBoolean();
-	        place.setEmergencyBellDisabled(randomBool);
-	        place.setOpenTime("항시 개방");
-	        
-	        placeRepository.save(place); // DB에 저장
-	    }
-	}
 	*/
 }

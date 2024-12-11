@@ -12,6 +12,7 @@ import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.request.RequestStarRatingDTO;
 import com.cos.blog.entity.Member;
 import com.cos.blog.handler.UnauthorizedAccessException;
+import com.cos.blog.service.MemberService;
 import com.cos.blog.service.StarRatingService;
 import com.cos.blog.util.ApiResponse;
 
@@ -23,14 +24,17 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 public class StarRatingApiController {
 
+	private final MemberService memberService;
 	//생성자 주입
 	private final StarRatingService starRatingtService;
 
 	// 별점 등록하기
 	@PostMapping("/star-rating")
 	public ResponseEntity<ApiResponse<Void>> enroll(
-			@Valid	@RequestBody RequestStarRatingDTO requestStarRatingDTO
-			, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+			@Valid	@RequestBody RequestStarRatingDTO requestStarRatingDTO) {
+		
+		PrincipalDetail principalDetail = memberService.getLoggedInUserDetails();
+		
 		// 별점 등록
 		if(principalDetail == null) throw new UnauthorizedAccessException("비로그인 입니다.");
 		

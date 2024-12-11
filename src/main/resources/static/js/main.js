@@ -75,7 +75,9 @@ function handleMarkerClick(marker) {
 	var place = marker.data;
 	//console.log('Clicked Marker ID:', place.id);
     if (useBackend) {
-        fetch(`/api/places/${place.id}`)
+		const token = localStorage.getItem('jwtToken');
+		
+        fetch(`/api/public/places/${place.id}`)
             .then(response => response.json())
             .then(place => {
 			const convertedData = {
@@ -167,7 +169,7 @@ function markPlaces(places) {
 }
 
 function searchNearby(keyword, location) {
-    fetch(`/api/places/search?keyword=${keyword}&lat=${location.getLat()}&lng=${location.getLng()}`)
+    fetch(`/api/public/places/search?keyword=${keyword}&lat=${location.getLat()}&lng=${location.getLng()}`)
         .then(response => response.json())
         .then(data => {
 
@@ -191,7 +193,7 @@ function searchNearby(keyword, location) {
 //백엔드에서 정보 가져오기
 function fetchPlacesFromBackend(lat, lng) {
 
-    fetch(`/api/places`, {
+    fetch(`/api/public/places`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

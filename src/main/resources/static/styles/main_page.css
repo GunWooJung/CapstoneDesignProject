@@ -1,3 +1,17 @@
+/* 버튼을 링크처럼 보이게 하기 */
+.link-style {
+  text-decoration: none; /* 밑줄 제거 */
+  color: #007bff;        /* 링크 색상 */
+  font-weight: bold;     /* 글씨 두께 */
+  cursor: pointer;      /* 마우스 커서 변경 */
+}
+
+.link-style:hover {
+  color: #ff6347;        /* 마우스를 올렸을 때 색상 */
+  text-decoration: underline; /* 밑줄 추가 */
+}
+
+
 @media (max-width: 480px) {
     * {
         margin: 0;

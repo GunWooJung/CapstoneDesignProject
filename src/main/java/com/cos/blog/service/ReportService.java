@@ -33,7 +33,7 @@ public class ReportService {
 	
 	private final PlaceRepository placeRepository;
 	
-	public List<ResponseReportDTO> getReports(Long placeId) {
+	public List<ResponseReportDTO> getReports(long placeId) {
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
 		// Global 예외로 처리
@@ -50,7 +50,7 @@ public class ReportService {
 	}
 
 	@Transactional
-	public void reportEnroll(Member member, Long placeId, RequestReportDTO requestReportDTO) {
+	public void reportEnroll(Member member, long placeId, RequestReportDTO requestReportDTO) {
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
 		// Global 예외로 처리

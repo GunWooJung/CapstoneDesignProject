@@ -1,5 +1,6 @@
 package com.cos.blog.handler;
 
+import java.io.IOException;
 import java.util.NoSuchElementException;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,9 +14,19 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import com.cos.blog.util.ApiResponse;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @ControllerAdvice
 @RestController
 public class GlobalExceptionHandler {
+	
+	// 존재하지 않는 페이지 404
+	@ExceptionHandler(InvalidPageException.class)
+	public void InvalidPageException
+	(InvalidPageException e, HttpServletResponse response) throws IOException{
+		//e.printStackTrace();
+        response.sendRedirect("/404"); // 여기서 "/404"는 404 에러 페이지의 URL입니다.	}
+	}
 	
 	//principal이 null
    @ExceptionHandler(UnauthorizedAccessException.class)
@@ -24,7 +35,7 @@ public class GlobalExceptionHandler {
        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse<>(401, "권한이 없습니다.", null));	
    }
 	
-	// 내용이 없으면 예외처리
+	// 내용이 없으면 200 예외처리
 	@ExceptionHandler(NoDataFoundException.class)
 	public ResponseEntity<ApiResponse<Void>> handleNull(NoDataFoundException e) {
 		//e.printStackTrace();
@@ -49,10 +60,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({MethodArgumentTypeMismatchException.class, 
 		MissingServletRequestParameterException.class,
 		IllegalStateException.class,
-	    DataIntegrityViolationException.class})
+	    DataIntegrityViolationException.class,
+	    NullPointerException.class})
 	public ResponseEntity<ApiResponse<Void>> handleMethodArguementType
     (Exception e) {
-		//e.printStackTrace();
+		e.printStackTrace();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(400, "잘못된 요청입니다.", null));	
     }
 	
@@ -63,6 +75,8 @@ public class GlobalExceptionHandler {
 		//e.printStackTrace();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse<>(409, "중복된 아이디 입니다.", null));	
     }
+	
+	
 	
 	// 아이디가 없음
 	@ExceptionHandler(org.springframework.security.core.userdetails.UsernameNotFoundException.class)

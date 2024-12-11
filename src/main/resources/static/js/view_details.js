@@ -84,7 +84,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	//place details 준원
-	fetch(`/api/places/${placeId}`)
+	fetch(`/api/public/places/${placeId}`,{
+		method: 'GET',
+		 headers: {
+			'Content-Type': 'application/json'
+		 },
+	})
 		.then(response => response.json())
 		.then(place => {
 
@@ -98,22 +103,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 			const disabledManIcon = document.getElementById('disabled_person').querySelector('img');
-			disabledManIcon.src = place.data.disabledPerson === true ? '/public/disabled_man_colored.png' : '/public/disabled_man_gray.png';
+			disabledManIcon.src = place.data.disabledPerson === true ? '/static/public/disabled_man_colored.png' : '/static/public/disabled_man_gray.png';
 
 			const diaperManIcon = document.getElementById('diaper_man').querySelector('img');
-			diaperManIcon.src = place.data.changingTableMan == true ? '/public/diaper_man_colored.png' : '/public/diaper_man_gray.png';
+			diaperManIcon.src = place.data.changingTableMan == true ? '/static/public/diaper_man_colored.png' : '/static/public/diaper_man_gray.png';
 
 			const diaperWomanIcon = document.getElementById('diaper_woman').querySelector('img');
-			diaperWomanIcon.src = place.data.changingTableWoman == true ? '/public/diaper_woman_colored2.png' : '/public/diaper_woman_gray.png';
+			diaperWomanIcon.src = place.data.changingTableWoman == true ? '/static/public/diaper_woman_colored2.png' : '/static/public/diaper_woman_gray.png';
 
 			const bellManIcon = document.getElementById('bell_man').querySelector('img');
-			bellManIcon.src = place.data.emergencyBellMan === true ? '/public/bell_man_colored.png' : '/public/bell_man_gray.png';
+			bellManIcon.src = place.data.emergencyBellMan === true ? '/static/public/bell_man_colored.png' : '/static/public/bell_man_gray.png';
 
 			const bellWomanIcon = document.getElementById('bell_woman').querySelector('img');
-			bellWomanIcon.src = place.data.emergencyBellWoman === true ? '/public/bell_woman_colored2.png' : '/public/bell_woman_gray.png';
+			bellWomanIcon.src = place.data.emergencyBellWoman === true ? '/static/public/bell_woman_colored2.png' : '/static/public/bell_woman_gray.png';
 
 			const bellDisabledIcon = document.getElementById('bell_disabled').querySelector('img');
-			bellDisabledIcon.src = place.data.emergencyBellDisabled === true ? '/public/bell_disabled_colored3.png' : '/public/bell_disabled_gray.png';
+			bellDisabledIcon.src = place.data.emergencyBellDisabled === true ? '/static/public/bell_disabled_colored3.png' : '/static/public/bell_disabled_gray.png';
 
 			initMap(place.data);
 
@@ -125,7 +130,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-	fetch(`/api/places/${placeId}/comments`)
+	fetch(`/api/places/${placeId}/comments`,{
+			method: 'GET',
+			 headers: {
+				Authorization: 'Bearer '+localStorage.getItem('jwtToken'), // JWT를 Authorization 헤더에 추가
+		   	   'Content-Type': 'application/json'
+			 },
+		})
 		.then(response => response.json())
 		.then(comments => {
 			if(comments.status == 200){
@@ -155,6 +166,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	    fetch(`/api/places/${placeId}/comments/${commentId}?memberId=${memberId}`, {
 	        method: 'DELETE',
+			headers: {
+				Authorization: 'Bearer '+localStorage.getItem('jwtToken'), // JWT를 Authorization 헤더에 추가
+		   	   'Content-Type': 'application/json'
+			 },
 	    })
 	    .then(response => {
 	        if (!response.ok) { // 응답이 성공적이지 않으면 예외 처리
@@ -167,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	            // 댓글 삭제 성공 처리
 	            alert('댓글이 삭제되었습니다.');
 	            location.reload(); // 페이지 리로드
-	        } else {
+        	}else {
 	            throw new Error('댓글 삭제 실패: ' + response.message);
 	        }
 	    })
@@ -197,7 +212,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		fetch(`/api/places/${placeId}/comments`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				 Authorization: 'Bearer '+localStorage.getItem('jwtToken') // JWT를 Authorization 헤더에 추가
 			},
 			body: JSON.stringify(commentData)
 		})
@@ -231,6 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		fetch(`/api/star-rating`, {
 			method: 'POST',
 			headers: {
+				Authorization: 'Bearer '+localStorage.getItem('jwtToken'), // JWT를 Authorization 헤더에 추가
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(ratingData)
@@ -244,7 +261,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					location.reload();
 				}else if (response.status === 409) {
 		           alert('이미 별점을 등록했습니다.'); // 409 상태일 때 예외 던지기
-		       } else {
+		       } 
+			   else {
 		          alert('문제가 발생했습니다.'); // 기타 오류 처리
 		       }
 		}).catch((e) => alert('문제가 발생했습니다.'));
