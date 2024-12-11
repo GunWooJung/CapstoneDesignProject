@@ -1,7 +1,7 @@
 package com.cos.blog.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
@@ -17,9 +17,15 @@ import com.cos.blog.config.auth.PrincipalDetail;
 public class LoggingAspect {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+<<<<<<< HEAD
 
 	// 시큐리티 로그인 메서드 실행 전후에 적용s
 	@Around("execution(* com.cos.blog.api.PlaceApiController.getPlaces(..))")
+=======
+/*
+	// 시큐리티 로그인 메서드 실행 전후에 적용
+	@After("execution(* org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.*(..))")
+>>>>>>> parent of c08ac51 (테스트)
 	public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
 		long start = System.currentTimeMillis();
 
@@ -44,5 +50,5 @@ public class LoggingAspect {
 		}
 		return result;
 	}
-
+*/
 }

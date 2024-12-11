@@ -1,3 +1,1 @@
-2024-12-06 21:49:07 - 현재 로그인한 사용자: ss , 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 72ms
-2024-12-06 21:49:09 - 현재 로그인한 사용자: ss , 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 29ms
-2024-12-06 21:49:09 - 현재 로그인한 사용자: ss , 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 31ms
+2024-12-11 17:07:06 - 현재 로그인한 사용자: anonymousUser , 실행 api : com.cos.blog.api.MemberApiController.login, 실행 시간 : 170ms
