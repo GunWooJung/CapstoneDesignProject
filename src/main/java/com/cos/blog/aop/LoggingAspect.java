@@ -38,7 +38,8 @@ public class LoggingAspect {
 		}
 		return result;
 	}
-
+	
+	/*
 	@After("execution(* com.cos.blog.api.PlaceApiController.getPlaces(..))")
 	public void username() {
 		  // 현재 로그인한 사용자 정보를 가져오기
@@ -55,5 +56,5 @@ public class LoggingAspect {
             }
         }
 	}
-
+	*/
 }

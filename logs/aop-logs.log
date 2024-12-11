@@ -1,20 +1,17 @@
-2024-12-06 21:49:07 - 현재 로그인한 사용자: ss , 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 72ms
-2024-12-06 21:49:09 - 현재 로그인한 사용자: ss , 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 29ms
-2024-12-06 21:49:09 - 현재 로그인한 사용자: ss , 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 31ms
-2024-12-11 18:21:46 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 30ms
-2024-12-11 18:21:48 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 17ms
-2024-12-11 18:21:56 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 12ms
-2024-12-11 18:23:12 - 로그인된 사용자 정보가 없습니다.
-2024-12-11 18:23:12 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 50ms
-2024-12-11 18:23:13 - 로그인된 사용자 정보가 없습니다.
-2024-12-11 18:23:13 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 18ms
-2024-12-11 18:23:19 - 로그인된 사용자 정보가 없습니다.
-2024-12-11 18:23:19 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 14ms
-2024-12-11 18:23:28 - 로그인된 사용자 정보가 없습니다.
-2024-12-11 18:23:28 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 21ms
-2024-12-11 18:23:29 - 로그인된 사용자 정보가 없습니다.
-2024-12-11 18:23:29 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 10ms
-2024-12-11 18:23:31 - 로그인된 사용자 정보가 없습니다.
-2024-12-11 18:23:31 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 10ms
-2024-12-11 18:23:39 - 로그인된 사용자 정보가 없습니다.
-2024-12-11 18:23:39 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 11ms
+2024-12-11 18:30:56 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 22ms
+2024-12-11 18:30:57 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 12ms
+2024-12-11 18:31:05 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 11ms
+2024-12-11 18:31:06 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 12ms
+2024-12-11 18:31:07 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 9ms
+2024-12-11 18:32:07 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 7ms
+2024-12-11 18:32:08 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 7ms
+2024-12-11 18:32:09 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 11ms
+2024-12-11 18:32:13 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 19ms
+2024-12-11 18:32:16 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 11ms
+2024-12-11 18:32:16 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 12ms
+2024-12-11 18:32:17 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 10ms
+2024-12-11 18:32:18 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 10ms
+2024-12-11 18:32:19 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 10ms
+2024-12-11 18:32:19 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 15ms
+2024-12-11 18:32:20 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 13ms
+2024-12-11 18:32:22 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 12ms
