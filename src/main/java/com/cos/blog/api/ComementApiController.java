@@ -38,6 +38,7 @@ public class ComementApiController {
 	@GetMapping("places/{id}/comments")
 	public ResponseEntity<ApiResponse<List<ResponseCommentDTO>>> 
 			getComments(@PathVariable(required = true) long id) {
+		
 		PrincipalDetail principalDetail = memberService.getLoggedInUserDetails();
 		Member member = null;
 		if(principalDetail != null) {
@@ -47,7 +48,7 @@ public class ComementApiController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "댓글 목록 조회 성공했습니다.", comments));
 	}
-
+		
 	// id에 맞는 모든 댓글 등록하기
 	@PostMapping("places/{id}/comments")
 	public ResponseEntity<ApiResponse<Void>> 
@@ -82,4 +83,16 @@ public class ComementApiController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "댓글 삭제가 성공했습니다.", null));
 	}
+	
+	/* 쿼리 분석 테스트
+	// id에 맞는 모든 댓글 목록 가져오기
+	@GetMapping("places/{id}/comments/test")
+	public ResponseEntity<ApiResponse<List<ResponseCommentDTO>>> 
+			getCommentsTest(@PathVariable(required = true) long id) {
+
+		List<ResponseCommentDTO> comments = commentService.getCommentsTest(id);
+
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "댓글 목록 조회 성공했습니다.", comments));
+	}
+	*/
 }

@@ -58,6 +58,7 @@ public class JwtSecurityConfig {
                 		, "/places/*"
                 		, "/places/*/amend"
                 		, "/api/public/**"
+                		, "/api/places/*/comments/test"
                 		)
                 .permitAll().anyRequest().authenticated());
 

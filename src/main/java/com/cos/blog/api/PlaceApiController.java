@@ -66,26 +66,12 @@ public class PlaceApiController {
 	@PostMapping("/public/places")
 	public ResponseEntity<ApiResponse<List<ResponsePlaceDTO>>> getPlaces(
 			@Valid @RequestBody RequestPlaceDTO requestPlaceDTO) {
-		double minLatitude = 37.4;  // 최남단
-        double maxLatitude = 37.7;  // 최북단
-        double minLongitude = 126.7;  // 최서단
-        double maxLongitude = 127.2;  // 최동단
-
-        // 랜덤으로 위도와 경도 생성
-        Random random = new Random();
-        
-        // 서울의 위도 범위 내에서 랜덤 값 생성
-        double randomLatitude = minLatitude + (maxLatitude - minLatitude) * random.nextDouble();
-        
-        // 서울의 경도 범위 내에서 랜덤 값 생성
-        double randomLongitude = minLongitude + (maxLongitude - minLongitude) * random.nextDouble();
-        requestPlaceDTO.setLat(randomLatitude);
-        requestPlaceDTO.setLng(randomLongitude);
+		
 		List<ResponsePlaceDTO>	places = placeService.getPlaces(requestPlaceDTO);
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "화장실 조회에 성공했습니다.", places));
 	}
-
+	/*
 	// 마이바티스 버전 정규화 버전
 	@PostMapping("/public/version-mapper/places")
 	//@PostMapping("/public/places")
@@ -135,6 +121,7 @@ public class PlaceApiController {
 
 			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "화장실 조회에 성공했습니다.", places));
 		}
+		*/
 	/*
 	 * // csv파일을 DB에 등록하는 처리
 	 * 

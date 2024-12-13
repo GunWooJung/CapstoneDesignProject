@@ -12,7 +12,6 @@ import com.cos.blog.dto.response.PlaceMapperDTO;
 import com.cos.blog.dto.response.ResponsePlaceDTO;
 import com.cos.blog.entity.Place;
 import com.cos.blog.handler.InvalidPageException;
-import com.cos.blog.handler.NoDataFoundException;
 import com.cos.blog.repository.PlaceRepository;
 import com.cos.blog.util.LatLngValue;
 
