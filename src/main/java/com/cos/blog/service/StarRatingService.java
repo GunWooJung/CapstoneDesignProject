@@ -22,7 +22,7 @@ public class StarRatingService {
 	private final PlaceRepository placeRepository;
 
 	private final StarRatingRepository starRatingRepository;
-	
+
 	@Transactional
 	public void enroll(Member member, long placeId, double score) {
 		

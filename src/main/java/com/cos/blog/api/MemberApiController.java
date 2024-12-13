@@ -65,7 +65,7 @@ public class MemberApiController {
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "회원가입에 성공했습니다.", null));
 	}
 	
-	//jwt 버전
+	//jwt 버전 로그인 검증 필요
     @PostMapping("/public/members/login")
     public ResponseEntity<ApiResponse<ResponseLogin>> login(@RequestParam String username,
     								@RequestParam String password) {

@@ -120,6 +120,12 @@
 		    <version>0.11.5</version>
 		    <scope>runtime</scope>
 		</dependency>
+			 <!-- MyBatis-Spring-Boot-Starter -->
+	    <dependency>
+	        <groupId>org.mybatis.spring.boot</groupId>
+	        <artifactId>mybatis-spring-boot-starter</artifactId>
+	        <version>3.0.3</version> <!-- 최신 버전 확인 -->
+	    </dependency>
     </dependencies>
 
     <!-- 빌드 설정 -->

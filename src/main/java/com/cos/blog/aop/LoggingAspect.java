@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.cos.blog.config.auth.PrincipalDetail;
 
+/*
 @Aspect
 @Component
 public class LoggingAspect {
@@ -56,5 +57,6 @@ public class LoggingAspect {
             }
         }
 	}
-	*/
+	
 }
+*/

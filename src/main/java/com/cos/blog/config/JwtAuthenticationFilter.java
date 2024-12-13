@@ -47,6 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 토큰이 존재하고 유효하면
         if (token != null && jwtTokenProvider.validateToken(token)) {
             // 토큰에서 사용자 정보 추출
+        	// 나중에 토큰에서 꺼내기로 바꿔야함
             String username = jwtTokenProvider.getUsernameFromToken(token);
             PrincipalDetail userDetails = (PrincipalDetail) principalDetailService.loadUserByUsername(username);
 

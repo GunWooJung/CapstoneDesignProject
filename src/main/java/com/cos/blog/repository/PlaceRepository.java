@@ -20,4 +20,5 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 			"and p.lng between :lngFrom and :lngTo")
 	List<Place> getPlaces(double latFrom, double latTo,
 			double lngFrom, double lngTo);
+	
 }

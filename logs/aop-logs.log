@@ -15,3 +15,7 @@
 2024-12-11 18:32:19 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 15ms
 2024-12-11 18:32:20 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 13ms
 2024-12-11 18:32:22 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 12ms
+2024-12-12 10:00:52 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 357ms
+2024-12-12 10:00:57 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 31ms
+2024-12-12 10:11:30 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 26ms
+2024-12-12 10:11:44 - 실행 api : com.cos.blog.api.PlaceApiController.getPlaces, 실행 시간 : 11ms

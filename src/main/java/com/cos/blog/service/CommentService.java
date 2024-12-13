@@ -42,7 +42,7 @@ public class CommentService {
 				.map((comment) -> ResponseCommentDTO.toResponseCommentDTO(comment, member))
 				.collect(Collectors.toList());
 	}
-
+	
 	@Transactional
 	public void enrollComment(Member member, long placeId, RequestCommentDTO requestCommentDTO) {
 		
@@ -72,6 +72,7 @@ public class CommentService {
 		placeRepository.save(place);
 	}
 
+
 	@Transactional
 	public void deleteComment(long placeId, long commentId
 			, Member member, long memberId) {
@@ -100,5 +101,5 @@ public class CommentService {
 		place.setCommentCount(count);
 		placeRepository.save(place);
 	}
-
+	
 }

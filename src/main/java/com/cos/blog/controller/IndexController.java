@@ -32,6 +32,7 @@ public class IndexController {
 	public String login() {
 		return "login";
 	}
+
 	// 장소에 대한 상세 페이지 
 	@GetMapping("/places/{id}")
 	public String places(@PathVariable long id) {
@@ -58,6 +59,5 @@ public class IndexController {
 		return "amend_information";
 	}
 	
-
 
 }

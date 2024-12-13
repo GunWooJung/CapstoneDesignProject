@@ -6,18 +6,20 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter //
 @RequiredArgsConstructor
 public class RequestPlaceDTO {
 	//위도
 	@DecimalMin(value = "-90.0")
 	@DecimalMax(value = "90.0")
-	private final double lat;
+	private double lat;//
 	//경도
 	@DecimalMin(value = "-180.0")
 	@DecimalMax(value = "180.0")
-	private final double lng;
+	private double lng;//
 	//장애인
 	private final boolean disabledPerson;
 	//기저귀 남자

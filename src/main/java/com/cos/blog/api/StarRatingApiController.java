@@ -2,7 +2,6 @@ package com.cos.blog.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +27,7 @@ public class StarRatingApiController {
 	//생성자 주입
 	private final StarRatingService starRatingtService;
 
+	
 	// 별점 등록하기
 	@PostMapping("/star-rating")
 	public ResponseEntity<ApiResponse<Void>> enroll(
@@ -44,5 +44,5 @@ public class StarRatingApiController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "별점 등록에 성공했습니다.", null));
 	}
-
+	
 }

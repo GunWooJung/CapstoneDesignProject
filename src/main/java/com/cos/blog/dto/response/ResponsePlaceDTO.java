@@ -47,7 +47,7 @@ public class ResponsePlaceDTO {
 		* 0.090100236513120846942223223335961 
 		* (curLng - lng ) * (curLng - lng);
     }
-    
+  
     //DTO로 변환
    	public static ResponsePlaceDTO toResponsePlaceDTO(Place place) {
    		ResponsePlaceDTO dto = ResponsePlaceDTO.builder()
@@ -79,4 +79,5 @@ public class ResponsePlaceDTO {
    		}
    		return dto;
    	}
+
 }

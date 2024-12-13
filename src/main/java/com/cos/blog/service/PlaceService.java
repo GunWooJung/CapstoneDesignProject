@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.cos.blog.dao.PlaceDAO;
 import com.cos.blog.dto.request.RequestPlaceDTO;
+import com.cos.blog.dto.response.PlaceMapperDTO;
 import com.cos.blog.dto.response.ResponsePlaceDTO;
 import com.cos.blog.entity.Place;
 import com.cos.blog.handler.InvalidPageException;
@@ -22,6 +24,9 @@ public class PlaceService {
 	
 	//생성자 주입
 	private final PlaceRepository placeRepository;
+	//생성자 주입
+	private final PlaceDAO placeDAO;
+
 
 	// 특정 화장실을 id 로 조회
 	public ResponsePlaceDTO getOnePlace(long placeId) {
@@ -50,8 +55,8 @@ public class PlaceService {
 				lng - LatLngValue.lngDoubleValue, 
 				lng + LatLngValue.lngDoubleValue);
 
-		if(places == null ||places.size() == 0)
-			throw new NoDataFoundException("데이터 목록이 없습니다.");
+		//if(places == null ||places.size() == 0)
+		//	throw new NoDataFoundException("데이터 목록이 없습니다.");
 		
 		// dto로 변환 후 조건에 맞게 필터링
 		return places.stream().map((place) -> ResponsePlaceDTO.toResponsePlaceDTO(place))
@@ -75,8 +80,8 @@ public class PlaceService {
 
 		List<Place> places = placeRepository.getPlacesByKeyword(keyword);
 
-		if(places == null ||places.size() == 0) 
-			throw new NoDataFoundException("데이터 목록이 없습니다.");
+		//if(places == null ||places.size() == 0) 
+		//	throw new NoDataFoundException("데이터 목록이 없습니다.");
 		
 		// dto로 변환
 		// 나에게서 가까운 위치 검색 결과로 마커 이동
@@ -87,7 +92,7 @@ public class PlaceService {
 						dto2.distance(lat, lng, dto2.getLat(), dto2.getLng())))
 				.collect(Collectors.toList());
 	}
-
+	
 	/*
 	// 화장실 데이터 DB에 등록
 	@Transactional
@@ -121,4 +126,68 @@ public class PlaceService {
 
 	} // 모든 place를 불러오기
 	*/
+	
+	//마이바티스 정규화 버전
+	// 검색어 없이 주변 화장실 목록 조회
+	public List<PlaceMapperDTO> getPlacesMappper(RequestPlaceDTO requestPlaceDTO) {
+
+		double lat = requestPlaceDTO.getLat();
+		double lng = requestPlaceDTO.getLng();
+		//내 주변 화장실 목록만 불러오기
+		List<PlaceMapperDTO> places = placeDAO.getPlaces(
+				lat - LatLngValue.latDoubleValue,
+				lat + LatLngValue.latDoubleValue, 
+				lng - LatLngValue.lngDoubleValue, 
+				lng + LatLngValue.lngDoubleValue);
+
+		//if(places == null ||places.size() == 0)
+		//	throw new NoDataFoundException("데이터 목록이 없습니다.");
+		
+		// dto로 변환 후 조건에 맞게 필터링
+		return places.stream().map((place) -> place.setColor())
+				.filter(place -> (requestPlaceDTO.isDisabledPerson() ? place.isDisabledPerson() : true ))
+				.filter(place -> (requestPlaceDTO.isChangingTableMan() ? place.isChangingTableMan() : true ))
+				.filter(place -> (requestPlaceDTO.isChangingTableWoman() ? place.isChangingTableWoman() : true ))
+				.filter(place -> (requestPlaceDTO.isEmergencyBellDisabled() ? place.isEmergencyBellDisabled() : true ))
+				.filter(place -> (requestPlaceDTO.isEmergencyBellMan() ? place.isEmergencyBellMan() : true ))
+				.filter(place -> (requestPlaceDTO.isEmergencyBellWoman() ? place.isEmergencyBellWoman() : true ))
+				.filter(place -> (place.getStarAverage() == 0
+						|| place.getStarAverage() >= requestPlaceDTO.getLeftValue()))
+				.filter(place -> (place.getStarAverage() == 0
+						|| place.getStarAverage() <= requestPlaceDTO.getRightValue()))
+				.filter(place -> (requestPlaceDTO.isNotRated() ? place.getStarAverage() >= 1 : true))
+				.collect(Collectors.toList());
+	}
+	//마이바티스 반정규화 버전
+	// 검색어 없이 주변 화장실 목록 조회
+		public List<PlaceMapperDTO> getPlacesMappper2(RequestPlaceDTO requestPlaceDTO) {
+
+			double lat = requestPlaceDTO.getLat();
+			double lng = requestPlaceDTO.getLng();
+			//내 주변 화장실 목록만 불러오기
+			List<PlaceMapperDTO> places = placeDAO.getPlaces2(
+					lat - LatLngValue.latDoubleValue,
+					lat + LatLngValue.latDoubleValue, 
+					lng - LatLngValue.lngDoubleValue, 
+					lng + LatLngValue.lngDoubleValue);
+
+			//if(places == null ||places.size() == 0)
+			//	throw new NoDataFoundException("데이터 목록이 없습니다.");
+			
+			// dto로 변환 후 조건에 맞게 필터링
+			return places.stream().map((place) -> place.setColor())
+					.filter(place -> (requestPlaceDTO.isDisabledPerson() ? place.isDisabledPerson() : true ))
+					.filter(place -> (requestPlaceDTO.isChangingTableMan() ? place.isChangingTableMan() : true ))
+					.filter(place -> (requestPlaceDTO.isChangingTableWoman() ? place.isChangingTableWoman() : true ))
+					.filter(place -> (requestPlaceDTO.isEmergencyBellDisabled() ? place.isEmergencyBellDisabled() : true ))
+					.filter(place -> (requestPlaceDTO.isEmergencyBellMan() ? place.isEmergencyBellMan() : true ))
+					.filter(place -> (requestPlaceDTO.isEmergencyBellWoman() ? place.isEmergencyBellWoman() : true ))
+					.filter(place -> (place.getStarAverage() == 0
+							|| place.getStarAverage() >= requestPlaceDTO.getLeftValue()))
+					.filter(place -> (place.getStarAverage() == 0
+							|| place.getStarAverage() <= requestPlaceDTO.getRightValue()))
+					.filter(place -> (requestPlaceDTO.isNotRated() ? place.getStarAverage() >= 1 : true))
+					.collect(Collectors.toList());
+		}
+
 }

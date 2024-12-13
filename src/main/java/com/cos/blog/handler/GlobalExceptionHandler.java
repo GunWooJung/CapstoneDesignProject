@@ -50,10 +50,11 @@ public class GlobalExceptionHandler {
     }
 	
 	// 인증이 실패한 경우 401 에러
-	@ExceptionHandler(IncorrectPasswordException.class)
+	@ExceptionHandler({IncorrectPasswordException.class,
+		org.springframework.security.authentication.BadCredentialsException.class})
     public ResponseEntity<ApiResponse<Void>> handleUnAuthorized(IncorrectPasswordException e) {
 		//e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse<>(401, "권한이 없습니다.", null));	
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse<>(401, "인증 실패", null));	
     }
 	
 	// 주소 형식이 잘못된 경우 400 에러
