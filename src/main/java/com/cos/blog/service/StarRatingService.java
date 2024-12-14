@@ -26,11 +26,11 @@ public class StarRatingService {
 	@Transactional
 	public void enroll(Member member, long placeId, double score) {
 		
-		Place place = placeRepository.findById(placeId)
-				.orElseThrow( () -> new IllegalArgumentException("id를 찾을 수 없습니다.") );
-	
 		if(member == null)
 			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
+		
+		Place place = placeRepository.findById(placeId)
+				.orElseThrow( () -> new IllegalArgumentException("id를 찾을 수 없습니다.") );
 	
 		long already = starRatingRepository.countByMemberAndPlace(member, place);
 		
@@ -40,6 +40,7 @@ public class StarRatingService {
 		StarRating starRating = new StarRating(member, place, score);
 		
 		starRatingRepository.save(starRating);
+		
 		List<StarRating> list = starRatingRepository.findByPlace(place);
 		// 항상 1개 이상
 		int count = (int) list.stream().count();

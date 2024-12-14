@@ -31,34 +31,28 @@ import lombok.RequiredArgsConstructor;
 public class ComementApiController {
 
 	private final MemberService memberService;
-	
+
 	private final CommentService commentService;
 
 	// id에 맞는 모든 댓글 목록 가져오기
 	@GetMapping("places/{id}/comments")
-	public ResponseEntity<ApiResponse<List<ResponseCommentDTO>>> 
-			getComments(@PathVariable(required = true) long id) {
+	public ResponseEntity<ApiResponse<List<ResponseCommentDTO>>> getComments(@PathVariable(required = true) long id) {
 		
-		PrincipalDetail principalDetail = memberService.getLoggedInUserDetails();
-		Member member = null;
-		if(principalDetail != null) {
-			member = principalDetail.getMember();
-		}
+		//로그인 정보 꺼내기
+		Member member = memberService.getLoggedInUserDetails();
+
 		List<ResponseCommentDTO> comments = commentService.getComments(id, member);
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "댓글 목록 조회 성공했습니다.", comments));
 	}
-		
+
 	// id에 맞는 모든 댓글 등록하기
 	@PostMapping("places/{id}/comments")
-	public ResponseEntity<ApiResponse<Void>> 
-				enrollComment(@PathVariable(required = true) long id,
-						@RequestBody RequestCommentDTO requestCommentDTO,
-						@AuthenticationPrincipal PrincipalDetail principalDetail) {
-		// 별점 등록
-		if(principalDetail == null) throw new UnauthorizedAccessException("비로그인 입니다.");
-		
-		Member member = principalDetail.getMember();
+	public ResponseEntity<ApiResponse<Void>> enrollComment(@PathVariable(required = true) long id,
+			@RequestBody RequestCommentDTO requestCommentDTO) {
+
+		//로그인 정보 꺼내기
+		Member member = memberService.getLoggedInUserDetails();
 
 		commentService.enrollComment(member, id, requestCommentDTO);
 
@@ -67,32 +61,28 @@ public class ComementApiController {
 
 	// Delete 요청
 	@DeleteMapping("places/{placeId}/comments/{commentId}")
-	public ResponseEntity<ApiResponse<Void>> 
-				deleteComment(@PathVariable(required = true) long placeId,
-						@PathVariable(required = true) long commentId ,
-						@RequestParam long memberId,
-						@AuthenticationPrincipal PrincipalDetail principalDetail
-						) {
-		
-		if(principalDetail == null) throw new UnauthorizedAccessException("비로그인 입니다.");
-		
-		Member member = principalDetail.getMember();
+	public ResponseEntity<ApiResponse<Void>> deleteComment(@PathVariable(required = true) long placeId,
+			@PathVariable(required = true) long commentId, @RequestParam long memberId) {
+
+		//로그인 정보 꺼내기
+		Member member = memberService.getLoggedInUserDetails();
 
 		// 작성자랑 principal 아이디 비교
-		commentService.deleteComment(placeId, commentId, member , memberId);
-		
+		commentService.deleteComment(placeId, commentId, member, memberId);
+
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "댓글 삭제가 성공했습니다.", null));
 	}
-	
-	/* 쿼리 분석 테스트
-	// id에 맞는 모든 댓글 목록 가져오기
-	@GetMapping("places/{id}/comments/test")
-	public ResponseEntity<ApiResponse<List<ResponseCommentDTO>>> 
-			getCommentsTest(@PathVariable(required = true) long id) {
 
-		List<ResponseCommentDTO> comments = commentService.getCommentsTest(id);
-
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "댓글 목록 조회 성공했습니다.", comments));
-	}
-	*/
+	/*
+	 * // 쿼리 분석 테스트 // id에 맞는 모든 댓글 목록 가져오기
+	 * 
+	 * @GetMapping("places/{id}/comments/test") public
+	 * ResponseEntity<ApiResponse<List<ResponseCommentDTO>>>
+	 * getCommentsTest(@PathVariable(required = true) long id) {
+	 * 
+	 * List<ResponseCommentDTO> comments = commentService.getCommentsTest(id);
+	 * 
+	 * return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200,
+	 * "댓글 목록 조회 성공했습니다.", comments)); }
+	 */
 }

@@ -31,6 +31,9 @@ public class HeartService {
 	@Transactional
 	public void clickHeart(long placeId, long reportId, Member member) {
 		
+		if(member == null)
+			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
+		
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
 		// Global 예외로 처리
@@ -38,9 +41,6 @@ public class HeartService {
 		Report report = reportRepository.findById(reportId)
 				.orElseThrow(() -> new NoSuchElementException(reportId + "번 신고를 찾을 수 없습니다."));
 		// Global 예외로 처리
-		
-		if(member == null)
-			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
 		
 		long already = heartRepository.countByMemberAndReport(member, report);
 		// Global 예외로 처리

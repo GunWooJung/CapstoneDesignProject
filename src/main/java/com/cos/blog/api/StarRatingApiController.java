@@ -33,13 +33,9 @@ public class StarRatingApiController {
 	public ResponseEntity<ApiResponse<Void>> enroll(
 			@Valid	@RequestBody RequestStarRatingDTO requestStarRatingDTO) {
 		
-		PrincipalDetail principalDetail = memberService.getLoggedInUserDetails();
+		//로그인 정보 꺼내기
+		Member member = memberService.getLoggedInUserDetails();
 		
-		// 별점 등록
-		if(principalDetail == null) throw new UnauthorizedAccessException("비로그인 입니다.");
-		
-		Member member = principalDetail.getMember();
-
 		starRatingtService.enroll(member, requestStarRatingDTO.getPlaceId(), requestStarRatingDTO.getScore());
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "별점 등록에 성공했습니다.", null));

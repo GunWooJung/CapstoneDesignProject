@@ -78,13 +78,23 @@ public class MemberService {
 	}
 	
 	   // 현재 로그인한 사용자 정보 가져오기
-    public PrincipalDetail getLoggedInUserDetails() {
+    public Member getLoggedInUserDetails() {
         // SecurityContext에서 인증 정보를 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // 인증된 사용자 정보(Principal)가 존재하면 PrincipalDetail 반환
         if (authentication != null) {
-            return (PrincipalDetail) authentication.getPrincipal();  // PrincipalDetail로 반환
+        	PrincipalDetail principalDetail =
+        			(PrincipalDetail) authentication.getPrincipal();  // PrincipalDetail로 반환
+        	
+        	if(principalDetail != null) {
+        		Member member = principalDetail.getMember();
+        		
+        		if(member != null) {
+        			return member;
+        		}
+        		
+        	}
         }
 
         return null;  // 인증되지 않은 경우

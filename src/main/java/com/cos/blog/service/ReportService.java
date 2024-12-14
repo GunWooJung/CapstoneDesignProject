@@ -51,12 +51,13 @@ public class ReportService {
 
 	@Transactional
 	public void reportEnroll(Member member, long placeId, RequestReportDTO requestReportDTO) {
-		Place place = placeRepository.findById(placeId)
-				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
-		// Global 예외로 처리
 		
 		if(member == null)
 			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
+		
+		Place place = placeRepository.findById(placeId)
+				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
+		// Global 예외로 처리
 
 		long already = heartRepository.alreadyReportCheck(place, member, requestReportDTO.getType(),
 				requestReportDTO.getContent());

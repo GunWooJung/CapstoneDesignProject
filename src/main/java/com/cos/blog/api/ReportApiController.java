@@ -48,13 +48,9 @@ public class ReportApiController {
 			@PathVariable(required = true) long id,
 			@RequestBody RequestReportDTO requestReportDTO) {
 		
-		PrincipalDetail principalDetail = memberService.getLoggedInUserDetails();
+		//로그인 정보 꺼내기
+		Member member = memberService.getLoggedInUserDetails();
 		
-		// 신고 등록
-		if(principalDetail == null) throw new UnauthorizedAccessException("비로그인 입니다.");
-		
-		Member member = principalDetail.getMember();
-
 		reportService.reportEnroll(member, id, requestReportDTO);
 		
 		return ResponseEntity.status(HttpStatus.OK)

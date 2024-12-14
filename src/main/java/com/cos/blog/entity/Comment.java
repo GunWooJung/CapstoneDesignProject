@@ -2,12 +2,15 @@ package com.cos.blog.entity;
 
 import java.sql.Timestamp;
 
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.cos.blog.util.Status;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +23,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -60,5 +64,10 @@ public class Comment {
     	this.content = content;
     	this.place = place;
     }
-	
+    
+    @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 10)
+    private Status status;  // 데이터 상태
+
 }

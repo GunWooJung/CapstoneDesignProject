@@ -32,11 +32,8 @@ public class HeartApiController {
 			@PathVariable(required = true) long placeId,
 			@PathVariable(required = true) long reportId) {
 		
-		PrincipalDetail principalDetail = memberService.getLoggedInUserDetails();
-		
-		if(principalDetail == null) throw new UnauthorizedAccessException("비로그인 입니다.");
-		
-		Member member = principalDetail.getMember();
+		//로그인 정보 꺼내기
+		Member member = memberService.getLoggedInUserDetails();
 		
 		heartService.clickHeart(placeId, reportId, member);
 		
