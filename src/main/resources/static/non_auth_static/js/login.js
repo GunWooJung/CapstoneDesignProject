@@ -44,11 +44,7 @@ $(function () {
 					},
 					error: function(xhr, textStatus, errorThrown) {
 						//	console.log(e);
-						if (xhr.status === 401) {	// Unauthorized  
 							alert('아이디 또는 비밀 번호가 일치하지 않습니다.');
-						}else{
-							alert('로그인 오류');
-						}
 					}
 				});
 			}

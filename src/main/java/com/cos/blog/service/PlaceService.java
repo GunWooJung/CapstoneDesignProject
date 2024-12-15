@@ -1,10 +1,14 @@
 package com.cos.blog.service;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.dao.PlaceDAO;
 import com.cos.blog.dto.request.RequestPlaceDTO;
@@ -14,6 +18,7 @@ import com.cos.blog.entity.Place;
 import com.cos.blog.handler.InvalidPageException;
 import com.cos.blog.repository.PlaceRepository;
 import com.cos.blog.util.LatLngValue;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 import lombok.RequiredArgsConstructor;
 
@@ -92,16 +97,18 @@ public class PlaceService {
 				.collect(Collectors.toList());
 	}
 	
-	/*
+
 	// 화장실 데이터 DB에 등록
 	@Transactional
 	public void placeEnroll() throws IllegalStateException, FileNotFoundException {
-		String csvFile = "C:\\workspaceProject\\CapstoneDesignProject\\src\\main\\resources\\static\\CSVdata\\gonggong_seoul.csv";
-			List<Place> newPlaces = new CsvToBeanBuilder<Place>(new FileReader(csvFile)).withType(Place.class).build()
+		// 상대 경로 설정
+	    String csvFile = "/root/gonggong.csv";		
+		
+		List<Place> newPlaces = new CsvToBeanBuilder<Place>(new FileReader(csvFile)).withType(Place.class).build()
 				.parse();
 			
 			Random random = new Random(); // Random 객체 생성
-
+			
 		    for (Place place : newPlaces) {
 		        // 랜덤한 true/false 값 생성
 		        boolean randomBool = random.nextBoolean();
@@ -122,9 +129,9 @@ public class PlaceService {
 		        
 		        placeRepository.save(place); // DB에 저장
 		    }	
-
+			
 	} // 모든 place를 불러오기
-	*/
+	
 	
 	//마이바티스 정규화 버전
 	// 검색어 없이 주변 화장실 목록 조회
