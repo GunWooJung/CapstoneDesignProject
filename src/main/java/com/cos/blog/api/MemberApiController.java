@@ -7,10 +7,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cos.blog.config.JwtTokenProvider;
 import com.cos.blog.dto.request.RequestMemberJoinDTO;
@@ -53,14 +53,20 @@ public class MemberApiController {
 		
 	// 새로운 member를 추가하기 = 회원가입
 	@PostMapping("/public/members/join")
-	public ResponseEntity<ApiResponse<Void>> memberJoin
-				(@RequestBody RequestMemberJoinDTO requestMemberJoinDTO) {
+	public ResponseEntity<ApiResponse<Void>> memberJoin(
+						@RequestParam("name") String name,
+			            @RequestParam("loginId") String loginId,
+			            @RequestParam("password") String password,
+			            @RequestParam(value = "image", required = false) MultipartFile image) {
 		
+	    RequestMemberJoinDTO requestMemberJoinDTO = 
+	    		new RequestMemberJoinDTO(name, loginId, password);
+	    
 		memberService.memberNameCheck(requestMemberJoinDTO.getName());
 		// 서비스 계층에서 이름 중복 시 예외 발생
 		memberService.memberIdCheck(requestMemberJoinDTO.getLoginId());
 		// 서비스 계층에서 아이디 중복 시 예외 발생	
-		memberService.memberJoin(requestMemberJoinDTO);
+		memberService.memberJoin(requestMemberJoinDTO, image);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "회원가입에 성공했습니다.", null));
 	}

@@ -1,5 +1,7 @@
 package com.cos.blog.dto.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,5 +16,5 @@ public class RequestMemberJoinDTO {
 	private final String loginId;
 	@NonNull
 	private final String password;
-	
+		
 }

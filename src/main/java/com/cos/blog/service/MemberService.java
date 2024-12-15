@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.request.RequestMemberJoinDTO;
@@ -26,7 +27,7 @@ public class MemberService {
 	
 	// 새로운 USER Member를 등록
 	@Transactional
-	public void memberJoin(RequestMemberJoinDTO requestMemberJoinDTO) {
+	public void memberJoin(RequestMemberJoinDTO requestMemberJoinDTO, MultipartFile image) {
 		
 		String encodedPassword = BCryptPasswordEncoder.encode(requestMemberJoinDTO.getPassword());
 	

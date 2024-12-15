@@ -7,7 +7,6 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
 	flex-direction: column;
 }
 
@@ -124,4 +123,18 @@ hr {
 
 .footer-info a:hover {
 	text-decoration: underline;
+}
+
+/* 이미지 미리보기 스타일 */
+.image-preview {
+    height: auto;         /* 높이를 자동으로 설정하여 비율을 유지 */
+    object-fit: contain;  /* 이미지를 영역에 맞게 크기를 조정 */
+	max-width: 200px;
+	max-height: 200px;
+	display: none;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	margin-left: 20px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
 }

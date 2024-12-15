@@ -7,13 +7,39 @@
 	<link rel="stylesheet" href="/static/non_auth_static/styles/reset.css">
 	<link rel="stylesheet" href="/static/non_auth_static/styles/join.css">
 </head>
+<style>
+input[type="file"] {
+    display: none;  /* 기본 input[type="file"] 요소는 숨깁니다 */
+}
 
+/* 파일 선택 버튼 디자인 */
+.file-label {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 6px;
+}
+
+/* 파일 이름 표시 스타일 */
+.file-name {
+    margin-top: 10px;
+    color: #555;
+    font-size: 14px;
+}
+</style>
 <body>
+	<div class="logo image" style="margin-top: 22px;">
+		<h1><a href="/" >모두의 화장실</a></h1>
+	</div>
 	<div class="logo image">
-		<h1><a href="/">모두의 화장실</a></h1>
+		<a style="font-size: 22px;">회원 가입</a>	
 	</div>
 	<br><br>
-
 	<form>
 		<div class="form-group">
 			<input type="text" class="form-control" name="name" id="name" placeholder="이름">
@@ -34,7 +60,18 @@
 			<input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="비밀번호 확인">
 			<div id="confirmPasswordDiv" ></div>
 		</div>
-
+		
+		<div class="form-group">
+			<label for="image" style="margin:13px;" class="form-control" >프로필 사진(선택)</label> 
+			<input type="file" style="margin-top:6px;"class="form-control" id="image" name="image"
+					onchange="PreviewImage(event)"> 
+		</div>
+		
+		<div class="form-group">
+			<img id="imagePreview" class="image-preview" alt="이미지 미리보기">
+			<button type="button" style="display:none;" onclick = "ClearPreview()" id = "reset" class="btn">이미지 삭제</button>
+		</div>
+		
 		<div class="signup-button">
 			<button type="button" id = "signup-button" class="btn btn-primary">회원가입</button>
 		</div>
