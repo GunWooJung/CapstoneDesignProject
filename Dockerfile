@@ -6,3 +6,5 @@ COPY target/${JAR_FILE_NAME} /app/${JAR_FILE_NAME}
 
 # 컨테이너가 실행될 때 JAR 파일을 실행하도록 설정
 CMD ["java", "-jar", "/app/${JAR_FILE_NAME}"]
+# Dockerfile에 포트 80을 노출
+EXPOSE 80
