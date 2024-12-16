@@ -53,6 +53,7 @@ public class JwtSecurityConfig {
         http.authorizeRequests(authorize -> authorize
                 .requestMatchers("/static/**"
                 		,"/"	
+                		,"/health"	
                 		, "/login"
                 		, "/join"
                 		, "/places/*"

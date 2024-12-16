@@ -44,6 +44,10 @@ public class AuthController {
 		else	//프사 미보유
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new ApiResponse<>(200, "프로필 이미지를 반환", null));
-		
+    }
+    
+    @GetMapping("/health")
+    public String health() {
+    	return "hello";
     }
 }
