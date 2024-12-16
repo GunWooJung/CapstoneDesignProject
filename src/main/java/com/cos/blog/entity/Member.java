@@ -17,6 +17,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,6 +40,14 @@ public class Member {
 	@NonNull
     @Column(name = "password", nullable = false, length = 300)
     private String password;  // 비밀번호
+	
+	@Setter	//프로필 이미지 있는 경우
+	@Column(name = "image_file_name", length = 300)
+	private String imageFileName; 
+
+	@Setter //프로필 이미지 있는 경우
+	@Column(name = "image_original_file_name", length = 300)
+	private String imageOriginalFileName;
 
     @CreationTimestamp
     @Column(name = "created_date", nullable = false, updatable = false)

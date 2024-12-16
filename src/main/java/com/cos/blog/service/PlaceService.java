@@ -97,7 +97,7 @@ public class PlaceService {
 				.collect(Collectors.toList());
 	}
 	
-
+	/*
 	// 화장실 데이터 DB에 등록
 	@Transactional
 	public void placeEnroll() throws IllegalStateException, FileNotFoundException {
@@ -131,7 +131,7 @@ public class PlaceService {
 		    }	
 			
 	} // 모든 place를 불러오기
-	
+	*/
 	
 	//마이바티스 정규화 버전
 	// 검색어 없이 주변 화장실 목록 조회

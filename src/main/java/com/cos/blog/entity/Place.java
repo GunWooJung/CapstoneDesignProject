@@ -17,10 +17,9 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
-@Setter // DB 설정용
+
 @Getter
-@NoArgsConstructor // DB 설정용
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "place")
 public class Place {

@@ -126,6 +126,26 @@
 	        <artifactId>mybatis-spring-boot-starter</artifactId>
 	        <version>3.0.3</version> <!-- 최신 버전 확인 -->
 	    </dependency>
+	      <!-- Commons IO: 파일 입출력 작업을 돕는 라이브러리 -->
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.16.1</version>
+    </dependency>
+
+    <!-- Commons FileUpload: 파일 업로드 처리 -->
+    <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>1.5</version>
+    </dependency>
+
+    <!-- AWS S3 SDK: S3에 파일 업로드 및 다운로드 처리 -->
+    <dependency>
+        <groupId>com.amazonaws</groupId>
+        <artifactId>aws-java-sdk-s3</artifactId>
+        <version>1.12.610</version>
+    </dependency>
     </dependencies>
 
     <!-- 빌드 설정 -->

@@ -14,6 +14,7 @@ import com.cos.blog.entity.Member;
 import com.cos.blog.handler.DuplicatedIdException;
 import com.cos.blog.handler.DuplicatedNameException;
 import com.cos.blog.repository.MemberRepository;
+import com.cos.blog.storage.NCPObjectStorageService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberService {
 
+	private final NCPObjectStorageService NCPObjectStorageService;
+	
 	private final MemberRepository memberRepository;
 
 	private final BCryptPasswordEncoder BCryptPasswordEncoder;
@@ -37,6 +40,13 @@ public class MemberService {
 				encodedPassword,
 				Member.Role.USER);
 		
+		if (image != null && !image.isEmpty()) {
+			// 이미지 파일 저장 및 파일명 생성
+			//uuid
+			String imageFileName = NCPObjectStorageService.uploadFile(image);
+			member.setImageFileName(imageFileName); //uuid
+			member.setImageOriginalFileName(image.getOriginalFilename()); //원본파일명
+		}		
 		memberRepository.save(member);
 	}
 

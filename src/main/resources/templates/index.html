@@ -18,6 +18,21 @@
         </script>
     <script src="/static/js/filter_modal.js"></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style type="text/css">
+    .profile {
+    /* Adjust margin to place it below the search box */
+    position: relative;
+    width: 70px;
+    height: 70px;
+    z-index: 2;
+    top: 68%;
+    left: -7%;     
+    text-align: center;
+    border: none;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+</style>
 </head>
 
 <body>
@@ -38,9 +53,12 @@
                 </div>
               </div>
             <img src="/static/public/gps.svg" id="recenter-map">
-			    <!-- 로그인 / 로그아웃 버튼을 표시할 영역 -->
+			<!-- 로그인 / 로그아웃 버튼을 표시할 영역 -->
+			<!-- 프로필 이미지 -->  
 			<button type="button" id="login" class="logout-button">로그인</button>
 			<button type="button" id="logout" class="logout-button" style="display: none;">로그아웃</button>
+			<img alt = "프사" id = "profile" class = "profile"></img>  
+		
 		</div>
     </div>
 
@@ -123,14 +141,27 @@ fetch('/api/auth-check', {
 	},
 	})
 	.then(response => {
-	  if (response.status === 200) {
-		   $('#login').hide();
-	       $('#logout').show();
-	  }else{
-		   $('#login').show();
-	       $('#logout').hide();
+	    if (response.status === 200) {
+	      return response.json();  // 응답을 JSON으로 파싱
+	    }else{
+			   $('#login').show();
+		       $('#logout').hide();
+		       $('#profile').hide();
+		       return;
+	    }
+    })
+	.then(response => {
+		  if (response.data === null) {
+		   	   $('#login').hide();
+		       $('#logout').show();
+		       $('#profile').hide();  
+		  }
+	      else {
+			   $('#login').hide();
+		       $('#logout').show();
+		       $('#profile').attr('src', response.data);
+		       $('#profile').show();
 	  }
-	  return response;
 	})
 	.catch(error => {
 	  console.error('API 호출 오류:', error);
