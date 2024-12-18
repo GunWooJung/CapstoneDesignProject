@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DeadlockLoserDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -47,6 +48,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleNotFound(Exception e) {
 		//e.printStackTrace();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(404, "조회에 성공했지만, 목록이 없습니다.", null));	
+    }
+	
+	//데드락을 200 OK로 일단 
+	@ExceptionHandler(DeadlockLoserDataAccessException.class)
+    public ResponseEntity<ApiResponse<Void>> deadLockTest(Exception e) {
+		//e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse<>(500,"some reason", null));	
     }
 	
 	// 인증이 실패한 경우 401 에러

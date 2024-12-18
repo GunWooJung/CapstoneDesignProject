@@ -24,21 +24,39 @@ import lombok.RequiredArgsConstructor;
 public class StarRatingApiController {
 
 	private final MemberService memberService;
-	//생성자 주입
+	// 생성자 주입
 	private final StarRatingService starRatingtService;
 
-	
 	// 별점 등록하기
 	@PostMapping("/star-rating")
-	public ResponseEntity<ApiResponse<Void>> enroll(
-			@Valid	@RequestBody RequestStarRatingDTO requestStarRatingDTO) {
-		
-		//로그인 정보 꺼내기
+	public ResponseEntity<ApiResponse<Void>> enroll(@Valid @RequestBody RequestStarRatingDTO requestStarRatingDTO) {
+
+		// 로그인 정보 꺼내기
 		Member member = memberService.getLoggedInUserDetails();
-		
+		//
 		starRatingtService.enroll(member, requestStarRatingDTO.getPlaceId(), requestStarRatingDTO.getScore());
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "별점 등록에 성공했습니다.", null));
 	}
-	
+	/*
+	// 별점 등록하기 테스트용 비관적 락
+	@PostMapping("/public/star-rating/p") // 테스트중
+	public ResponseEntity<ApiResponse<Void>> enrollTestP(@Valid @RequestBody RequestStarRatingDTO requestStarRatingDTO)
+			throws Exception {
+
+		starRatingtService.enrollTestP(requestStarRatingDTO.getPlaceId(), requestStarRatingDTO.getScore());
+
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "별점 등록에 성공했습니다.", null));
+	}
+
+	// 별점 등록하기 테스트용 낙관적 락 
+	@PostMapping("/public/star-rating/o") // 테스트중
+	public ResponseEntity<ApiResponse<Void>> enrollTestO(@Valid @RequestBody RequestStarRatingDTO requestStarRatingDTO)
+			throws Exception {
+
+		starRatingtService.enrollTestO(requestStarRatingDTO.getPlaceId(), requestStarRatingDTO.getScore());
+
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "별점 등록에 성공했습니다.", null));
+	}
+	*/
 }
