@@ -56,6 +56,7 @@ public class JwtSecurityConfig {
                 		,"/health"	
                 		, "/login"
                 		, "/join"
+                        , "/404"
                 		, "/places/*"
                 		, "/places/*/amend"
                 		, "/api/public/**"
