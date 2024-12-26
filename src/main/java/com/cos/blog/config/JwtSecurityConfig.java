@@ -72,7 +72,7 @@ public class JwtSecurityConfig {
         }));
 
         // 4. JWT 필터 추가
-        //http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         //테스트 중 주석
         return http.build();
     }
