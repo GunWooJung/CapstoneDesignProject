@@ -1,6 +1,5 @@
 package com.cos.blog.api;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;

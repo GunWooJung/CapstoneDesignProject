@@ -27,7 +27,7 @@ public class ResponseCommentDTO {
 	
 	 //DTO로 변환
    	public static ResponseCommentDTO toResponseCommentDTO(Comment comment, Member member) {
-        if(member == null)   
+        if(member.getLoginId() == null)   //DB접근
 	   		return ResponseCommentDTO.builder()
 	           		.id(comment.getId())
 	           		.memberId(comment.getMember().getId())

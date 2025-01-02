@@ -16,17 +16,20 @@ import com.cos.blog.entity.Place;
 import com.cos.blog.entity.Report;
 import com.cos.blog.handler.DuplicatedEnrollException;
 import com.cos.blog.handler.NoDataFoundException;
-import com.cos.blog.handler.UnauthorizedAccessException;
 import com.cos.blog.repository.HeartRepository;
+import com.cos.blog.repository.MemberRepository;
 import com.cos.blog.repository.PlaceRepository;
 import com.cos.blog.repository.ReportRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ReportService {
 
+	private final MemberRepository memberRepository;
+	
 	private final ReportRepository reportRepository;
 	
 	private final HeartRepository heartRepository;
@@ -50,11 +53,12 @@ public class ReportService {
 	}
 
 	@Transactional
-	public void reportEnroll(Member member, long placeId, RequestReportDTO requestReportDTO) {
+	public void reportEnroll(HttpServletRequest request, long placeId, RequestReportDTO requestReportDTO) {
 		
-		if(member == null)
-			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
-		
+		long id = (long) request.getAttribute("id");
+
+		Member member = memberRepository.getReferenceById(id);
+
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
 		// Global 예외로 처리

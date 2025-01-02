@@ -12,16 +12,19 @@ import com.cos.blog.entity.Member;
 import com.cos.blog.entity.Place;
 import com.cos.blog.entity.StarRating;
 import com.cos.blog.handler.DuplicatedEnrollException;
-import com.cos.blog.handler.UnauthorizedAccessException;
+import com.cos.blog.repository.MemberRepository;
 import com.cos.blog.repository.PlaceRepository;
 import com.cos.blog.repository.StarRatingRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class StarRatingService {
 
+	private final MemberRepository memberRepository;
+	
 	private final StarRatingDAO StarRatingDAO;
 
 	private final PlaceRepository placeRepository;
@@ -29,10 +32,12 @@ public class StarRatingService {
 	private final StarRatingRepository starRatingRepository;
 
 	@Transactional
-	public void enroll(Member member, long placeId, double score) {
+	public void enroll(HttpServletRequest request,
+			long placeId, double score) {
 
-		if (member == null)
-			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
+		long id = (long) request.getAttribute("id");
+
+		Member member = memberRepository.getReferenceById(id);
 
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new IllegalArgumentException("id를 찾을 수 없습니다."));
@@ -62,6 +67,7 @@ public class StarRatingService {
 	// @Retryable(value = DeadlockLoserDataAccessException.class, maxAttempts = 3,
 	// backoff = @Backoff(delay = 500, multiplier = 3))
 	// 격리수준 테스트
+	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public void enrollTestO(long placeId, double score) throws Exception {
 

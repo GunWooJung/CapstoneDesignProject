@@ -1,5 +1,7 @@
 package com.cos.blog.service;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cos.blog.config.NaverConfiguration;
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.request.RequestMemberJoinDTO;
 import com.cos.blog.entity.Member;
@@ -16,12 +19,15 @@ import com.cos.blog.handler.DuplicatedNameException;
 import com.cos.blog.repository.MemberRepository;
 import com.cos.blog.storage.NCPObjectStorageService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
 
+	private final NaverConfiguration naverConfiguration;
+	
 	private final NCPObjectStorageService NCPObjectStorageService;
 	
 	private final MemberRepository memberRepository;
@@ -89,7 +95,7 @@ public class MemberService {
 	}
 	
 	   // 현재 로그인한 사용자 정보 가져오기
-    public Member getLoggedInUserDetails() {
+    public Member getLoggedInUserDetails(HttpServletRequest request) {
         // SecurityContext에서 인증 정보를 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -110,5 +116,29 @@ public class MemberService {
 
         return null;  // 인증되지 않은 경우
     }
+
+	public String getProfilePath(HttpServletRequest request) {
+		
+		//토큰 추출
+		long id = (long) request.getAttribute("id");
+		
+		Member member = memberRepository.findById(id)
+				.orElseThrow( () -> new NoSuchElementException("해당 회원이 없습니다."));
+		
+		
+		if(member.getImageFileName() != null) {	//프사 보유
+			
+			String path = naverConfiguration.getEndPoint()+"/"+
+					naverConfiguration.getBucketName()+"/"+
+					naverConfiguration.getDirectoryPath()+
+					member.getImageFileName();
+			
+			return path;
+		}
+		else {
+			return null;
+		}
+		
+	}
 
 }

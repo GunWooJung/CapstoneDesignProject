@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.request.RequestReportDTO;
 import com.cos.blog.dto.response.ResponseReportDTO;
-import com.cos.blog.entity.Member;
-import com.cos.blog.handler.UnauthorizedAccessException;
 import com.cos.blog.service.MemberService;
 import com.cos.blog.service.ReportService;
 import com.cos.blog.util.ApiResponse;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -45,13 +43,11 @@ public class ReportApiController {
 	// 새로운 신고 등록하기
 	@PostMapping("/places/{id}/reports")
 	public ResponseEntity<ApiResponse<Void>>  reportEnroll(
+			HttpServletRequest request,
 			@PathVariable(required = true) long id,
 			@RequestBody RequestReportDTO requestReportDTO) {
 		
-		//로그인 정보 꺼내기
-		Member member = memberService.getLoggedInUserDetails();
-		
-		reportService.reportEnroll(member, id, requestReportDTO);
+		reportService.reportEnroll(request, id, requestReportDTO);
 		
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(new ApiResponse<>(200, "신고 등록에 성공했습니다.", null));

@@ -1,14 +1,10 @@
 package com.cos.blog.service;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.dao.PlaceDAO;
 import com.cos.blog.dto.request.RequestPlaceDTO;
@@ -18,7 +14,6 @@ import com.cos.blog.entity.Place;
 import com.cos.blog.handler.InvalidPageException;
 import com.cos.blog.repository.PlaceRepository;
 import com.cos.blog.util.LatLngValue;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 import lombok.RequiredArgsConstructor;
 

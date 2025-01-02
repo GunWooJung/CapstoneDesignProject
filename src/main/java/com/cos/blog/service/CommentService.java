@@ -17,21 +17,32 @@ import com.cos.blog.handler.DuplicatedEnrollException;
 import com.cos.blog.handler.NoDataFoundException;
 import com.cos.blog.handler.UnauthorizedAccessException;
 import com.cos.blog.repository.CommentRepository;
+import com.cos.blog.repository.MemberRepository;
 import com.cos.blog.repository.PlaceRepository;
 import com.cos.blog.util.Status;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class CommentService {
 
+	private final MemberRepository memberRepository;
+	
 	private final CommentRepository commentRepository;
 
 	private final PlaceRepository placeRepository;
 
-	public List<ResponseCommentDTO> getComments(long placeId, Member member) {
+	@Transactional(readOnly = true)
+	public List<ResponseCommentDTO> getComments(
+			HttpServletRequest request,
+			long placeId) {
 
+		long id = (long) request.getAttribute("id");
+		
+		Member member = memberRepository.getReferenceById(id);
+		
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
 
@@ -46,10 +57,12 @@ public class CommentService {
 	}
 
 	@Transactional
-	public void enrollComment(Member member, long placeId, RequestCommentDTO requestCommentDTO) {
-
-		if (member == null)
-			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
+	public void enrollComment(HttpServletRequest request,
+			long placeId, RequestCommentDTO requestCommentDTO) {
+		
+		long id = (long) request.getAttribute("id");
+		
+		Member member = memberRepository.getReferenceById(id);
 		
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
@@ -72,11 +85,15 @@ public class CommentService {
 	}
 
 	@Transactional
-	public void deleteComment(long placeId, long commentId, Member member, long memberId) {
+	public void deleteComment(HttpServletRequest request,
+			long placeId, 
+			long commentId,
+			long memberId) {
 
-		if (member == null)
-			throw new UnauthorizedAccessException("사용자를 찾을 수 없습니다.");
-
+		long id = (long) request.getAttribute("id");
+		
+		Member member = memberRepository.getReferenceById(id);
+		
 		// placeId는 필요 없긴한데 일단 검증 추가
 		Place place = placeRepository.findById(placeId)
 				.orElseThrow(() -> new NoSuchElementException(placeId + "번 화장실을 찾을 수 없습니다."));
