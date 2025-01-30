@@ -25,6 +25,15 @@
 
 ---
 
+
+
+![시스템 아키텍처](https://github.com/GunWooJung/READMEImage/blob/main/%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90.PNG)
+
+
+
+
+
+
 ## 📺 시연 영상 및 문서
 
 📌 **시연 영상**: [YouTube 링크](https://www.youtube.com/watch?v=HhzYp6_m4iM)  
