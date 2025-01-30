@@ -61,7 +61,7 @@
 
 ## 🏗️ 시스템 아키텍처
 
-![시스템 아키텍처](https://github.com/GunWooJung/READMEImage/blob/main/%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90.JPG)
+![시스템 아키텍처](https://github.com/GunWooJung/READMEImage/blob/main/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.JPG)
 
 ---
 
