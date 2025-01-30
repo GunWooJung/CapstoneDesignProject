@@ -25,14 +25,11 @@
 
 ---
 
-
+## 🏗️ 시스템 아키텍처
 
 ![시스템 아키텍처](https://github.com/GunWooJung/READMEImage/blob/main/%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90.PNG)
 
-
-
-
-
+---
 
 ## 📺 시연 영상 및 문서
 
@@ -47,4 +44,4 @@
 
 🚀 **Frontend**: HTML, CSS, JavaScript  
 🛠 **Backend**: Spring Boot, JPA, MyBatis, MySQL, Jenkins, Naver Cloud Platform  
-📡 **API**: Kakao Map API 
+📡 **API**: Kakao Map API  
