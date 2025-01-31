@@ -1,10 +1,21 @@
 # 🏠 모두의 화장실
 
+# 담당 기능
+## 🎯 백엔드 모든 기능 + CI/CD 및 클라우드 배포
+
 📍 **공공데이터를 활용한 화장실 지도 서비스**  
 
 "모두의 화장실"은 공공데이터를 기반으로 한 **화장실 위치 제공 서비스**입니다.  
 사용자의 현재 위치를 기반으로 **가까운 개방 화장실을 필터링 및 검색**하고,  
 **시설 정보, 리뷰, 정보 수정 제안 기능**을 제공합니다. 🚻  
+
+---
+
+## 🛠️ 기술 스택
+
+🚀 **Frontend**: HTML, CSS, JavaScript  
+🛠 **Backend**: Spring Boot, JPA, MyBatis, MySQL, Jenkins, Naver Cloud Platform  
+📡 **API**: Kakao Map API  
 
 ---
 
@@ -71,11 +82,3 @@
 📌 **E-R 다이어그램**: [ERD Cloud 링크](https://www.erdcloud.com/d/YYW2iJdB7WtefCCPM)  
 📌 **API 문서**: [Notion 링크](https://superb-piper-d4a.notion.site/156ad387decd81098a5dea41c407b662?v=156ad387decd8108a31f000c474b4446)  
 📌 **공공 데이터 출처**: [서울 열린 데이터 광장](https://data.seoul.go.kr/dataList/OA-162/S/1/datasetView.do)  
-
----
-
-## 🛠️ 기술 스택
-
-🚀 **Frontend**: HTML, CSS, JavaScript  
-🛠 **Backend**: Spring Boot, JPA, MyBatis, MySQL, Jenkins, Naver Cloud Platform  
-📡 **API**: Kakao Map API  
