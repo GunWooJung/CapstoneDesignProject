@@ -82,6 +82,8 @@ ERD 설계 + 백엔드 모든 기능 구현 + CI/CD 및 클라우드 배포
 ## 📺 시연 영상 및 문서
 
 📌 **시연 영상**: [YouTube 링크](https://www.youtube.com/watch?v=HhzYp6_m4iM)  
-📌 **E-R 다이어그램**: [ERD Cloud 링크](https://www.erdcloud.com/d/YYW2iJdB7WtefCCPM)  
 📌 **API 문서**: [Notion 링크](https://superb-piper-d4a.notion.site/156ad387decd81098a5dea41c407b662?v=156ad387decd8108a31f000c474b4446)  
 📌 **공공 데이터 출처**: [서울 열린 데이터 광장](https://data.seoul.go.kr/dataList/OA-162/S/1/datasetView.do)  
+📌 **E-R 다이어그램**: [ERD Cloud 링크](https://www.erdcloud.com/d/YYW2iJdB7WtefCCPM)  
+
+![스크린샷](https://github.com/GunWooJung/READMEImage/blob/main/toilet.png)
