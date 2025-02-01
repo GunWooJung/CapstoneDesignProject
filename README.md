@@ -2,7 +2,7 @@
 
 📍 **공공데이터를 활용한 화장실 지도 서비스**  
 
-[스크린샷](https://github.com/GunWooJung/READMEImage/blob/main/toilet.jpg)
+![스크린샷](https://github.com/GunWooJung/READMEImage/blob/main/toilet.jpg)
 
 "모두의 화장실"은 공공데이터를 기반으로 한 **화장실 위치 제공 서비스**입니다.  
 사용자의 현재 위치를 기반으로 **가까운 개방 화장실을 필터링 및 검색**하고,  
